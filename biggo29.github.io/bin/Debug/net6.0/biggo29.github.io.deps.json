@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "biggo29.github.io/1.0.0": {
+        "runtime": {
+          "biggo29.github.io.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "biggo29.github.io/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
