@@ -27,17 +27,17 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore biggo29.github.io.csproj
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build biggo29.github.io.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish --configuration Release --no-build --output ./publish
+        run: dotnet publish biggo29.github.io.csproj --configuration Release --no-build --output ./publish
 
       - name: Change base href in index.html
         run: |
-          sed -i 's/<base href="\/" \/>/<base href="\/biggo29.github.io\/" \/>/g' ./publish/wwwroot/index.html
+          sed -i 's/<base href="\/" \/>/<base href="\/" \/>/g' ./publish/wwwroot/index.html
 
       - name: Add .nojekyll file
         run: touch ./publish/wwwroot/.nojekyll
