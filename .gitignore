@@ -1,0 +1,44 @@
+# .NET & Visual Studio
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Bb]uild/
+
+# Publish results
+publish/
+
+# Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# npm & node
+node_modules/
+
+# Blazor WebAssembly
+wwwroot/dist/
+
+# Others
+*.swp
+*.tmp
+*.bak
+
+# GitHub workflows cache
+.github/workflows/*.cache

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Shoaib Shahriar - Lead Software Engineer | .NET | Microservices | Azure</title>
+    <base href="/" />
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Shoaib Shahriar - Lead Software Engineer with 8+ years of experience in C#, ASP.NET Core, Microservices, Azure, and enterprise architecture. WSIS Award 2021 winner." />
+    <meta name="keywords" content="Software Engineer, .NET, C#, ASP.NET Core, Microservices, Azure, CQRS, DDD, Clean Architecture, TDD, Blazor, SQL Server" />
+    <meta name="author" content="Shoaib Shahriar" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Shoaib Shahriar - Lead Software Engineer" />
+    <meta property="og:description" content="8+ years of experience building scalable enterprise applications, eCommerce microservices, and award-winning e-Governance solutions." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://biggo29.github.io" />
+    <meta property="og:image" content="https://biggo29.github.io/images/og-image.png" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shoaib Shahriar - Lead Software Engineer" />
+    <meta name="twitter:description" content="8+ years of experience building scalable enterprise applications" />
+    <meta name="twitter:image" content="https://biggo29.github.io/images/og-image.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- Stylesheets -->
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="biggo29.github.io.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <div class="loading-screen">
+            <style>
+                .loading-screen {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: #0a0e27;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 9999;
+                }
+
+                .loading-spinner {
+                    width: 60px;
+                    height: 60px;
+                    border: 4px solid rgba(0, 102, 255, 0.1);
+                    border-top-color: #0066ff;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+
+                @keyframes spin {
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+
+                .loading-text {
+                    margin-top: 20px;
+                    color: #b4b9d6;
+                    font-family: 'Segoe UI', sans-serif;
+                    font-size: 1.1rem;
+                }
+            </style>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading Portfolio...</div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/site.js"></script>
+</body>
+
+</html>
