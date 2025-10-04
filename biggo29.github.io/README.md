@@ -240,7 +240,7 @@ Feel free to fork this project and customize it for your own portfolio!
 
 ## 📧 Contact
 
-- **Email**: shoaib.shahriar@example.com
+- **Email**: [shoaibshahriar29@gmail.com](mailto:shoaibshahriar29@gmail.com)
 - **LinkedIn**: [linkedin.com/in/shoaib-shahriar](https://linkedin.com/in/shoaib-shahriar)
 - **GitHub**: [github.com/biggo29](https://github.com/biggo29)
 - **Portfolio**: [biggo29.github.io](https://biggo29.github.io)
