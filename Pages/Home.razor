@@ -1,15 +1,15 @@
 ﻿@page "/"
 
-<PageTitle>Shoaib Shahriar - Lead Software Engineer</PageTitle>
+<PageTitle>Shoaib Shahriar - Lead Software Engineer | Backend APIs | .NET | Microservices</PageTitle>
 
 <section id="home" class="hero-section">
     <div class="hero-content fade-in">
         <div class="hero-text">
             <h1 class="hero-title">Shoaib Shahriar</h1>
-            <h2 class="hero-subtitle">Lead Software Engineer | .NET | Microservices | Azure</h2>
+            <h2 class="hero-subtitle">Lead Software Engineer | Backend APIs | .NET | Microservices | Azure</h2>
             <p class="hero-description">
-                8+ years of experience building scalable enterprise applications, eCommerce microservices,
-                and award-winning e-Governance solutions. Currently leading engineering teams at EchoLogyx Ltd.
+                8+ years designing scalable backend services, RESTful APIs, and event-driven microservices for enterprise eCommerce platforms.
+                Expertise in Clean Architecture, CQRS, TDD, and AI-assisted development workflows. WSIS Award 2021 winner.
             </p>
             <div class="hero-stats">
                 <div class="stat-item">
@@ -130,23 +130,33 @@
             <div class="competencies-grid">
                 <div class="competency-item">
                     <div class="competency-icon">🏗️</div>
-                    <h4>Clean Architecture</h4>
-                    <p>Domain-Driven Design, CQRS patterns, Event-Driven Systems</p>
+                    <h4>Backend & APIs</h4>
+                    <p>RESTful APIs, Microservices, Event-Driven Architecture, CQRS</p>
                 </div>
                 <div class="competency-item">
                     <div class="competency-icon">☁️</div>
-                    <h4>Cloud Native</h4>
-                    <p>Azure services, Kubernetes, Docker, CI/CD pipelines</p>
+                    <h4>Cloud & DevOps</h4>
+                    <p>Azure DevOps, CI/CD pipelines, Docker, Observability, Monitoring</p>
+                </div>
+                <div class="competency-item">
+                    <div class="competency-icon">🤖</div>
+                    <h4>AI-Assisted Development</h4>
+                    <p>GitHub Copilot, ChatGPT, Claude, Gemini, Agentic AI Workflows</p>
                 </div>
                 <div class="competency-item">
                     <div class="competency-icon">🧪</div>
                     <h4>Quality Engineering</h4>
-                    <p>TDD, Unit Testing, Integration Testing, Code Reviews</p>
+                    <p>TDD, Unit Testing (XUnit, MSpec), 99%+ test coverage</p>
                 </div>
                 <div class="competency-item">
                     <div class="competency-icon">👥</div>
                     <h4>Technical Leadership</h4>
-                    <p>Team mentoring, Architecture decisions, Agile practices</p>
+                    <p>Team mentoring, Code reviews, Agile/Scrum, Stakeholder management</p>
+                </div>
+                <div class="competency-item">
+                    <div class="competency-icon">🔐</div>
+                    <h4>Security & Compliance</h4>
+                    <p>JWT, OAuth2, RBAC, GDPR compliance, Secure API design</p>
                 </div>
             </div>
         </div>
@@ -200,7 +210,7 @@
                     <div class="contact-icon">💼</div>
                     <div>
                         <h4>LinkedIn</h4>
-                        <a href="https://linkedin.com/in/shoaib-shahriar" target="_blank">linkedin.com/in/shoaib-shahriar</a>
+                        <a href="https://linkedin.com/in/biggo29" target="_blank">linkedin.com/in/biggo29</a>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -395,12 +405,14 @@
 
     private List<Skill> skills = new()
     {
-        new Skill { Name = "C# & .NET", Level = 95, SubSkills = new() { "ASP.NET Core", ".NET 8", "Entity Framework", "LINQ" } },
-        new Skill { Name = "Microservices", Level = 90, SubSkills = new() { "CQRS", "Event Sourcing", "API Gateway", "Service Mesh" } },
-        new Skill { Name = "Cloud - Azure", Level = 88, SubSkills = new() { "AKS", "Azure Functions", "Service Bus", "App Services" } },
-        new Skill { Name = "Databases", Level = 85, SubSkills = new() { "SQL Server", "PostgreSQL", "MongoDB", "Redis" } },
-        new Skill { Name = "Architecture", Level = 92, SubSkills = new() { "DDD", "Clean Architecture", "TDD", "Design Patterns" } },
-        new Skill { Name = "DevOps", Level = 80, SubSkills = new() { "Docker", "Kubernetes", "Azure DevOps", "CI/CD" } }
+        new Skill { Name = "C# & .NET", Level = 95, SubSkills = new() { "ASP.NET Core", ".NET 8", "EF Core", "LINQ" } },
+        new Skill { Name = "Backend & APIs", Level = 93, SubSkills = new() { "RESTful APIs", "Web API", "JWT", "OAuth2" } },
+        new Skill { Name = "Microservices", Level = 90, SubSkills = new() { "CQRS", "Event-Driven", "Clean Architecture", "NServiceBus" } },
+        new Skill { Name = "Cloud & DevOps", Level = 88, SubSkills = new() { "Azure DevOps", "CI/CD", "Docker", "Observability" } },
+        new Skill { Name = "Databases", Level = 85, SubSkills = new() { "SQL Server", "Oracle", "MySQL", "EF Core" } },
+        new Skill { Name = "AI-Assisted Dev", Level = 90, SubSkills = new() { "GitHub Copilot", "ChatGPT", "Claude", "Gemini" } },
+        new Skill { Name = "Quality & Testing", Level = 92, SubSkills = new() { "TDD", "XUnit", "MSpec", "Moq" } },
+        new Skill { Name = "Architecture", Level = 92, SubSkills = new() { "DDD", "Clean Architecture", "CQRS", "Async Programming" } }
     };
 
     private List<Project> FilteredProjects => selectedFilter == "All"
