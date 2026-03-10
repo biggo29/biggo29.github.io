@@ -1,0 +1,29 @@
+<section id="capabilities" class="cap-section" aria-label="Capabilities">
+    <div class="cap-inner">
+
+        <SectionTitle Title="Capabilities"
+                      Subtitle="Professional competencies built across 8+ years of production engineering." />
+
+        <div class="cap-grid">
+            @foreach (var group in PortfolioData.CapabilityGroups)
+            {
+                <div class="cap-card">
+                    <div class="cap-card-header">
+                        <h3 class="cap-title">@group.Title</h3>
+                        @if (!string.IsNullOrEmpty(group.Description))
+                        {
+                            <p class="cap-desc">@group.Description</p>
+                        }
+                    </div>
+                    <div class="cap-tags">
+                        @foreach (var item in group.Items)
+                        {
+                            <TagBadge Text="@item" />
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>

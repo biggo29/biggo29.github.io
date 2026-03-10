@@ -157,9 +157,9 @@
 
 > **Why ninth?** Replaces the credibility-hurting skill percentage bars with professional grouped capabilities.
 
-- [ ] **9.1** Create `Components/Sections/CapabilitiesSection.razor`
-- [ ] **9.2** Remove all skill percentage bars and `Skill` model usage
-- [ ] **9.3** Display grouped capability categories from `PortfolioData` using `CapabilityGroup` model:
+- [x] **9.1** Create `Components/Sections/CapabilitiesSection.razor`
+- [x] **9.2** Remove all skill percentage bars and `Skill` model usage
+- [x] **9.3** Display grouped capability categories from `PortfolioData` using `CapabilityGroup` model:
   - **Core Backend Development**: C#, ASP.NET Core, RESTful APIs, EF Core, LINQ, SQL Server
   - **Architecture & Patterns**: Clean Architecture, CQRS, Event-Driven, Microservices, DDD, Async Programming
   - **API & Security**: Swagger/OpenAPI, JWT, OAuth2, RBAC, Secure API Design
@@ -167,9 +167,9 @@
   - **Quality Engineering**: TDD, XUnit, MSpec, Moq, Code Reviews, 99%+ Coverage
   - **AI-Assisted Development**: GitHub Copilot, ChatGPT, Claude, Gemini, Prompt Engineering
   - **Leadership & Collaboration**: Technical Planning, Mentoring, Stakeholder Communication, Agile/Scrum
-- [ ] **9.4** UI format: grouped cards with `TagBadge` components for each item
-- [ ] **9.5** CSS: Card grid, clean layout, no progress bars or percentages
-- [ ] **9.6** Verify build passes
+- [x] **9.4** UI format: grouped cards with `TagBadge` components for each item
+- [x] **9.5** CSS: Card grid, clean layout, no progress bars or percentages
+- [x] **9.6** Verify build passes
 
 ---
 
@@ -347,7 +347,7 @@
 **Phase 6**: ✅ Complete — commit `a85ca6c`
 **Phase 7**: ✅ Complete  
 **Phase 8**: ✅ Complete  
-**Phase 9**: ⬜ Not Started  
+**Phase 9**: ✅ Complete  
 **Phase 10**: ⬜ Not Started  
 **Phase 11**: ⬜ Not Started  
 **Phase 12**: ⬜ Not Started  

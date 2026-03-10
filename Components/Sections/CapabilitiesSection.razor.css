@@ -1,0 +1,83 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.cap-section {
+    background: var(--bg);
+    padding: var(--section-space) 2rem;
+}
+
+.cap-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* ── Card grid ────────────────────────────────────────────────────── */
+.cap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+/* ── Individual card ──────────────────────────────────────────────── */
+.cap-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cap-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Card header ──────────────────────────────────────────────────── */
+.cap-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.cap-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+    margin: 0;
+}
+
+.cap-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ── Tag cloud ────────────────────────────────────────────────────── */
+.cap-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .cap-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .cap-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .cap-grid {
+        grid-template-columns: 1fr;
+    }
+}
