@@ -6,16 +6,35 @@
 
         <div class="gh-content">
 
-            <div class="gh-stats-grid">
-                <div class="gh-stat-card">
-                    <img src="https://github-readme-stats.vercel.app/api?username=biggo29&show_icons=true&theme=tokyonight&hide_border=true&count_private=true"
-                         alt="Shoaib Shahriar's GitHub Stats"
-                         loading="lazy" />
+            <div class="gh-profile-card">
+                <div class="gh-card-header">
+                    <span class="gh-avatar" aria-hidden="true">🐙</span>
+                    <div class="gh-identity">
+                        <h3 class="gh-name">Shoaib Shahriar</h3>
+                        <p class="gh-handle">&#64;biggo29</p>
+                    </div>
                 </div>
-                <div class="gh-stat-card">
-                    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=biggo29&layout=compact&theme=tokyonight&hide_border=true&langs_count=8"
-                         alt="Most Used Languages"
-                         loading="lazy" />
+
+                <p class="gh-note">
+                    Most production work lives in private enterprise repositories. GitHub reflects
+                    public activity, open-source experiments, and personal projects.
+                </p>
+
+                <div class="gh-stats-row">
+                    @foreach (var stat in GhStats)
+                    {
+                        <div class="gh-stat-item">
+                            <span class="gh-stat-value">@stat.Value</span>
+                            <span class="gh-stat-label">@stat.Label</span>
+                        </div>
+                    }
+                </div>
+
+                <div class="gh-lang-row">
+                    @foreach (var lang in Languages)
+                    {
+                        <span class="gh-lang-badge">@lang</span>
+                    }
                 </div>
             </div>
 
@@ -30,3 +49,20 @@
         </div>
     </div>
 </section>
+
+@code {
+    private record GhStat(string Value, string Label);
+
+    private static readonly GhStat[] GhStats =
+    {
+        new("C# / .NET",      "Primary Stack"),
+        new("8+ Years",       "Engineering"),
+        new("30+ Services",   "Production Scale"),
+        new("99%+ Coverage",  "Quality Bar"),
+    };
+
+    private static readonly string[] Languages =
+    {
+        "C#", ".NET 8", "ASP.NET Core", "SQL Server", "JavaScript", "Java", "Python"
+    };
+}
