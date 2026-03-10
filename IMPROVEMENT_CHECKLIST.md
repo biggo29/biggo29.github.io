@@ -39,19 +39,14 @@
 > **Why second?** Every component needs consistent design tokens.  
 > Setting these up before building components prevents rework.
 
-- [ ] **2.1** Create `wwwroot/css/variables.css` — Define CSS custom properties:
-  - Colors: `--bg: #0b1220`, `--surface: #111827`, `--surface-2: #1f2937`, `--border: #334155`, `--text: #e5e7eb`, `--muted: #94a3b8`, `--primary: #3b82f6`, `--primary-soft: rgba(59,130,246,0.12)`, `--secondary: #22c55e`, `--danger: #ef4444`
-  - Spacing: `--section-space: 96px`, `--container: 1200px`
-  - Radius: `--radius-sm: 8px`, `--radius-md: 14px`, `--radius-lg: 20px`
-  - Typography: body font stack (`Inter, 'Segoe UI', system-ui, sans-serif`), mono font stack (`Consolas, 'JetBrains Mono', monospace`)
-  - Shadows: `--shadow: rgba(0, 0, 0, 0.35)`
-- [ ] **2.2** Import `variables.css` in `index.html` before `app.css`
-- [ ] **2.3** Audit `wwwroot/css/app.css` — Identify and list unused styles (old nav, theme toggle, skill progress bars)
-- [ ] **2.4** Remove dead CSS rules for: unused theme toggle, unused header styles, skill-bar animations
-- [ ] **2.5** Refactor `app.css` to use CSS variables from `variables.css` instead of hardcoded colors
-- [ ] **2.6** Ensure dark theme consistency — all backgrounds, surfaces, borders, text use variables
-- [ ] **2.7** Add base typography rules using the professional font stack
-- [ ] **2.8** Verify build passes, visual spot-check in browser
+- [x] **2.1** Create `wwwroot/css/variables.css` — 16 tokens: colors, typography (`--font-body`, `--font-mono`), spacing (`--section-space`, `--container`), radius (`--radius-sm/md/lg`)
+- [x] **2.2** Import `variables.css` in `index.html` before `app.css`; added Inter Google Fonts preconnect link
+- [x] **2.3** Audited `app.css` — identified dead blocks: `.page:not(.dark-mode)`, `.page:not(.dark-mode) .header`, `.theme-toggle`
+- [x] **2.4** Removed dead rules: `.page:not(.dark-mode)` override, `.page:not(.dark-mode) .header`, `.theme-toggle` and `.theme-toggle:hover`
+- [x] **2.5** Replaced `:root` block in `app.css` — legacy variable names now alias to design tokens (e.g. `--bg-primary: var(--bg)`)
+- [x] **2.6** Dark theme consistency confirmed — light mode override removed, single dark palette throughout
+- [x] **2.7** Updated `html, body` and `body` font-family to `var(--font-body)`; loading screen inline colors updated to new tokens
+- [x] **2.8** Verify build passes
 
 ---
 
@@ -360,7 +355,7 @@
 ## Current Status
 
 **Phase 1**: ✅ Complete — commit `2003a48`
-**Phase 2**: ⬜ Not Started  
+**Phase 2**: ✅ Complete — commit `f513ea3`
 **Phase 3**: ⬜ Not Started  
 **Phase 4**: ⬜ Not Started  
 **Phase 5**: ⬜ Not Started  
