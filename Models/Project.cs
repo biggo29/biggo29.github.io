@@ -6,6 +6,7 @@
         public string ShortDescription { get; set; } = "";
         public string FullDescription { get; set; } = "";
         public List<string> Technologies { get; set; } = new();
+        public List<string> Categories { get; set; } = new();
         public string ImageUrl { get; set; } = "";
         public string GithubUrl { get; set; } = "";
         public string DemoUrl { get; set; } = "";
