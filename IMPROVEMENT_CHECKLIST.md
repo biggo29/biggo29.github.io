@@ -177,8 +177,8 @@
 
 > **Why tenth?** Shows career growth and leadership progression.
 
-- [ ] **10.1** Create `Components/Sections/ExperienceTimelineSection.razor`
-- [ ] **10.2** Timeline or stacked cards for 4 roles from `PortfolioData`:
+- [x] **10.1** Create `Components/Sections/ExperienceTimelineSection.razor`
+- [x] **10.2** Timeline or stacked cards for 4 roles from `PortfolioData`:
   - **Lead Software Engineer** — EchoLogyx Ltd. (Aug 2024 – Sep 2025)
     - Led 8–10 engineers, backend services for eSpares.co.uk, AI-assisted workflows
   - **Senior Software Engineer** — EchoLogyx Ltd. (Nov 2020 – Jul 2024)
@@ -187,12 +187,12 @@
     - WSIS Award CBVMP, e-TIN for NBR, ELK Stack monitoring
   - **.NET Developer** — RMG Networks (Jan 2017 – Dec 2017)
     - Desktop applications, digital signage, C#, WCF, WPF
-- [ ] **10.3** Each entry: Role, Company, Duration, Impact summary, Tech tags
-- [ ] **10.4** Add Education at bottom:
+- [x] **10.3** Each entry: Role, Company, Duration, Impact summary, Tech tags
+- [x] **10.4** Add Education at bottom:
   - M.Sc. CSE — Jahangirnagar University (2018–2019)
   - B.Sc. CS — AIUB (2013–2016)
-- [ ] **10.5** CSS: Elegant timeline with vertical line or stacked cards, responsive
-- [ ] **10.6** Verify build passes
+- [x] **10.5** CSS: Elegant timeline with vertical line or stacked cards, responsive
+- [x] **10.6** Verify build passes
 
 ---
 
@@ -348,7 +348,7 @@
 **Phase 7**: ✅ Complete  
 **Phase 8**: ✅ Complete  
 **Phase 9**: ✅ Complete  
-**Phase 10**: ⬜ Not Started  
+**Phase 10**: ✅ Complete  
 **Phase 11**: ⬜ Not Started  
 **Phase 12**: ⬜ Not Started  
 **Phase 13**: ⬜ Not Started  
