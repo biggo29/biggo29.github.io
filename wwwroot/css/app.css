@@ -270,6 +270,11 @@ main {
     padding-top: 64px;
 }
 
+/* Anchor scroll offset — prevents sections scrolling behind the fixed navbar */
+section[id] {
+    scroll-margin-top: 64px;
+}
+
 /* Legacy alias — kept while existing sections remain in Home.razor */
 .main-content {
     margin-top: 64px;

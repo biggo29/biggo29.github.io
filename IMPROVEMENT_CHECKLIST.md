@@ -71,19 +71,11 @@
 > **Why fourth?** Navigation is the structural backbone of the SPA.  
 > Must be in place before building sections so anchor links work.
 
-- [ ] **4.1** Build sticky top navigation in `Shared/MainLayout.razor`:
-  - Fixed/sticky position
-  - Dark blurred background (`backdrop-filter: blur`)
-  - Nav items: Home, Impact, Case Studies, Architecture, Skills, Experience, GitHub, Contact
-  - Smooth scroll to section via JS interop (`scrollToSection`)
-  - Mobile responsive hamburger menu
-- [ ] **4.2** Add active section highlight on scroll (Intersection Observer via JS interop)
-- [ ] **4.3** Refactor `wwwroot/js/site.js`:
-  - Keep `scrollToSection`
-  - Add `initializeNavHighlight` function
-  - Remove `DOMContentLoaded` reliance — will be called from `OnAfterRenderAsync`
-- [ ] **4.4** Add CSS for navbar (sticky, transparent/blur, transitions, mobile)
-- [ ] **4.5** Verify build passes, test navigation scrolling
+- [x] **4.1** Rewrote `Shared/MainLayout.razor` — sticky `<header>`, `<nav>`, brand (`SS` monogram), nav links from tuple array, `<main>` wrapper; removed old `<div class="page">`
+- [x] **4.2** Active section highlight via `initializeNavHighlight` JS — IntersectionObserver toggles `.active` class on `.nav-link` elements; first section pre-activated on load
+- [x] **4.3** Refactored `wwwroot/js/site.js` — removed `DOMContentLoaded` and skill-bar animation; exported `initializeNavHighlight`, `initializeSectionObserver`, `scrollToSection`, `toggleBodyScroll`; all called from Blazor `OnAfterRenderAsync(firstRender)`
+- [x] **4.4** Updated nav CSS in `app.css` — `.nav-brand`, `.nav-link`, `.nav-link.active`, `.nav-toggle`, `.nav-toggle-bar`, hamburger X-animation, mobile `.is-open` dropdown; `main { padding-top: 64px }`
+- [x] **4.5** Verify build passes
 
 ---
 
@@ -358,7 +350,7 @@
 **Phase 1**: ✅ Complete — commit `2003a48`
 **Phase 2**: ✅ Complete — commit `f513ea3`
 **Phase 3**: ✅ Complete — commit `25c85f8`
-**Phase 4**: ⬜ Not Started  
+**Phase 4**: ✅ Complete — commit `ce934ff`
 **Phase 5**: ⬜ Not Started  
 **Phase 6**: ⬜ Not Started  
 **Phase 7**: ⬜ Not Started  

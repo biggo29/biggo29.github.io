@@ -1,0 +1,82 @@
+<section id="home" class="hero" aria-label="Introduction">
+    <div class="hero-inner">
+
+        <!-- ── Left: identity & CTAs ───────────────────────── -->
+        <div class="hero-left">
+            <p class="hero-eyebrow">Lead Software Engineer · Dhaka, Bangladesh</p>
+
+            <h1 class="hero-name">Shoaib Shahriar</h1>
+
+            <p class="hero-role">Backend Architect · .NET · Microservices · Azure</p>
+
+            <p class="hero-statement">
+                I design scalable backend systems, distributed microservices, and enterprise APIs
+                using .NET, Azure, and modern architecture practices.
+            </p>
+
+            <div class="hero-chips">
+                <MetricChip Icon="⚡" Text="8+ Years Experience" />
+                <MetricChip Icon="🔗" Text="30+ Microservices" />
+                <MetricChip Icon="🏆" Text="WSIS Award 2021" />
+                <MetricChip Icon="👥" Text="Technical Leadership" />
+            </div>
+
+            <div class="hero-actions">
+                <PrimaryButton  Text="View Case Studies" Href="#case-studies" />
+                <SecondaryButton Text="Contact Me"        Href="#contact" />
+                <SecondaryButton Text="Resume ↓"          Href="files/ShoaibShahriar-Resume.pdf" Target="_blank" AriaLabel="Download resume PDF" />
+            </div>
+        </div>
+
+        <!-- ── Right: engineering stack panel ─────────────── -->
+        <div class="hero-right" aria-hidden="true">
+            <div class="stack-panel">
+                <div class="stack-panel-header">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
+                    <span class="panel-label">stack.overview</span>
+                </div>
+                <div class="stack-panel-body">
+                    @foreach (var group in StackGroups)
+                    {
+                        <div class="stack-group">
+                            <p class="stack-group-label">
+                                <span>@group.Icon</span>@group.Label
+                            </p>
+                            <div class="stack-tags">
+                                @foreach (var tag in group.Tags)
+                                {
+                                    <TagBadge Text="@tag" />
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@code {
+    private record StackGroup(string Icon, string Label, string[] Tags);
+
+    private static readonly StackGroup[] StackGroups =
+    {
+        new("⚙️ ", "Backend",
+            new[] { "C#", "ASP.NET Core", ".NET 8", "EF Core", "LINQ" }),
+
+        new("🏗️ ", "Architecture",
+            new[] { "CQRS", "Clean Architecture", "Microservices", "Event-Driven" }),
+
+        new("☁️ ", "Cloud & DevOps",
+            new[] { "Azure DevOps", "CI/CD", "Docker", "Observability" }),
+
+        new("🧪 ", "Quality",
+            new[] { "TDD", "XUnit", "MSpec", "99%+ Coverage" }),
+
+        new("🤖 ", "AI-Assisted Dev",
+            new[] { "GitHub Copilot", "Claude", "ChatGPT" }),
+    };
+}
