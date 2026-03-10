@@ -83,14 +83,12 @@
 
 > **Why fifth?** First impression. Sets the tone for the entire site.
 
-- [ ] **5.1** Create `Components/Sections/HeroSection.razor`:
-  - Left side: Name, Title (`Lead Software Engineer | Backend Architect`), positioning statement, 3–4 MetricChips (credibility), 2–3 CTA buttons
-  - Right side: Engineering visual — architecture-style info panel or code-editor style card showing tech stack (not a photo)
-- [ ] **5.2** Positioning statement: _"I design scalable backend systems, distributed microservices, and enterprise APIs using .NET, Azure, and modern architecture practices."_
-- [ ] **5.3** Credibility chips: `8+ Years Experience`, `30+ Microservices`, `WSIS Award 2021`, `Enterprise Platform Delivery`
-- [ ] **5.4** CTA buttons: `View Case Studies` (→ #case-studies), `Download Resume` (link to PDF), `Contact Me` (→ #contact)
-- [ ] **5.5** Add hero CSS following dark theme design tokens
-- [ ] **5.6** Verify build passes
+- [x] **5.1** Created `Components/Sections/HeroSection.razor` — two-column grid: text left, stack panel right; uses `MetricChip`, `PrimaryButton`, `SecondaryButton`, `TagBadge` from Phase 3
+- [x] **5.2** Positioning statement: _"I design scalable backend systems, distributed microservices, and enterprise APIs using .NET, Azure, and modern architecture practices."_
+- [x] **5.3** Credibility chips: `⚡ 8+ Years Experience`, `🔗 30+ Microservices`, `🏆 WSIS Award 2021`, `👥 Technical Leadership`
+- [x] **5.4** CTA buttons: `View Case Studies` (→ #case-studies), `Contact Me` (→ #contact), `Resume ↓` (→ files/ShoaibShahriar-Resume.pdf)
+- [x] **5.5** `HeroSection.razor.css` — fully token-driven isolated CSS; stack panel with macOS window chrome; `clamp()` responsive font sizes; two-column collapses to single at 1100px; added `section[id] { scroll-margin-top: 64px }` to `app.css`
+- [x] **5.6** Verify build passes
 
 ---
 
@@ -351,7 +349,7 @@
 **Phase 2**: ✅ Complete — commit `f513ea3`
 **Phase 3**: ✅ Complete — commit `25c85f8`
 **Phase 4**: ✅ Complete — commit `ce934ff`
-**Phase 5**: ⬜ Not Started  
+**Phase 5**: ✅ Complete — commit `e09db7f`
 **Phase 6**: ⬜ Not Started  
 **Phase 7**: ⬜ Not Started  
 **Phase 8**: ⬜ Not Started  

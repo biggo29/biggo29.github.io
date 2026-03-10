@@ -1,0 +1,25 @@
+<section id="impact" class="impact-section" aria-label="Selected Impact">
+    <div class="impact-inner">
+
+        <SectionTitle Title="Selected Impact"
+                      Subtitle="Real systems, real responsibilities, measurable outcomes." />
+
+        <div class="impact-grid">
+            @foreach (var item in PortfolioData.ImpactItems)
+            {
+                <div class="impact-card">
+                    <div class="impact-card-top">
+                        <span class="impact-icon" aria-hidden="true">@item.Icon</span>
+                        @if (!string.IsNullOrEmpty(item.Metric))
+                        {
+                            <span class="impact-metric">@item.Metric</span>
+                        }
+                    </div>
+                    <h3 class="impact-title">@item.Title</h3>
+                    <p class="impact-desc">@item.Description</p>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
