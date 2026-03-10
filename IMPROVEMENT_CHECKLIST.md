@@ -107,9 +107,9 @@
 
 > **Why seventh?** This replaces the generic project cards and is the **single most important section** for conveying senior-level credibility.
 
-- [ ] **7.1** Create `Components/Sections/CaseStudiesSection.razor`
-- [ ] **7.2** Create `Components/Shared/CaseStudyCard.razor` — Reusable card component consuming `CaseStudy` model
-- [ ] **7.3** Populate 3 flagship case studies in `PortfolioData`:
+- [x] **7.1** Create `Components/Sections/CaseStudiesSection.razor`
+- [x] **7.2** Create `Components/Shared/CaseStudyCard.razor` — Reusable card component consuming `CaseStudy` model
+- [x] **7.3** Populate 3 flagship case studies in `PortfolioData`:
   - **Case Study 1: UK eCommerce Platform (eSpares.co.uk)**
     - Role: Lead Software Engineer
     - Context: High-traffic UK eCommerce, Connect Distribution / Kingfisher PLC
@@ -128,10 +128,10 @@
     - Architecture: ASP.NET Core, SQL Server, RESTful APIs
     - Outcome: Integrated with multiple government stakeholders, increased tax compliance
     - Link: https://secure.incometax.gov.bd/
-- [ ] **7.4** Category-based filtering (optional): All, .NET, Microservices, Public Sector
-- [ ] **7.5** Card format: Title, Role badge, Context, Tech tags, Outcome, valid links only (no fake demo URLs)
-- [ ] **7.6** CSS: Professional cards with hover effects, dark theme, clear hierarchy
-- [ ] **7.7** Verify build passes
+- [x] **7.4** Category-based filtering (optional): All, .NET, Microservices, Public Sector
+- [x] **7.5** Card format: Title, Role badge, Context, Tech tags, Outcome, valid links only (no fake demo URLs)
+- [x] **7.6** CSS: Professional cards with hover effects, dark theme, clear hierarchy
+- [x] **7.7** Verify build passes
 
 ---
 
@@ -345,7 +345,7 @@
 **Phase 4**: ✅ Complete — commit `ce934ff`
 **Phase 5**: ✅ Complete — commit `e09db7f`
 **Phase 6**: ✅ Complete — commit `a85ca6c`
-**Phase 7**: ⬜ Not Started  
+**Phase 7**: ✅ Complete  
 **Phase 8**: ✅ Complete  
 **Phase 9**: ⬜ Not Started  
 **Phase 10**: ⬜ Not Started  
