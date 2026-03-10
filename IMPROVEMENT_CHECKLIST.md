@@ -298,13 +298,13 @@
 
 > **Why last?** Remove all scaffolding, unused files, and verify everything works end-to-end.
 
-- [ ] **17.1** Remove `UPDATE_SUMMARY.md` (temporary file)
-- [ ] **17.2** Remove unused SVG project images if replaced by case study design (`project-healthcare.svg`, `project-analytics.svg`, `project-api-gateway.svg`)
-- [ ] **17.3** Clean up old `Models/Project.cs` if fully replaced by `CaseStudy.cs`
-- [ ] **17.4** Remove unused `Skill` class from models
-- [ ] **17.5** Remove `Shared/MainLayout.razor.css` if styles moved to main CSS
-- [ ] **17.6** Remove dead CSS rules from `app.css`
-- [ ] **17.7** Final build verification: `dotnet build --configuration Release`
+- [x] **17.1** Remove `UPDATE_SUMMARY.md` (temporary file)
+- [x] **17.2** Remove unused SVG project images if replaced by case study design (`project-healthcare.svg`, `project-analytics.svg`, `project-api-gateway.svg`)
+- [x] **17.3** Clean up old `Models/Project.cs` if fully replaced by `CaseStudy.cs`
+- [x] **17.4** Remove unused `Skill` class from models
+- [x] **17.5** Remove `Shared/MainLayout.razor.css` if styles moved to main CSS
+- [x] **17.6** Remove dead CSS rules from `app.css`
+- [x] **17.7** Final build verification: `dotnet build --configuration Release`
 - [ ] **17.8** Test locally: `dotnet run` — verify all sections, navigation, links, responsiveness
 - [ ] **17.9** Test mobile responsiveness (Chrome DevTools)
 - [ ] **17.10** Push to GitHub, verify GitHub Actions deploys successfully
@@ -355,7 +355,7 @@
 **Phase 14**: ✅ Complete  
 **Phase 15**: ✅ Complete
 **Phase 16**: ✅ Complete
-**Phase 17**: ⬜ Not Started  
+**Phase 17**: 🔄 In Progress — 17.8–17.11 require manual testing + live deployment
 
 **Overall Progress**: 0 / 108 tasks completed
 
