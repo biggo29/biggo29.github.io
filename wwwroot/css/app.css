@@ -1055,15 +1055,20 @@ section[id] {
             transform: translateY(-3px);
         }
 
-/* Animations */
+/* ── Section entrance animations ─────────────────────────────────── */
+section {
+    opacity: 0;
+    transform: translateY(16px);
+}
+
 .fade-in {
-    animation: fadeInUp 0.8s ease-out;
+    animation: fadeInUp 0.6s ease-out forwards;
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(16px);
     }
 
     to {

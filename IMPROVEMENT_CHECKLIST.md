@@ -255,14 +255,14 @@
 
 > **Why fourteenth?** JS interop must work correctly with Blazor's rendering lifecycle.
 
-- [ ] **14.1** Refactor `site.js`:
+- [x] **14.1** Refactor `site.js`:
   - Remove `DOMContentLoaded` listener
   - Export functions: `initializeObservers`, `initializeNavHighlight`, `scrollToSection`
-- [ ] **14.2** Call JS initialization from `OnAfterRenderAsync(firstRender)` in `MainLayout.razor` or `Home.razor`
-- [ ] **14.3** Add Intersection Observer for section entrance animations (subtle fade-in only)
-- [ ] **14.4** Add scroll-based active nav highlight
-- [ ] **14.5** Remove skill bar animation JS (skill bars are being removed)
-- [ ] **14.6** Verify build passes
+- [x] **14.2** Call JS initialization from `OnAfterRenderAsync(firstRender)` in `MainLayout.razor` or `Home.razor`
+- [x] **14.3** Add Intersection Observer for section entrance animations (subtle fade-in only)
+- [x] **14.4** Add scroll-based active nav highlight
+- [x] **14.5** Remove skill bar animation JS (skill bars are being removed)
+- [x] **14.6** Verify build passes
 
 ---
 
@@ -352,7 +352,7 @@
 **Phase 11**: ✅ Complete  
 **Phase 12**: ✅ Complete  
 **Phase 13**: ✅ Complete  
-**Phase 14**: ⬜ Not Started  
+**Phase 14**: ✅ Complete  
 **Phase 15**: ⬜ Not Started  
 **Phase 16**: ⬜ Not Started  
 **Phase 17**: ⬜ Not Started  
