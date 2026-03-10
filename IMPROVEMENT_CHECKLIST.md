@@ -270,13 +270,13 @@
 
 > **Why fifteenth?** Professional sites must be accessible. Quick wins with high impact.
 
-- [ ] **15.1** Add semantic landmarks: `<nav>`, `<main>`, `<footer>`, `<section>`, `<header>`
-- [ ] **15.2** Verify heading hierarchy: single `<h1>` (name), then `<h2>` per section, `<h3>` for subsections
-- [ ] **15.3** Add `aria-label` to all icon-only links (GitHub, LinkedIn, Email icons)
-- [ ] **15.4** Add keyboard-visible `:focus-visible` styles
-- [ ] **15.5** Add `@media (prefers-reduced-motion: reduce)` to disable animations
-- [ ] **15.6** Ensure color contrast meets WCAG AA (especially muted text on dark bg)
-- [ ] **15.7** Verify build passes
+- [x] **15.1** Add semantic landmarks: `<nav>`, `<main>`, `<footer>`, `<section>`, `<header>`
+- [x] **15.2** Verify heading hierarchy: single `<h1>` (name), then `<h2>` per section, `<h3>` for subsections
+- [x] **15.3** Add `aria-label` to all icon-only links (GitHub, LinkedIn, Email icons)
+- [x] **15.4** Add keyboard-visible `:focus-visible` styles
+- [x] **15.5** Add `@media (prefers-reduced-motion: reduce)` to disable animations
+- [x] **15.6** Ensure color contrast meets WCAG AA (especially muted text on dark bg)
+- [x] **15.7** Verify build passes
 
 ---
 
@@ -284,13 +284,13 @@
 
 > **Why sixteenth?** Polish metadata after all content is finalized.
 
-- [ ] **16.1** Verify `index.html` title reflects: "Lead Software Engineer | Backend APIs | .NET"
-- [ ] **16.2** Verify `meta description` is accurate and under 160 characters
-- [ ] **16.3** Verify `og:image` exists at `wwwroot/images/og-image.png` (create if missing)
-- [ ] **16.4** Add canonical URL: `<link rel="canonical" href="https://biggo29.github.io/" />`
-- [ ] **16.5** Verify favicon exists at `wwwroot/favicon.png`
-- [ ] **16.6** Verify Twitter Card and Open Graph metadata are complete
-- [ ] **16.7** Verify build passes
+- [x] **16.1** Verify `index.html` title reflects: "Lead Software Engineer | Backend APIs | .NET"
+- [x] **16.2** Verify `meta description` is accurate and under 160 characters
+- [x] **16.3** Verify `og:image` exists at `wwwroot/images/og-image.png` (create if missing)
+- [x] **16.4** Add canonical URL: `<link rel="canonical" href="https://biggo29.github.io/" />`
+- [x] **16.5** Verify favicon exists at `wwwroot/favicon.png`
+- [x] **16.6** Verify Twitter Card and Open Graph metadata are complete
+- [x] **16.7** Verify build passes
 
 ---
 
@@ -353,8 +353,8 @@
 **Phase 12**: ✅ Complete  
 **Phase 13**: ✅ Complete  
 **Phase 14**: ✅ Complete  
-**Phase 15**: ⬜ Not Started  
-**Phase 16**: ⬜ Not Started  
+**Phase 15**: ✅ Complete
+**Phase 16**: ✅ Complete
 **Phase 17**: ⬜ Not Started  
 
 **Overall Progress**: 0 / 108 tasks completed
