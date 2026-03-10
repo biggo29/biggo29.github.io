@@ -1,59 +1,64 @@
-﻿// Smooth scroll to section
+﻿// ─── Smooth scroll ────────────────────────────────────────────────────────────
+// Called from Blazor via JSInterop on nav link click
 window.scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const el = document.getElementById(sectionId);
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 };
 
-// Intersection Observer for fade-in animations
-document.addEventListener('DOMContentLoaded', () => {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+// ─── Active nav highlight ──────────────────────────────────────────────────────
+// Called once from OnAfterRenderAsync(firstRender).
+// Uses IntersectionObserver to mark the in-view section's nav link as active.
+window.initializeNavHighlight = () => {
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    if (!sections.length) return;
+
+    const setActive = (id) => {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        });
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    // Activate the first section on load
+    setActive(sections[0].id);
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setActive(entry.target.id);
+            }
+        });
+    }, {
+        threshold: 0,
+        // Top offset accounts for 64px navbar; bottom keeps the detection band tight
+        rootMargin: '-64px 0px -65% 0px'
+    });
+
+    sections.forEach(s => observer.observe(s));
+};
+
+// ─── Section entrance animations ──────────────────────────────────────────────
+// Called once from OnAfterRenderAsync(firstRender).
+// Adds 'fade-in' to sections as they scroll into view.
+window.initializeSectionObserver = () => {
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
                 observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
-
-    // Observe all sections
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
+    }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
     });
 
-    // Animate skill bars when they come into view
-    const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const progressBar = entry.target.querySelector('.skill-progress');
-                if (progressBar) {
-                    const width = progressBar.style.width;
-                    progressBar.style.width = '0%';
-                    setTimeout(() => {
-                        progressBar.style.width = width;
-                    }, 100);
-                }
-                skillObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+};
 
-    document.querySelectorAll('.skill-card').forEach(card => {
-        skillObserver.observe(card);
-    });
-});
-
-// Prevent body scroll when modal is open
+// ─── Body scroll lock ─────────────────────────────────────────────────────────
+// Used to lock scroll when overlays are open (e.g. modals)
 window.toggleBodyScroll = (disable) => {
-    if (disable) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = '';
-    }
+    document.body.style.overflow = disable ? 'hidden' : '';
 };

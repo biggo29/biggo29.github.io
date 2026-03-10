@@ -55,13 +55,14 @@
 > **Why third?** Small reusable components that will be used inside every section.  
 > Build these before the sections that consume them.
 
-- [ ] **3.1** Create `Components/Shared/SectionTitle.razor` — Accepts `Title` and `Subtitle` parameters, renders consistent section headings
-- [ ] **3.2** Create `Components/Shared/PrimaryButton.razor` — Styled CTA button with `Text`, `Href`, optional `Target` parameters
-- [ ] **3.3** Create `Components/Shared/SecondaryButton.razor` — Outlined/secondary style variant
-- [ ] **3.4** Create `Components/Shared/TagBadge.razor` — Technology/skill tag chip (uses mono font)
-- [ ] **3.5** Create `Components/Shared/MetricChip.razor` — Credibility chip (e.g., "8+ Years", "WSIS 2021") with optional icon
-- [ ] **3.6** Add component CSS (isolated `.razor.css` or in `app.css`) following design tokens
-- [ ] **3.7** Verify build passes
+- [x] **3.1** Create `Components/Shared/SectionTitle.razor` — `Title` (required), `Subtitle` (optional); isolated CSS with design tokens
+- [x] **3.2** Create `Components/Shared/PrimaryButton.razor` — `Text`, `Href`, `Target`, `Icon`, `AriaLabel`, `OnClick`; supports both `<a>` and `<button>` rendering
+- [x] **3.3** Create `Components/Shared/SecondaryButton.razor` — same parameter API as PrimaryButton; outlined/ghost style
+- [x] **3.4** Create `Components/Shared/TagBadge.razor` — `Text` (required); mono font, primary-soft background
+- [x] **3.5** Create `Components/Shared/MetricChip.razor` — `Text` (required), `Icon` (optional); surface border, hover primary effect
+- [x] **3.6** Isolated `.razor.css` files for all 5 components — all styles consume `variables.css` design tokens
+- [x] **3.7** Updated `_Imports.razor` — added `@using biggo29.github.io.Components.Shared`; deferred `Components.Sections` to Phase 5
+- [x] **3.8** Verify build passes
 
 ---
 
@@ -356,7 +357,7 @@
 
 **Phase 1**: ✅ Complete — commit `2003a48`
 **Phase 2**: ✅ Complete — commit `f513ea3`
-**Phase 3**: ⬜ Not Started  
+**Phase 3**: ✅ Complete — commit `25c85f8`
 **Phase 4**: ⬜ Not Started  
 **Phase 5**: ⬜ Not Started  
 **Phase 6**: ⬜ Not Started  
