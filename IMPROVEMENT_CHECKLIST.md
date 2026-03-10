@@ -96,16 +96,10 @@
 
 > **Why sixth?** Quick proof of seniority, immediately below hero.
 
-- [ ] **6.1** Create `Components/Sections/SelectedImpactSection.razor`:
-  - 3–4 compact impact cards from `PortfolioData`
-  - Each card: icon/emoji, short title, 1–2 sentence description
-- [ ] **6.2** Content (from resume):
-  - Led backend engineering for UK enterprise eCommerce platform (eSpares.co.uk)
-  - Architected 30+ microservices supporting 15,000+ daily users
-  - Contributed to WSIS Award 2021-winning national e-Governance platform
-  - Integrated AI-assisted development workflows across engineering team
-- [ ] **6.3** CSS: Grid layout, subtle cards, no vanity metrics without backing
-- [ ] **6.4** Verify build passes
+- [x] **6.1** Created `Components/Sections/SelectedImpactSection.razor` — `id="impact"`, uses `SectionTitle`, loops `PortfolioData.ImpactItems`
+- [x] **6.2** Content sourced from `PortfolioData.ImpactItems` (set up in Phase 1): Enterprise Backend Engineering (15K+ users), Microservices Architecture (30+ services), WSIS Award 2021 (100M+ SIM holders), AI-Assisted Engineering (20% faster deployments)
+- [x] **6.3** `SelectedImpactSection.razor.css` — 4-col → 2-col → 1-col responsive grid; metric badge uses `--secondary` green; hover border + subtle lift; `--surface` background for section rhythm
+- [x] **6.4** Verify build passes
 
 ---
 
@@ -350,7 +344,7 @@
 **Phase 3**: ✅ Complete — commit `25c85f8`
 **Phase 4**: ✅ Complete — commit `ce934ff`
 **Phase 5**: ✅ Complete — commit `e09db7f`
-**Phase 6**: ⬜ Not Started  
+**Phase 6**: ✅ Complete — commit `a85ca6c`
 **Phase 7**: ⬜ Not Started  
 **Phase 8**: ⬜ Not Started  
 **Phase 9**: ⬜ Not Started  

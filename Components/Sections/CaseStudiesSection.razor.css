@@ -1,0 +1,61 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.cs-section {
+    background: var(--surface);
+    padding: var(--section-space) 2rem;
+}
+
+.cs-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ── Filter buttons ───────────────────────────────────────────────── */
+.cs-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.cs-filter-btn {
+    padding: 0.4rem 1rem;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.cs-filter-btn:hover {
+    color: var(--text);
+    border-color: var(--text);
+}
+
+.cs-filter-btn.active {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: var(--primary-soft);
+}
+
+.cs-filter-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ── Stacked case study list ──────────────────────────────────────── */
+.cs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .cs-section {
+        padding: 4rem 1.25rem;
+    }
+}
