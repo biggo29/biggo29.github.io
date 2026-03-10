@@ -232,7 +232,7 @@
 
 > **Why thirteenth?** All components are built — now assemble the page.
 
-- [ ] **13.1** Refactor `Pages/Home.razor` — Replace all inline sections with component references:
+- [x] **13.1** Refactor `Pages/Home.razor` — Replace all inline sections with component references:
   ```razor
   <HeroSection />
   <SelectedImpactSection />
@@ -243,11 +243,11 @@
   <GithubSection />
   <ContactSection />
   ```
-- [ ] **13.2** Remove all old inline `@code {}` data (projects list, skills list, filter logic, contact form)
-- [ ] **13.3** Remove old `ContactForm` class and `Skill` model references
-- [ ] **13.4** Remove old project modal code
-- [ ] **13.5** Ensure each section has proper `id` for anchor navigation
-- [ ] **13.6** Verify build passes
+- [x] **13.2** Remove all old inline `@code {}` data (projects list, skills list, filter logic, contact form)
+- [x] **13.3** Remove old `ContactForm` class and `Skill` model references
+- [x] **13.4** Remove old project modal code
+- [x] **13.5** Ensure each section has proper `id` for anchor navigation
+- [x] **13.6** Verify build passes
 
 ---
 
@@ -351,7 +351,7 @@
 **Phase 10**: ✅ Complete  
 **Phase 11**: ✅ Complete  
 **Phase 12**: ✅ Complete  
-**Phase 13**: ⬜ Not Started  
+**Phase 13**: ✅ Complete  
 **Phase 14**: ⬜ Not Started  
 **Phase 15**: ⬜ Not Started  
 **Phase 16**: ⬜ Not Started  
