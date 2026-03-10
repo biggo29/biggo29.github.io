@@ -139,17 +139,17 @@
 
 > **Why eighth?** Creates strong architect identity. Differentiator from mid-level portfolios.
 
-- [ ] **8.1** Create `Components/Sections/ArchitecturePrinciplesSection.razor`
-- [ ] **8.2** Display 5–6 principles in cards/grid from `PortfolioData`:
+- [x] **8.1** Create `Components/Sections/ArchitecturePrinciplesSection.razor`
+- [x] **8.2** Display 5–6 principles in cards/grid from `PortfolioData`:
   - 🏗️ **Design for Change** — Systems should evolve easily with minimal friction
   - 📦 **Explicit Service Boundaries** — Clear contracts and ownership between services
   - ⚡ **CQRS Where Complexity Justifies It** — Separate read/write models for scalability
   - 📊 **Observability by Design** — Logging, metrics, and tracing from day one
   - 🔄 **Automation Over Manual Operations** — CI/CD pipelines and automated testing
   - 🔧 **Maintainability Over Shortcuts** — Long-term code health over quick fixes
-- [ ] **8.3** Each card: icon, title, 1–2 sentence explanation
-- [ ] **8.4** CSS: Clean grid, subtle borders, thoughtful spacing
-- [ ] **8.5** Verify build passes
+- [x] **8.3** Each card: icon, title, 1–2 sentence explanation
+- [x] **8.4** CSS: Clean grid, subtle borders, thoughtful spacing
+- [x] **8.5** Verify build passes
 
 ---
 
@@ -346,7 +346,7 @@
 **Phase 5**: ✅ Complete — commit `e09db7f`
 **Phase 6**: ✅ Complete — commit `a85ca6c`
 **Phase 7**: ⬜ Not Started  
-**Phase 8**: ⬜ Not Started  
+**Phase 8**: ✅ Complete  
 **Phase 9**: ⬜ Not Started  
 **Phase 10**: ⬜ Not Started  
 **Phase 11**: ⬜ Not Started  

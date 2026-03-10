@@ -1,0 +1,21 @@
+<section id="architecture" class="arch-section" aria-label="Architecture Principles">
+    <div class="arch-inner">
+
+        <SectionTitle Title="Architecture Principles"
+                      Subtitle="The engineering philosophy behind the systems I design and deliver." />
+
+        <div class="arch-grid">
+            @foreach (var principle in PortfolioData.ArchitecturePrinciples)
+            {
+                <div class="arch-card">
+                    <div class="arch-card-header">
+                        <span class="arch-icon" aria-hidden="true">@principle.Icon</span>
+                        <h3 class="arch-title">@principle.Title</h3>
+                    </div>
+                    <p class="arch-desc">@principle.Description</p>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
