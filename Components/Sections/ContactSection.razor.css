@@ -1,0 +1,115 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.ct-section {
+    background: var(--surface);
+    padding: var(--section-space) 2rem;
+}
+
+.ct-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ── Contact link cards ───────────────────────────────────────────── */
+.ct-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+
+.ct-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ct-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Icon ─────────────────────────────────────────────────────────── */
+.ct-icon {
+    font-size: 1.85rem;
+    line-height: 1;
+}
+
+/* ── Card text ────────────────────────────────────────────────────── */
+.ct-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.ct-label {
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+}
+
+.ct-value {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--primary);
+    word-break: break-all;
+    line-height: 1.4;
+}
+
+/* ── Resume CTA ───────────────────────────────────────────────────── */
+.ct-actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.site-footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .ct-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .ct-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .ct-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ct-value {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .ct-links {
+        grid-template-columns: 1fr;
+    }
+}

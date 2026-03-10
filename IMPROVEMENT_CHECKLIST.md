@@ -214,17 +214,17 @@
 
 > **Why twelfth?** The current form fakes sending — a trust issue that must be fixed.
 
-- [ ] **12.1** Create `Components/Sections/ContactSection.razor`
-- [ ] **12.2** Remove the fake contact form that shows success without sending
-- [ ] **12.3** Replace with professional contact CTA:
+- [x] **12.1** Create `Components/Sections/ContactSection.razor`
+- [x] **12.2** Remove the fake contact form that shows success without sending
+- [x] **12.3** Replace with professional contact CTA:
   - 📧 Email: `mailto:shoaibshahriar29@gmail.com`
   - 💼 LinkedIn: `https://linkedin.com/in/biggo29`
   - 🐙 GitHub: `https://github.com/biggo29`
   - 📝 Medium: `https://medium.com/@biggo29`
-- [ ] **12.4** Add professional tagline: _"Open to senior backend, platform engineering, and architecture-focused opportunities."_
-- [ ] **12.5** Optionally add a Download Resume button
-- [ ] **12.6** CSS: Clean layout, clear links, no fake interactivity
-- [ ] **12.7** Verify build passes
+- [x] **12.4** Add professional tagline: _"Open to senior backend, platform engineering, and architecture-focused opportunities."_
+- [x] **12.5** Optionally add a Download Resume button
+- [x] **12.6** CSS: Clean layout, clear links, no fake interactivity
+- [x] **12.7** Verify build passes
 
 ---
 
@@ -350,7 +350,7 @@
 **Phase 9**: ✅ Complete  
 **Phase 10**: ✅ Complete  
 **Phase 11**: ✅ Complete  
-**Phase 12**: ⬜ Not Started  
+**Phase 12**: ✅ Complete  
 **Phase 13**: ⬜ Not Started  
 **Phase 14**: ⬜ Not Started  
 **Phase 15**: ⬜ Not Started  
