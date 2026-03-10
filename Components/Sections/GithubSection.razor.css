@@ -1,0 +1,65 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.gh-section {
+    background: var(--bg);
+    padding: var(--section-space) 2rem;
+}
+
+.gh-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ── Content stack ────────────────────────────────────────────────── */
+.gh-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+/* ── Stats image grid ─────────────────────────────────────────────── */
+.gh-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    width: 100%;
+}
+
+/* ── Individual stat card ─────────────────────────────────────────── */
+.gh-stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s ease;
+}
+
+.gh-stat-card:hover {
+    border-color: var(--primary);
+}
+
+.gh-stat-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ── CTA button row ───────────────────────────────────────────────── */
+.gh-cta {
+    display: flex;
+    justify-content: center;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .gh-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .gh-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

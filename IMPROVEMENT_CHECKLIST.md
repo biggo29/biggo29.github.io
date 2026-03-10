@@ -200,13 +200,13 @@
 
 > **Why eleventh?** Supporting credibility, not a primary section.
 
-- [ ] **11.1** Create `Components/Sections/GithubSection.razor`
-- [ ] **11.2** Keep it compact — short intro + GitHub profile link
-- [ ] **11.3** Optionally show 2–3 selected/pinned repositories instead of stat images
-- [ ] **11.4** If keeping stat images, ensure they fit the dark theme (use `tokyonight` or matching theme)
-- [ ] **11.5** Remove GitHub Streak image if it adds clutter
-- [ ] **11.6** CSS: Compact layout, secondary visual weight
-- [ ] **11.7** Verify build passes
+- [x] **11.1** Create `Components/Sections/GithubSection.razor`
+- [x] **11.2** Keep it compact — short intro + GitHub profile link
+- [x] **11.3** Optionally show 2–3 selected/pinned repositories instead of stat images
+- [x] **11.4** If keeping stat images, ensure they fit the dark theme (use `tokyonight` or matching theme)
+- [x] **11.5** Remove GitHub Streak image if it adds clutter
+- [x] **11.6** CSS: Compact layout, secondary visual weight
+- [x] **11.7** Verify build passes
 
 ---
 
@@ -349,7 +349,7 @@
 **Phase 8**: ✅ Complete  
 **Phase 9**: ✅ Complete  
 **Phase 10**: ✅ Complete  
-**Phase 11**: ⬜ Not Started  
+**Phase 11**: ✅ Complete  
 **Phase 12**: ⬜ Not Started  
 **Phase 13**: ⬜ Not Started  
 **Phase 14**: ⬜ Not Started  
