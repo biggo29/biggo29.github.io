@@ -21,16 +21,16 @@
 > **Why first?** Every section depends on well-defined models and a clean folder structure.  
 > This phase creates the skeleton that all UI components will consume.
 
-- [ ] **1.1** Create folder structure: `Components/Shared/`, `Components/Sections/`, `Data/`, `Services/`
-- [ ] **1.2** Create `Models/CaseStudy.cs` — Title, Role, Context, Responsibilities, Architecture, Outcome, Technologies, Categories, RepositoryUrl, LiveUrl
-- [ ] **1.3** Create `Models/CapabilityGroup.cs` — Title, Description, Items list
-- [ ] **1.4** Create `Models/ExperienceItem.cs` — Role, Company, Duration, Summary, Technologies
-- [ ] **1.5** Create `Models/ArchitecturePrinciple.cs` — Title, Description, Icon
-- [ ] **1.6** Create `Models/ImpactItem.cs` — Title, Description, Icon/Emoji
-- [ ] **1.7** Refactor existing `Models/Project.cs` — Add `Categories` list property for category-based filtering
-- [ ] **1.8** Create `Data/PortfolioData.cs` — Static data source with all case studies, capabilities, experience items, architecture principles, and impact items populated from resume
-- [ ] **1.9** Update `_Imports.razor` — Add `@using` for new namespaces (Models, Components, Data)
-- [ ] **1.10** Verify build passes
+- [x] **1.1** Create folder structure: `Components/Shared/`, `Components/Sections/`, `Data/`, `Services/`
+- [x] **1.2** Create `Models/CaseStudy.cs` — Title, Role, Context, Responsibilities, Architecture, Outcome, Technologies, Categories, RepositoryUrl, LiveUrl
+- [x] **1.3** Create `Models/CapabilityGroup.cs` — Title, Description, Items list
+- [x] **1.4** Create `Models/ExperienceItem.cs` — Role, Company, Client, Duration, Summary, Accomplishments, Technologies + `EducationItem`
+- [x] **1.5** Create `Models/ArchitecturePrinciple.cs` — Icon, Title, Description
+- [x] **1.6** Create `Models/ImpactItem.cs` — Icon, Title, Description, Metric
+- [x] **1.7** Refactor existing `Models/Project.cs` — Add `Categories` list property for category-based filtering
+- [x] **1.8** Create `Data/PortfolioData.cs` — Static data source with all case studies, capabilities, experience items, architecture principles, and impact items populated from resume
+- [x] **1.9** Update `_Imports.razor` — Add `@using biggo29.github.io.Data`, cleaned up commented lines
+- [x] **1.10** Verify build passes
 
 ---
 
@@ -359,7 +359,7 @@
 
 ## Current Status
 
-**Phase 1**: ⬜ Not Started  
+**Phase 1**: ✅ Complete — commit `2003a48`
 **Phase 2**: ⬜ Not Started  
 **Phase 3**: ⬜ Not Started  
 **Phase 4**: ⬜ Not Started  

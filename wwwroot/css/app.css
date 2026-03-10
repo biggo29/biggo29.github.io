@@ -1,5 +1,5 @@
 ﻿html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
 }
 
 h1:focus {
@@ -105,35 +105,23 @@ code {
 
 /*new css form thead portfolio*/
 
+/* Legacy variable aliases — mapped to design tokens defined in variables.css */
 :root {
-    --primary-color: #0066ff;
-    --secondary-color: #00d4ff;
-    --accent-color: #ff6b6b;
-    --bg-primary: #0a0e27;
-    --bg-secondary: #151a36;
-    --bg-tertiary: #1e2542;
-    --text-primary: #ffffff;
-    --text-secondary: #b4b9d6;
-    --text-muted: #7a7f9a;
-    --border-color: #2a3152;
-    --success-color: #10b981;
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.page:not(.dark-mode) {
-    --primary-color: #0052cc;
-    --secondary-color: #0073e6;
-    --accent-color: #ff4757;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --bg-tertiary: #e9ecef;
-    --text-primary: #1a1a1a;
-    --text-secondary: #4a5568;
-    --text-muted: #718096;
-    --border-color: #e2e8f0;
+    --primary-color:   var(--primary);
+    --secondary-color: var(--secondary);
+    --accent-color:    var(--danger);
+    --bg-primary:      var(--bg);
+    --bg-secondary:    var(--surface);
+    --bg-tertiary:     var(--surface-2);
+    --text-primary:    var(--text);
+    --text-secondary:  var(--muted);
+    --text-muted:      var(--muted);
+    --border-color:    var(--border);
+    --success-color:   var(--success);
+    --shadow-sm:       0 2px 8px var(--shadow);
+    --shadow-md:       0 4px 16px var(--shadow);
+    --shadow-lg:       0 8px 32px var(--shadow);
+    --transition:      all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -147,7 +135,7 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family: var(--font-body);
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
@@ -165,14 +153,10 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(10, 14, 39, 0.95);
+    background: rgba(11, 18, 32, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid var(--border-color);
-}
-
-.page:not(.dark-mode) .header {
-    background: rgba(255, 255, 255, 0.95);
 }
 
 .nav-container {
@@ -225,21 +209,6 @@ body {
             .nav-links a:hover::after {
                 width: 100%;
             }
-
-.theme-toggle {
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: var(--transition);
-}
-
-    .theme-toggle:hover {
-        transform: scale(1.1);
-        background: var(--primary-color);
-    }
 
 /* Main Content */
 .main-content {
