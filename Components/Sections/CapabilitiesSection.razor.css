@@ -72,6 +72,14 @@
     }
 }
 
+/* Add this tablet step */
+@media (max-width: 768px) {
+    .cap-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
 @media (max-width: 640px) {
     .cap-section {
         padding: 4rem 1.25rem;

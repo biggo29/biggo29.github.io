@@ -37,3 +37,14 @@
     font-weight: 700;
     color: var(--primary);
 }
+
+@media (max-width: 400px) {
+    .metric-chip {
+        padding: 0.35rem 0.65rem;
+    }
+
+    .metric-chip-text {
+        font-size: 0.8rem;
+        white-space: normal;
+    }
+}

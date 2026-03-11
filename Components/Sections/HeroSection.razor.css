@@ -244,6 +244,20 @@
     }
 }
 
+@media (max-width: 768px) {
+    .hero-inner {
+        gap: 2rem;
+    }
+
+    .hero-right {
+        gap: 1.25rem;
+    }
+
+    .stack-panel {
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 640px) {
     .hero {
         padding: 3rem 1.25rem 2.5rem;
