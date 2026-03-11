@@ -62,3 +62,22 @@ window.initializeSectionObserver = () => {
 window.toggleBodyScroll = (disable) => {
     document.body.style.overflow = disable ? 'hidden' : '';
 };
+
+// ─── Back to top button ───────────────────────────────────────────────────────
+// Called once from OnAfterRenderAsync(firstRender).
+// Adds .is-visible to the button once the user scrolls past 400px.
+window.initializeBackToTop = () => {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    const THRESHOLD = 400;
+
+    const onScroll = () => {
+        btn.classList.toggle('is-visible', window.scrollY > THRESHOLD);
+    };
+
+    // Set correct state immediately (e.g. after a hot reload mid-page)
+    onScroll();
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+};
