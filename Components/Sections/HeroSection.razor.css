@@ -84,12 +84,63 @@
     align-items: center;
 }
 
-/* ── Right column: stack panel ────────────────────────────────────── */
+/* ── Right column: photo + stack panel ───────────────────────────── */
 .hero-right {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
 }
 
+/* ── Profile photo ────────────────────────────────────────────────── */
+.hero-photo-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+}
+
+.hero-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid var(--primary);
+    box-shadow:
+        0 0 0 6px rgba(59, 130, 246, 0.1),
+        0 12px 40px rgba(0, 0, 0, 0.55);
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Subtle pulsing outer ring */
+.hero-photo-ring {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(59, 130, 246, 0.3);
+    animation: photo-ring-pulse 3.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Ambient glow behind the photo */
+.hero-photo-glow {
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes photo-ring-pulse {
+    0%,  100% { transform: scale(1);    opacity: 0.35; }
+    50%        { transform: scale(1.06); opacity: 0.75; }
+}
+
+/* ── Stack panel ──────────────────────────────────────────────────── */
 .stack-panel {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -178,6 +229,11 @@
 
     .hero-right {
         order: -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2rem;
     }
 
     .stack-panel {
@@ -192,6 +248,11 @@
 
     .hero-name {
         font-size: 2.2rem;
+    }
+
+    .hero-right {
+        flex-direction: column;
+        align-items: center;
     }
 
     .stack-panel {

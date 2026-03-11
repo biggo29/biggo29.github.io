@@ -1,0 +1,34 @@
+{
+  "_comment": "Edit this file to update your OG social preview image. Then run: powershell -ExecutionPolicy Bypass -File .\\generate-og-image.ps1",
+
+  "output": {
+    "filename": "wwwroot/images/og-social-preview.png",
+    "width": 1200,
+    "height": 630
+  },
+
+  "images": {
+    "portrait": "wwwroot/images/biggo-photo-ai.png"
+  },
+
+  "text": {
+    "eyebrow":  "LEAD SOFTWARE ENGINEER  |  DHAKA, BANGLADESH",
+    "name":     "Shoaib Shahriar",
+    "role":     ".NET  |  Azure  |  Microservices  |  Clean Architecture",
+    "awards":   "WSIS Award 2021   |   8+ Years Experience   |   30+ Microservices",
+    "url":      "biggo29.github.io",
+    "tags":     [ ".NET", "C#", "ASP.NET Core", "CQRS", "Azure", "Microservices" ]
+  },
+
+  "design": {
+    "accentColor":    [ 59, 130, 246 ],
+    "bgColor":        [ 11,  18,  32 ],
+    "textColor":      [ 229, 231, 235 ],
+    "mutedColor":     [ 148, 163, 184 ],
+    "urlColor":       [ 100, 160, 255 ],
+    "photoSize":      286,
+    "nameFontSize":   48,
+    "roleFontSize":   19,
+    "eyebrowFontSize":12
+  }
+}
