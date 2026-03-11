@@ -81,3 +81,51 @@ window.initializeBackToTop = () => {
 
     window.addEventListener('scroll', onScroll, { passive: true });
 };
+
+// ─── Metric chip counter animation ────────────────────────────────────────────
+// Called from MetricChip.razor via JSInterop on first render.
+// Uses IntersectionObserver to defer start until the chip is visible, then
+// counts from 0 to `target` over `duration` ms with a cubic ease-out curve.
+window.animateCounter = (el, target, duration) => {
+    if (!el) return;
+
+    const runCounter = () => {
+        // Honour the OS reduced-motion preference — jump straight to final value
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            el.textContent = target;
+            return;
+        }
+
+        const start = performance.now();
+
+        const step = (now) => {
+            const elapsed  = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Cubic ease-out: fast start, smooth deceleration into the final digit
+            const eased    = 1 - Math.pow(1 - progress, 3);
+
+            el.textContent = Math.floor(eased * target);
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                el.textContent = target; // guarantee exact final value
+            }
+        };
+
+        requestAnimationFrame(step);
+    };
+
+    // Wait until the chip element is at least half visible before counting.
+    // This naturally aligns with the hero stagger entrance without needing
+    // hard-coded delay values that would need updating if timings change.
+    const observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            observer.disconnect();
+            // 120 ms grace period — lets the chip's entrance animation settle
+            setTimeout(runCounter, 120);
+        }
+    }, { threshold: 0.5 });
+
+    observer.observe(el);
+};

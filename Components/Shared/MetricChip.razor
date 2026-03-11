@@ -1,12 +1,65 @@
+@using System.Text.RegularExpressions
+@inject IJSRuntime JS
+
 <div class="metric-chip">
     @if (!string.IsNullOrEmpty(Icon))
     {
         <span class="metric-chip-icon" aria-hidden="true">@Icon</span>
     }
-    <span class="metric-chip-text">@Text</span>
+    @if (_hasCounter)
+    {
+        <span class="metric-chip-text">
+            <span class="metric-chip-count"
+                  style="min-width: @_counterWidth"
+                  @ref="_counterRef">0</span>@_countSuffix@_labelText
+        </span>
+    }
+    else
+    {
+        <span class="metric-chip-text">@Text</span>
+    }
 </div>
 
 @code {
-    [Parameter, EditorRequired] public string Text { get; set; } = string.Empty;
-    [Parameter] public string? Icon { get; set; }
+    [Parameter, EditorRequired] public string Text  { get; set; } = string.Empty;
+    [Parameter]                 public string? Icon { get; set; }
+
+    // Matches an optional leading integer + optional "+" + remainder
+    // e.g. "8+ Years Experience" → ("8", "+", " Years Experience")
+    //      "30+ Microservices"   → ("30", "+", " Microservices")
+    //      "WSIS Award 2021"     → no match → plain text
+    private static readonly Regex CounterPattern =
+        new(@"^(\d+)(\+?)(.*)", RegexOptions.Compiled);
+
+    private ElementReference _counterRef;
+    private bool   _hasCounter;
+    private int    _targetCount;
+    private string _countSuffix  = string.Empty;
+    private string _labelText    = string.Empty;
+    private string _counterWidth = "1ch";   // reserves space = digit count × 1ch
+
+    protected override void OnParametersSet()
+    {
+        var match = CounterPattern.Match(Text);
+        _hasCounter = match.Success;
+
+        if (_hasCounter)
+        {
+            _targetCount  = int.Parse(match.Groups[1].Value);
+            _countSuffix  = match.Groups[2].Value;
+            _labelText    = match.Groups[3].Value;
+            // Reserve width for the final digit count so the chip doesn't reflow
+            _counterWidth = $"{match.Groups[1].Value.Length}ch";
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && _hasCounter)
+        {
+            // 1 400 ms total count-up; IntersectionObserver in JS defers start
+            // until the chip is actually visible (respects hero stagger delay)
+            await JS.InvokeVoidAsync("animateCounter", _counterRef, _targetCount, 1400);
+        }
+    }
 }

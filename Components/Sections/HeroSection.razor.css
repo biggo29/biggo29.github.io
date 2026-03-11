@@ -67,7 +67,7 @@
     line-height: 1.8;
     max-width: 520px;
     margin-bottom: 2.25rem;
-    opacity: 0.88;
+    /* opacity: 0.88 removed — hero-enter animation owns final opacity */
 }
 
 .hero-chips {
@@ -257,5 +257,105 @@
 
     .stack-panel {
         max-width: 100%;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   HERO ENTRANCE ANIMATIONS
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── Bypass global section fade — children animate individually ───── */
+/* Scoped specificity (.hero[b-xxxx]) beats global (section) safely   */
+.hero {
+    opacity: 1;
+    transform: none;
+}
+
+.hero.fade-in {
+    animation: none;
+}
+
+/* ── Keyframes ────────────────────────────────────────────────────── */
+@keyframes hero-enter {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Right column slides in laterally on wide two-column layout */
+@keyframes hero-enter-right {
+    from {
+        opacity: 0;
+        transform: translate(20px, 8px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+/* ── Left column: staggered slide-up ─────────────────────────────── */
+.hero-eyebrow {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.00s both;
+}
+
+.hero-name {
+    animation: hero-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both;
+}
+
+.hero-role {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both;
+}
+
+.hero-statement {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both;
+}
+
+.hero-chips {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both;
+}
+
+.hero-actions {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.52s both;
+}
+
+/* ── Right column: slide from right (desktop two-column) ──────────── */
+.hero-photo-wrapper {
+    animation: hero-enter-right 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.stack-panel {
+    animation: hero-enter-right 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+/* ── Mobile: single-column — right items slide up instead ─────────── */
+@media (max-width: 1100px) {
+    .hero-photo-wrapper {
+        animation: hero-enter 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+    }
+
+    .stack-panel {
+        animation: hero-enter 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+    }
+}
+
+/* ── Accessibility: respect reduced-motion preference ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow,
+    .hero-name,
+    .hero-role,
+    .hero-statement,
+    .hero-chips,
+    .hero-actions,
+    .hero-photo-wrapper,
+    .stack-panel {
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
 }
