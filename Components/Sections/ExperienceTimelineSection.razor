@@ -1,0 +1,73 @@
+<section id="experience" class="exp-section" aria-label="Experience & Education">
+    <div class="exp-inner">
+
+        <SectionTitle Title="Experience"
+                      Subtitle="Career progression across enterprise product, national e-governance, and digital signage engineering." />
+
+        <div class="exp-timeline">
+            @foreach (var item in PortfolioData.ExperienceItems)
+            {
+                <div class="exp-entry">
+                    <div class="exp-dot" aria-hidden="true"></div>
+                    <div class="exp-card">
+
+                        <div class="exp-card-header">
+                            <div class="exp-role-info">
+                                <h3 class="exp-role">@item.Role</h3>
+                                <div class="exp-meta">
+                                    <span class="exp-company">@item.Company</span>
+                                    @if (!string.IsNullOrEmpty(item.Client))
+                                    {
+                                        <span class="exp-separator" aria-hidden="true">·</span>
+                                        <span class="exp-client">@item.Client</span>
+                                    }
+                                </div>
+                            </div>
+                            <span class="exp-duration">@item.Duration</span>
+                        </div>
+
+                        <p class="exp-summary">@item.Summary</p>
+
+                        <ul class="exp-accomplishments" aria-label="Key accomplishments">
+                            @foreach (var acc in item.Accomplishments)
+                            {
+                                <li>@acc</li>
+                            }
+                        </ul>
+
+                        <div class="exp-tech">
+                            @foreach (var tech in item.Technologies)
+                            {
+                                <TagBadge Text="@tech" />
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="edu-divider" aria-hidden="true">
+            <span class="edu-divider-label">Education</span>
+        </div>
+
+        <div class="edu-grid">
+            @foreach (var edu in PortfolioData.EducationItems)
+            {
+                <div class="edu-card">
+                    <span class="edu-icon" aria-hidden="true">🎓</span>
+                    <div class="edu-content">
+                        <h3 class="edu-degree">@edu.Degree</h3>
+                        <p class="edu-institution">@edu.Institution</p>
+                        <p class="edu-duration">@edu.Duration</p>
+                        @if (!string.IsNullOrEmpty(edu.ResearchTopic))
+                        {
+                            <p class="edu-research">Research: @edu.ResearchTopic</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>

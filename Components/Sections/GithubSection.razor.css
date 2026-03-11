@@ -1,0 +1,140 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.gh-section {
+    background: var(--bg);
+    padding: var(--section-space) 2rem;
+}
+
+.gh-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ── Content stack ────────────────────────────────────────────────── */
+.gh-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+/* ── Profile card ─────────────────────────────────────────────────── */
+.gh-profile-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem 2.5rem;
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: border-color 0.2s ease;
+}
+
+.gh-profile-card:hover {
+    border-color: var(--primary);
+}
+
+/* ── Card header: avatar + identity ──────────────────────────────── */
+.gh-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.gh-avatar {
+    font-size: 2.75rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.gh-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.25rem;
+}
+
+.gh-handle {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--primary);
+    margin: 0;
+}
+
+/* ── Note text ────────────────────────────────────────────────────── */
+.gh-note {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin: 0;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ── Stats row ────────────────────────────────────────────────────── */
+.gh-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.gh-stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.gh-stat-value {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.gh-stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* ── Language badge row ───────────────────────────────────────────── */
+.gh-lang-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.gh-lang-badge {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-sm);
+}
+
+/* ── CTA button row ───────────────────────────────────────────────── */
+.gh-cta {
+    display: flex;
+    justify-content: center;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .gh-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .gh-profile-card {
+        padding: 1.5rem;
+    }
+
+    .gh-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

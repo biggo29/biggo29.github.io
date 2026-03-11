@@ -1,0 +1,81 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.arch-section {
+    background: var(--surface);
+    padding: var(--section-space) 2rem;
+}
+
+.arch-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* ── Card grid ────────────────────────────────────────────────────── */
+.arch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+/* ── Individual card ──────────────────────────────────────────────── */
+.arch-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.arch-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Card header: icon + title side by side ───────────────────────── */
+.arch-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.arch-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.arch-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+    margin: 0;
+}
+
+/* ── Description ──────────────────────────────────────────────────── */
+.arch-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .arch-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .arch-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .arch-grid {
+        grid-template-columns: 1fr;
+    }
+}

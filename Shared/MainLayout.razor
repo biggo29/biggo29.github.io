@@ -1,8 +1,89 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+@inject IJSRuntime JSRuntime
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header class="header" role="banner">
+    <nav class="nav-container" aria-label="Main navigation">
+
+        <a class="nav-brand" href="/" aria-label="Shoaib Shahriar - Home">SS</a>
+
+        <button class="nav-toggle @(_mobileOpen ? "is-open" : "")"
+                @onclick="ToggleMobileMenu"
+                aria-expanded="@(_mobileOpen ? "true" : "false")"
+                aria-controls="nav-menu"
+                aria-label="@(_mobileOpen ? "Close menu" : "Open menu")">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+
+        <ul class="nav-links @(_mobileOpen ? "is-open" : "")" id="nav-menu" role="list">
+            @foreach (var item in NavItems)
+            {
+                <li>
+                    <a class="nav-link"
+                       href="#@item.SectionId"
+                       @onclick="() => HandleNavClick(item.SectionId)"
+                       @onclick:preventDefault>
+                        @item.Label
+                    </a>
+                </li>
+            }
+        </ul>
+
+    </nav>
+</header>
+
+<main id="main-content">
+    @Body
+</main>
+
+<footer class="footer" role="contentinfo">
+    <div class="footer-content">
+        <p class="footer-copy">&copy; @DateTime.Now.Year Shoaib Shahriar</p>
+        <div class="social-links">
+            <a href="https://github.com/biggo29"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="Visit GitHub profile (opens in new tab)">GitHub</a>
+            <a href="https://linkedin.com/in/biggo29"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="Connect on LinkedIn (opens in new tab)">LinkedIn</a>
+            <a href="mailto:shoaibshahriar29@gmail.com"
+               aria-label="Send an email">Email</a>
+        </div>
+    </div>
+</footer>
+
+@code {
+    private bool _mobileOpen;
+
+    private static readonly (string Label, string SectionId)[] NavItems =
+    {
+        ("Home",         "home"),
+        ("Impact",       "impact"),
+        ("Case Studies", "case-studies"),
+        ("Architecture", "architecture"),
+        ("Skills",       "capabilities"),
+        ("Experience",   "experience"),
+        ("GitHub",       "github"),
+        ("Contact",      "contact")
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeSectionObserver");
+            await JSRuntime.InvokeVoidAsync("initializeNavHighlight");
+        }
+    }
+
+    private async Task HandleNavClick(string sectionId)
+    {
+        _mobileOpen = false;
+        await JSRuntime.InvokeVoidAsync("scrollToSection", sectionId);
+    }
+
+    private void ToggleMobileMenu() => _mobileOpen = !_mobileOpen;
+}

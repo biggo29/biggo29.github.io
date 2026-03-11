@@ -1,0 +1,29 @@
+@if (!string.IsNullOrEmpty(Href))
+{
+    <a href="@Href" target="@Target" class="cta-secondary" aria-label="@AriaLabel">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <span class="cta-icon" aria-hidden="true">@Icon</span>
+        }
+        @Text
+    </a>
+}
+else
+{
+    <button type="button" class="cta-secondary" @onclick="OnClick" aria-label="@AriaLabel">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <span class="cta-icon" aria-hidden="true">@Icon</span>
+        }
+        @Text
+    </button>
+}
+
+@code {
+    [Parameter, EditorRequired] public string Text { get; set; } = string.Empty;
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public string Target { get; set; } = "_self";
+    [Parameter] public string? Icon { get; set; }
+    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+}

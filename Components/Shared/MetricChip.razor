@@ -1,0 +1,12 @@
+<div class="metric-chip">
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+        <span class="metric-chip-icon" aria-hidden="true">@Icon</span>
+    }
+    <span class="metric-chip-text">@Text</span>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Text { get; set; } = string.Empty;
+    [Parameter] public string? Icon { get; set; }
+}

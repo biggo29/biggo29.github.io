@@ -1,0 +1,43 @@
+<section id="case-studies" class="cs-section" aria-label="Case Studies">
+    <div class="cs-inner">
+
+        <SectionTitle Title="Case Studies"
+                      Subtitle="Flagship projects from production engineering — real systems, real scale, real impact." />
+
+        <div class="cs-filters" role="group" aria-label="Filter case studies by category">
+            @foreach (var filter in Filters)
+            {
+                <button class="cs-filter-btn @(_activeFilter == filter.Value ? "active" : "")"
+                        @onclick="() => _activeFilter = filter.Value"
+                        aria-pressed="@(_activeFilter == filter.Value ? "true" : "false")">
+                    @filter.Label
+                </button>
+            }
+        </div>
+
+        <div class="cs-list">
+            @foreach (var study in FilteredStudies)
+            {
+                <CaseStudyCard Study="@study" />
+            }
+        </div>
+
+    </div>
+</section>
+
+@code {
+    private string _activeFilter = "All";
+
+    private static readonly (string Label, string Value)[] Filters =
+    {
+        ("All",           "All"),
+        (".NET",          "DotNet"),
+        ("Microservices", "Microservices"),
+        ("Public Sector", "PublicSector"),
+    };
+
+    private IEnumerable<CaseStudy> FilteredStudies =>
+        _activeFilter == "All"
+            ? PortfolioData.CaseStudies
+            : PortfolioData.CaseStudies.Where(c => c.Categories.Contains(_activeFilter));
+}

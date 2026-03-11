@@ -1,0 +1,34 @@
+/* =================================================================
+   Design Tokens — Portfolio Design System
+   Single source of truth for all design decisions.
+   All components and sections consume these tokens.
+   ================================================================= */
+
+:root {
+    /* ── Colors ─────────────────────────────────────────────────── */
+    --bg:           #0b1220;
+    --surface:      #111827;
+    --surface-2:    #1f2937;
+    --border:       #334155;
+    --text:         #e5e7eb;
+    --muted:        #94a3b8;
+    --primary:      #3b82f6;
+    --primary-soft: rgba(59, 130, 246, 0.12);
+    --secondary:    #22c55e;
+    --danger:       #ef4444;
+    --success:      #10b981;
+    --shadow:       rgba(0, 0, 0, 0.35);
+
+    /* ── Typography ─────────────────────────────────────────────── */
+    --font-body: Inter, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: Consolas, 'JetBrains Mono', monospace;
+
+    /* ── Spacing ─────────────────────────────────────────────────── */
+    --section-space: 96px;
+    --container:     1200px;
+
+    /* ── Border Radius ───────────────────────────────────────────── */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+}
