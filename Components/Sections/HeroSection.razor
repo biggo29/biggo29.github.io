@@ -1,3 +1,5 @@
+@inject IJSRuntime JS
+
 <section id="home" class="hero" aria-label="Introduction">
     <div class="hero-inner">
 
@@ -7,7 +9,13 @@
 
             <h1 class="hero-name">Shoaib Shahriar</h1>
 
-            <p class="hero-role">Backend Architect · .NET · Microservices · Azure</p>
+            <!--
+                aria-label provides the full text for screen readers immediately.
+                The visible text is typed in progressively by startTypewriter().
+            -->
+            <p class="hero-role" aria-label="Backend Architect · .NET · Microservices · Azure">
+                <span class="hero-role-typed" @ref="_roleTypedRef"></span><span class="hero-role-cursor" aria-hidden="true"></span>
+            </p>
 
             <p class="hero-statement">
                 I design scalable backend systems, distributed microservices, and enterprise APIs
@@ -76,6 +84,8 @@
 @code {
     private record StackGroup(string Icon, string Label, string[] Tags);
 
+    private ElementReference _roleTypedRef;
+
     private static readonly StackGroup[] StackGroups =
     {
         new("⚙️ ", "Backend",
@@ -93,4 +103,19 @@
         new("🤖 ", "AI-Assisted Dev",
             new[] { "GitHub Copilot", "Claude", "ChatGPT" }),
     };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // hero-role stagger: delay 0.20 s + duration 0.50 s = visible at 0.70 s.
+            // 820 ms gives a natural 120 ms cursor-blink pause before typing begins.
+            await JS.InvokeVoidAsync(
+                "startTypewriter",
+                _roleTypedRef,
+                "Backend Architect · .NET · Microservices · Azure",
+                40,    // ms per character
+                820);  // ms before first character appears
+        }
+    }
 }

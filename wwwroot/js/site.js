@@ -179,3 +179,46 @@ window.initializeCardAnimations = () => {
 
     newCards.forEach(card => observer.observe(card));
 };
+
+// ─── Hero role typewriter effect ──────────────────────────────────────────────
+// Called from HeroSection.razor via JSInterop on first render.
+// Types `text` into `el` one character at a time, then fades out the cursor.
+//
+// Parameters:
+//   el         – the .hero-role-typed <span> ElementReference
+//   text       – full string to type ("Backend Architect · .NET · …")
+//   charSpeed  – ms per character (default 40)
+//   startDelay – ms to wait before the first character (aligns with stagger)
+window.startTypewriter = (el, text, charSpeed, startDelay) => {
+    if (!el) return;
+
+    const cursor = el.nextElementSibling; // .hero-role-cursor
+
+    // Reduced motion: show the complete text instantly and hide the cursor
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = text;
+        if (cursor) cursor.style.display = 'none';
+        return;
+    }
+
+    let i = 0;
+
+    const typeNext = () => {
+        if (i >= text.length) {
+            // Typing complete — let the cursor blink briefly, then fade it out
+            if (cursor) setTimeout(() => cursor.classList.add('typer-done'), 1800);
+            return;
+        }
+
+        el.textContent = text.slice(0, ++i);
+
+        // Add a natural rhythm: pause after each '·' separator so the three
+        // role segments feel distinct rather than a single continuous stream
+        const justTyped = text[i - 1];
+        const delay = justTyped === '·' ? charSpeed * 5 : charSpeed;
+
+        setTimeout(typeNext, delay);
+    };
+
+    setTimeout(typeNext, startDelay);
+};

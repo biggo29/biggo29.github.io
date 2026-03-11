@@ -59,6 +59,9 @@
     font-weight: 400;
     margin-bottom: 1.75rem;
     letter-spacing: 0.01em;
+    /* Reserve one line of height so the layout doesn't reflow
+       while hero-role-typed is empty during the stagger delay  */
+    min-height: 1.6rem;
 }
 
 .hero-statement {
@@ -357,5 +360,41 @@
         animation: none;
         opacity: 1;
         transform: none;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   TYPEWRITER CURSOR
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Thin primary-coloured bar that blinks while text is being typed    */
+.hero-role-cursor {
+    display: inline-block;
+    width: 1.5px;
+    height: 0.85em;
+    background: var(--primary);
+    margin-left: 1px;
+    vertical-align: middle;
+    animation: cursor-blink 0.7s step-end infinite;
+}
+
+/* JS adds .typer-done when typing finishes — cursor fades out gently */
+.hero-role-cursor.typer-done {
+    animation: cursor-fade-out 0.5s ease forwards;
+}
+
+@keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+@keyframes cursor-fade-out {
+    to { opacity: 0; }
+}
+
+/* Hide cursor entirely for reduced-motion users (text shown in full) */
+@media (prefers-reduced-motion: reduce) {
+    .hero-role-cursor {
+        display: none;
     }
 }
