@@ -129,3 +129,53 @@ window.animateCounter = (el, target, duration) => {
 
     observer.observe(el);
 };
+
+// ─── Scroll-triggered card animations ────────────────────────────────────────
+// Called from MainLayout.razor on first render (all sections) and from
+// CaseStudiesSection.razor after each filter change (newly rendered .cs-cards).
+// Idempotent — skips cards already marked .card-visible.
+//
+// Algorithm:
+//   1. Collect all card elements that haven't animated yet.
+//   2. Group by parent element → compute per-group stagger index (--card-i).
+//   3. IntersectionObserver adds .card-visible when a card enters the viewport,
+//      which triggers the card-enter CSS animation (defined in app.css).
+window.initializeCardAnimations = () => {
+    const SELECTORS = '.impact-card, .cs-card, .arch-card, .cap-card, .exp-entry, .edu-card';
+
+    // Skip cards that are already visible to keep the function idempotent
+    const newCards = Array.from(document.querySelectorAll(SELECTORS))
+        .filter(el => !el.classList.contains('card-visible'));
+
+    if (!newCards.length) return;
+
+    // Assign stagger index per parent group so each section's cards cascade
+    // independently. Cap at 6 (max 480 ms delay) to avoid long waits in
+    // sections with many items.
+    const groups = new Map();
+    newCards.forEach(card => {
+        const parent = card.parentElement;
+        if (!groups.has(parent)) groups.set(parent, []);
+        groups.get(parent).push(card);
+    });
+
+    groups.forEach(groupCards => {
+        groupCards.forEach((card, i) => {
+            card.style.setProperty('--card-i', Math.min(i, 6));
+        });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('card-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    newCards.forEach(card => observer.observe(card));
+};
