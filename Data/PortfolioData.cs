@@ -8,28 +8,28 @@ namespace biggo29.github.io.Data
         {
             new ImpactItem
             {
-                Icon = "🏗️",
+                Icon = "server",
                 Title = "Enterprise Backend Engineering",
                 Description = "Led backend engineering for eSpares.co.uk, a high-traffic UK eCommerce platform serving 15,000+ daily users and supporting £1M+ monthly sales.",
                 Metric = "15,000+ Daily Users"
             },
             new ImpactItem
             {
-                Icon = "🔗",
+                Icon = "link",
                 Title = "Microservices Architecture",
                 Description = "Architected and delivered 30+ microservices using CQRS, NServiceBus, and Clean Architecture with 99%+ test coverage and near-zero production defects.",
                 Metric = "30+ Microservices"
             },
             new ImpactItem
             {
-                Icon = "🏆",
+                Icon = "trophy",
                 Title = "WSIS Award 2021",
                 Description = "Key contributor to the award-winning CBVMP — a national e-Governance biometric verification platform integrating all telecom operators in Bangladesh.",
                 Metric = "100M+ SIM Holders"
             },
             new ImpactItem
             {
-                Icon = "🤖",
+                Icon = "sparkles",
                 Title = "AI-Assisted Engineering",
                 Description = "Integrated Agentic AI workflows (GitHub Copilot, Claude, ChatGPT, Gemini) across engineering teams to accelerate delivery and improve code quality.",
                 Metric = "20% Faster Deployments"
@@ -86,37 +86,37 @@ namespace biggo29.github.io.Data
         {
             new ArchitecturePrinciple
             {
-                Icon = "🏗️",
+                Icon = "layers",
                 Title = "Design for Change",
                 Description = "Systems should evolve easily. Abstractions, clear interfaces, and modular boundaries allow features to be added or replaced with minimal friction."
             },
             new ArchitecturePrinciple
             {
-                Icon = "📦",
+                Icon = "box",
                 Title = "Explicit Service Boundaries",
                 Description = "Clear ownership and contracts between services prevent coupling. Each service should have a well-defined responsibility and interface."
             },
             new ArchitecturePrinciple
             {
-                Icon = "⚡",
+                Icon = "bolt",
                 Title = "CQRS Where Complexity Justifies It",
                 Description = "Separating read and write models improves scalability and clarity in complex domains — applied deliberately, not by default."
             },
             new ArchitecturePrinciple
             {
-                Icon = "📊",
+                Icon = "chart",
                 Title = "Observability by Design",
                 Description = "Logging, metrics, and tracing should be built in from day one — not added after production incidents. Systems must be understandable in production."
             },
             new ArchitecturePrinciple
             {
-                Icon = "🔄",
+                Icon = "arrow-path",
                 Title = "Automation Over Manual Operations",
                 Description = "CI/CD pipelines, automated tests, and release gates replace manual processes. Reliability and speed improve when humans are removed from repetitive steps."
             },
             new ArchitecturePrinciple
             {
-                Icon = "🔧",
+                Icon = "wrench",
                 Title = "Maintainability Over Shortcuts",
                 Description = "Long-term code health matters more than short-term velocity. Clean architecture, disciplined code reviews, and TDD pay compounding dividends over time."
             }

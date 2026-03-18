@@ -9,13 +9,13 @@
                     role="tab"
                     aria-selected="@(_activeTab == "arch" ? "true" : "false")"
                     @onclick='() => _activeTab = "arch"'>
-                🏗️ Architecture Principles
+                @AppIcons.Get("layers") Architecture Principles
             </button>
             <button class="arch-tab @(_activeTab == "skills" ? "active" : "")"
                     role="tab"
                     aria-selected="@(_activeTab == "skills" ? "true" : "false")"
                     @onclick='() => _activeTab = "skills"'>
-                ⚡ Skills
+                @AppIcons.Get("bolt") Skills
             </button>
         </div>
 
@@ -35,7 +35,7 @@
                          aria-expanded="@(open ? "true" : "false")"
                          @onkeydown="e => OnArchKeyDown(e, idx)">
                         <div class="arch-card-header">
-                            <span class="arch-icon" aria-hidden="true">@principle.Icon</span>
+                            <span class="arch-icon" aria-hidden="true">@AppIcons.Get(principle.Icon)</span>
                             <h3 class="arch-title">@principle.Title</h3>
                             <svg class="arch-chevron @(open ? "is-open" : "")"
                                  xmlns="http://www.w3.org/2000/svg" width="14" height="14"

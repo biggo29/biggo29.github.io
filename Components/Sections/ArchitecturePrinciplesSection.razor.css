@@ -31,6 +31,9 @@
     cursor: pointer;
     transition: color 0.2s ease, border-color 0.2s ease;
     border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .arch-tab:hover {
@@ -101,6 +104,8 @@
     font-size: 1.6rem;
     line-height: 1;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
 .arch-title {

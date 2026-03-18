@@ -45,6 +45,9 @@
 .impact-icon {
     font-size: 1.9rem;
     line-height: 1;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 /* Metric badge — only shown when backed by real data */
