@@ -128,6 +128,7 @@
 }
 
 .gh-stat-img-card {
+    background: #141321; /* matches github-readme-stats "radical" theme bg */
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
