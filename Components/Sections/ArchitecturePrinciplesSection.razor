@@ -1,21 +1,66 @@
-<section id="architecture" class="arch-section" aria-label="Architecture Principles">
+<section id="architecture" class="arch-section" aria-label="Technical Profile">
     <div class="arch-inner">
 
-        <SectionTitle Title="Architecture Principles"
-                      Subtitle="The engineering philosophy behind the systems I design and deliver." />
+        <SectionTitle Title="Technical Profile"
+                      Subtitle="The engineering philosophy and skills behind the systems I design and deliver." />
 
-        <div class="arch-grid">
-            @foreach (var principle in PortfolioData.ArchitecturePrinciples)
-            {
-                <div class="arch-card">
-                    <div class="arch-card-header">
-                        <span class="arch-icon" aria-hidden="true">@principle.Icon</span>
-                        <h3 class="arch-title">@principle.Title</h3>
-                    </div>
-                    <p class="arch-desc">@principle.Description</p>
-                </div>
-            }
+        <div class="arch-tabs" role="tablist" aria-label="Technical profile tabs">
+            <button class="arch-tab @(_activeTab == "arch" ? "active" : "")"
+                    role="tab"
+                    aria-selected="@(_activeTab == "arch" ? "true" : "false")"
+                    @onclick='() => _activeTab = "arch"'>
+                🏗️ Architecture Principles
+            </button>
+            <button class="arch-tab @(_activeTab == "skills" ? "active" : "")"
+                    role="tab"
+                    aria-selected="@(_activeTab == "skills" ? "true" : "false")"
+                    @onclick='() => _activeTab = "skills"'>
+                ⚡ Skills
+            </button>
         </div>
+
+        @if (_activeTab == "arch")
+        {
+            <div class="arch-grid" role="tabpanel" aria-label="Architecture Principles">
+                @foreach (var principle in PortfolioData.ArchitecturePrinciples)
+                {
+                    <div class="arch-card">
+                        <div class="arch-card-header">
+                            <span class="arch-icon" aria-hidden="true">@principle.Icon</span>
+                            <h3 class="arch-title">@principle.Title</h3>
+                        </div>
+                        <p class="arch-desc">@principle.Description</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="cap-grid" role="tabpanel" aria-label="Skills">
+                @foreach (var group in PortfolioData.CapabilityGroups)
+                {
+                    <div class="cap-card">
+                        <div class="cap-card-header">
+                            <h3 class="cap-title">@group.Title</h3>
+                            @if (!string.IsNullOrEmpty(group.Description))
+                            {
+                                <p class="cap-desc">@group.Description</p>
+                            }
+                        </div>
+                        <div class="cap-tags">
+                            @foreach (var item in group.Items)
+                            {
+                                <TagBadge Text="@item" />
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
 
     </div>
 </section>
+
+@code {
+    private string _activeTab = "arch";
+}
