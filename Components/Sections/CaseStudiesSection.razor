@@ -1,3 +1,5 @@
+@inject IJSRuntime JS
+
 <section id="case-studies" class="cs-section" aria-label="Case Studies">
     <div class="cs-inner">
 
@@ -8,7 +10,7 @@
             @foreach (var filter in Filters)
             {
                 <button class="cs-filter-btn @(_activeFilter == filter.Value ? "active" : "")"
-                        @onclick="() => _activeFilter = filter.Value"
+                        @onclick="() => SetFilter(filter.Value)"
                         aria-pressed="@(_activeFilter == filter.Value ? "true" : "false")">
                     @filter.Label
                 </button>
@@ -27,6 +29,7 @@
 
 @code {
     private string _activeFilter = "All";
+    private bool   _needsCardInit;
 
     private static readonly (string Label, string Value)[] Filters =
     {
@@ -40,4 +43,23 @@
         _activeFilter == "All"
             ? PortfolioData.CaseStudies
             : PortfolioData.CaseStudies.Where(c => c.Categories.Contains(_activeFilter));
+
+    private void SetFilter(string filter)
+    {
+        if (_activeFilter == filter) return;
+        _activeFilter    = filter;
+        _needsCardInit   = true;     // signal OnAfterRenderAsync to re-init
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // Re-run on filter change so newly rendered .cs-cards are picked up
+        // by IntersectionObserver and animate in. The flag prevents redundant
+        // calls on any other re-render that doesn't change the card list.
+        if (_needsCardInit)
+        {
+            _needsCardInit = false;
+            await JS.InvokeVoidAsync("initializeCardAnimations");
+        }
+    }
 }

@@ -38,6 +38,28 @@
                 </div>
             </div>
 
+            @if (_showStats)
+            {
+                <div class="gh-stats-images" aria-label="GitHub statistics cards">
+                    <div class="gh-stat-img-card">
+                        <img src="https://github-readme-stats.vercel.app/api?username=biggo29&show_icons=true&theme=radical&hide_border=true"
+                             alt="Shoaib Shahriar's GitHub Stats — total stars, commits, PRs and issues"
+                             loading="lazy"
+                             width="100%"
+                             height="auto"
+                             @onerror="OnStatsImageError" />
+                    </div>
+                    <div class="gh-stat-img-card">
+                        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=biggo29&layout=compact&theme=radical&hide_border=true"
+                             alt="Most used programming languages — C#, JavaScript, CSS and more"
+                             loading="lazy"
+                             width="100%"
+                             height="auto"
+                             @onerror="OnStatsImageError" />
+                    </div>
+                </div>
+            }
+
             <div class="gh-cta">
                 <PrimaryButton Text="View GitHub Profile"
                                Href="https://github.com/biggo29"
@@ -65,4 +87,8 @@
     {
         "C#", ".NET 8", "ASP.NET Core", "SQL Server", "JavaScript", "Java", "Python"
     };
+
+    private bool _showStats = true;
+
+    private void OnStatsImageError(ErrorEventArgs _) => _showStats = false;
 }

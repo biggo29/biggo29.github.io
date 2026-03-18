@@ -64,7 +64,7 @@ namespace biggo29.github.io.Data
                 Categories = new() { "PublicSector", "Architecture" },
                 RepositoryUrl = null,
                 LiveUrl = null,
-                DetailsUrl = "https://www.itu.int/net4/wsis/stocktaking/Prizes/2021/DetailsPopup/15804722766144252"
+                DetailsUrl = "https://www.itu.int/net4/wsis/stocktaking/Prizes/Prizes/Details/16115777478941397"
             },
             new CaseStudy
             {

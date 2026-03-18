@@ -84,6 +84,14 @@
     }
 }
 
+/* Add this tablet step */
+@media (max-width: 768px) {
+    .impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
 @media (max-width: 640px) {
     .impact-section {
         padding: 4rem 1.25rem;

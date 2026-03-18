@@ -59,6 +59,9 @@
     font-weight: 400;
     margin-bottom: 1.75rem;
     letter-spacing: 0.01em;
+    /* Reserve one line of height so the layout doesn't reflow
+       while hero-role-typed is empty during the stagger delay  */
+    min-height: 1.6rem;
 }
 
 .hero-statement {
@@ -67,7 +70,7 @@
     line-height: 1.8;
     max-width: 520px;
     margin-bottom: 2.25rem;
-    opacity: 0.88;
+    /* opacity: 0.88 removed — hero-enter animation owns final opacity */
 }
 
 .hero-chips {
@@ -84,12 +87,63 @@
     align-items: center;
 }
 
-/* ── Right column: stack panel ────────────────────────────────────── */
+/* ── Right column: photo + stack panel ───────────────────────────── */
 .hero-right {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
 }
 
+/* ── Profile photo ────────────────────────────────────────────────── */
+.hero-photo-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+}
+
+.hero-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid var(--primary);
+    box-shadow:
+        0 0 0 6px rgba(59, 130, 246, 0.1),
+        0 12px 40px rgba(0, 0, 0, 0.55);
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Subtle pulsing outer ring */
+.hero-photo-ring {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(59, 130, 246, 0.3);
+    animation: photo-ring-pulse 3.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Ambient glow behind the photo */
+.hero-photo-glow {
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes photo-ring-pulse {
+    0%,  100% { transform: scale(1);    opacity: 0.35; }
+    50%        { transform: scale(1.06); opacity: 0.75; }
+}
+
+/* ── Stack panel ──────────────────────────────────────────────────── */
 .stack-panel {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -178,10 +232,29 @@
 
     .hero-right {
         order: -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2rem;
     }
 
     .stack-panel {
         max-width: 560px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-inner {
+        gap: 2rem;
+    }
+
+    .hero-right {
+        gap: 1.25rem;
+    }
+
+    .stack-panel {
+        max-width: 100%;
     }
 }
 
@@ -194,7 +267,148 @@
         font-size: 2.2rem;
     }
 
+    .hero-right {
+        flex-direction: column;
+        align-items: center;
+    }
+
     .stack-panel {
         max-width: 100%;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   HERO ENTRANCE ANIMATIONS
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── Bypass global section fade — children animate individually ───── */
+/* Scoped specificity (.hero[b-xxxx]) beats global (section) safely   */
+.hero {
+    opacity: 1;
+    transform: none;
+}
+
+.hero.fade-in {
+    animation: none;
+}
+
+/* ── Keyframes ────────────────────────────────────────────────────── */
+@keyframes hero-enter {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Right column slides in laterally on wide two-column layout */
+@keyframes hero-enter-right {
+    from {
+        opacity: 0;
+        transform: translate(20px, 8px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+/* ── Left column: staggered slide-up ─────────────────────────────── */
+.hero-eyebrow {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.00s both;
+}
+
+.hero-name {
+    animation: hero-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both;
+}
+
+.hero-role {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both;
+}
+
+.hero-statement {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both;
+}
+
+.hero-chips {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both;
+}
+
+.hero-actions {
+    animation: hero-enter 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.52s both;
+}
+
+/* ── Right column: slide from right (desktop two-column) ──────────── */
+.hero-photo-wrapper {
+    animation: hero-enter-right 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.stack-panel {
+    animation: hero-enter-right 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+/* ── Mobile: single-column — right items slide up instead ─────────── */
+@media (max-width: 1100px) {
+    .hero-photo-wrapper {
+        animation: hero-enter 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+    }
+
+    .stack-panel {
+        animation: hero-enter 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+    }
+}
+
+/* ── Accessibility: respect reduced-motion preference ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow,
+    .hero-name,
+    .hero-role,
+    .hero-statement,
+    .hero-chips,
+    .hero-actions,
+    .hero-photo-wrapper,
+    .stack-panel {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   TYPEWRITER CURSOR
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Thin primary-coloured bar that blinks while text is being typed    */
+.hero-role-cursor {
+    display: inline-block;
+    width: 1.5px;
+    height: 0.85em;
+    background: var(--primary);
+    margin-left: 1px;
+    vertical-align: middle;
+    animation: cursor-blink 0.7s step-end infinite;
+}
+
+/* JS adds .typer-done when typing finishes — cursor fades out gently */
+.hero-role-cursor.typer-done {
+    animation: cursor-fade-out 0.5s ease forwards;
+}
+
+@keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+@keyframes cursor-fade-out {
+    to { opacity: 0; }
+}
+
+/* Hide cursor entirely for reduced-motion users (text shown in full) */
+@media (prefers-reduced-motion: reduce) {
+    .hero-role-cursor {
+        display: none;
     }
 }

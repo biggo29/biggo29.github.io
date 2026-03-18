@@ -167,7 +167,7 @@ Developed the **CBVMP platform** for Bangladesh Telecommunication Regulatory Com
 
 **Tech Stack**: Java, Servlet, Oracle, ELK Stack (Elasticsearch, Kibana, Logstash)
 
-_Reference: [WSIS Prizes 2021 - CBVMP](https://www.itu.int/net4/wsis/stocktaking/Prizes/2021/DetailsPopup/15804722766144252)_
+_Reference: [WSIS Prizes 2021 - CBVMP](https://www.itu.int/net4/wsis/stocktaking/Prizes/Prizes/Details/16115777478941397)_
 
 ---
 
@@ -203,7 +203,7 @@ _Research: Human health monitoring system using Wireless Sensor Body Area Networ
 
 🏆 **World Summit on Information Society (WSIS) Award 2021**  
 Central Biometric Verification Monitoring Platform (CBVMP), Action Line C5 category  
-[View Award](https://www.itu.int/net4/wsis/stocktaking/Prizes/2021/DetailsPopup/15804722766144252)
+[View Award](https://www.itu.int/net4/wsis/stocktaking/Prizes/Prizes/Details/16115777478941397)
 
 🎯 **ACM-ICPC Participant**  
 ACM-ICPC Dhaka Regional Contests (2014, 2015, 2016)

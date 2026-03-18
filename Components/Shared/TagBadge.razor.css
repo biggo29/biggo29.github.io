@@ -11,4 +11,32 @@
     line-height: 1.4;
     white-space: nowrap;
     letter-spacing: 0.01em;
+    cursor: default;
+
+    /* ── Hover micro-interaction ──────────────────────────────────── */
+    transition:
+        background      0.18s ease,
+        border-color    0.18s ease,
+        box-shadow      0.18s ease,
+        transform       0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+                        /* ↑ spring curve: slight overshoot gives a "pop" feel */
+}
+
+.tag-badge:hover {
+    background:   rgba(59, 130, 246, 0.18);   /* deeper than --primary-soft */
+    border-color: var(--primary);
+    transform:    translateY(-1px) scale(1.05);
+    box-shadow:   0 3px 10px rgba(59, 130, 246, 0.18);
+}
+
+/* Respect OS reduced-motion — keep colour change, remove physical motion */
+@media (prefers-reduced-motion: reduce) {
+    .tag-badge {
+        transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .tag-badge:hover {
+        transform:  none;
+        box-shadow: none;
+    }
 }

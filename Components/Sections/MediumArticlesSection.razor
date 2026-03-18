@@ -1,0 +1,73 @@
+@inject MediumService MediumSvc
+
+<section id="writing" class="med-section" aria-label="Medium Articles">
+    <div class="med-inner">
+
+        <SectionTitle Title="Writing"
+                      Subtitle="Technical articles on .NET, microservices, architecture, and engineering at scale." />
+
+        @if (_loading)
+        {
+            <p class="med-status" role="status">Loading articles…</p>
+        }
+        else if (_articles.Count == 0)
+        {
+            <p class="med-status">No articles found. Check back soon.</p>
+        }
+        else
+        {
+            <div class="med-grid">
+                @foreach (var article in _articles)
+                {
+                    <article class="med-card">
+                        @if (!string.IsNullOrEmpty(article.Thumbnail))
+                        {
+                            <img class="med-thumb"
+                                 src="@article.Thumbnail"
+                                 alt="@article.Title"
+                                 loading="lazy" />
+                        }
+                        else
+                        {
+                            <div class="med-thumb-placeholder" aria-hidden="true">✍️</div>
+                        }
+
+                        <div class="med-body">
+                            <time class="med-date">@article.PubDate</time>
+                            <h3 class="med-title">@article.Title</h3>
+                            <p class="med-desc">@article.Description</p>
+                            <a class="med-read-more"
+                               href="@article.Link"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Read @article.Title on Medium (opens in new tab)">
+                                Read on Medium <span aria-hidden="true">→</span>
+                            </a>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+
+        <div class="med-cta">
+            <PrimaryButton Text="View All Articles"
+                           Href="@_mediumUrl"
+                           Target="_blank"
+                           Icon="✍️"
+                           AriaLabel="View all articles on Medium (opens in new tab)" />
+        </div>
+
+    </div>
+</section>
+
+@code {
+    private List<MediumArticle> _articles = new();
+    private bool _loading = true;
+    private const string _mediumUrl = "https://medium.com/@biggo29";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _articles = await MediumSvc.GetArticlesAsync();
+        _loading  = false;
+    }
+}
