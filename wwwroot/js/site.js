@@ -20,6 +20,46 @@ window.toggleTheme = () => {
     return next;
 };
 
+// ─── Article carousel ─────────────────────────────────────────────────────────
+// carouselScroll: scrolls the track by exactly one card-width in `direction`
+//   (-1 = left / previous, +1 = right / next).
+// carouselScrollToIndex: snaps directly to a specific card index.
+// getCarouselState: returns nav-button state + scroll progress (0-100) so
+//   Blazor can update disabled attributes and the progress bar without needing
+//   a separate scroll-event listener.
+
+window.carouselScroll = (el, direction) => {
+    if (!el) return;
+    const child = el.firstElementChild;
+    const gap   = parseFloat(getComputedStyle(el).gap) || 28;
+    const step  = child ? child.offsetWidth + gap : el.clientWidth;
+    el.scrollBy({ left: direction * step, behavior: 'smooth' });
+};
+
+window.carouselScrollToIndex = (el, index) => {
+    if (!el) return;
+    const child = el.firstElementChild;
+    const gap   = parseFloat(getComputedStyle(el).gap) || 28;
+    const step  = child ? child.offsetWidth + gap : el.clientWidth;
+    el.scrollTo({ left: index * step, behavior: 'smooth' });
+};
+
+window.getCarouselState = (el) => {
+    if (!el) return { canPrev: false, canNext: false, currentIndex: 0, progress: 0 };
+    const child     = el.firstElementChild;
+    const gap       = parseFloat(getComputedStyle(el).gap) || 28;
+    const step      = child ? child.offsetWidth + gap : el.clientWidth;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    const index     = step > 0 ? Math.round(el.scrollLeft / step) : 0;
+    const progress  = maxScroll > 1 ? Math.round((el.scrollLeft / maxScroll) * 100) : 0;
+    return {
+        canPrev:      el.scrollLeft > 1,
+        canNext:      el.scrollLeft < maxScroll - 1,
+        currentIndex: index,
+        progress
+    };
+};
+
 // ─── Smooth scroll ────────────────────────────────────────────────────────────
 // Called from Blazor via JSInterop on nav link click
 window.scrollToSection = (sectionId) => {
