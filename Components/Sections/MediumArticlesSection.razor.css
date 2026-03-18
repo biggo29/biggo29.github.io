@@ -1,0 +1,124 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.med-section {
+    background: var(--surface);
+    padding: var(--section-space) 2rem;
+}
+
+.med-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+}
+
+/* ── Article grid ─────────────────────────────────────────────────── */
+.med-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.75rem;
+}
+
+/* ── Article card ─────────────────────────────────────────────────── */
+.med-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.med-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* ── Thumbnail ────────────────────────────────────────────────────── */
+.med-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+}
+
+.med-thumb-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--surface-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+}
+
+/* ── Card body ────────────────────────────────────────────────────── */
+.med-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.75rem;
+}
+
+/* ── Date ─────────────────────────────────────────────────────────── */
+.med-date {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+/* ── Title ────────────────────────────────────────────────────────── */
+.med-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.45;
+}
+
+/* ── Description ──────────────────────────────────────────────────── */
+.med-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+}
+
+/* ── Read more link ───────────────────────────────────────────────── */
+.med-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    margin-top: auto;
+    transition: gap 0.15s ease;
+}
+
+.med-read-more:hover {
+    gap: 0.55rem;
+}
+
+/* ── Status message ───────────────────────────────────────────────── */
+.med-status {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+/* ── CTA row ──────────────────────────────────────────────────────── */
+.med-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .med-grid {
+        grid-template-columns: 1fr;
+    }
+}
