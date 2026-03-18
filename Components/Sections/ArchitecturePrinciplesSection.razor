@@ -22,14 +22,34 @@
         @if (_activeTab == "arch")
         {
             <div class="arch-grid" role="tabpanel" aria-label="Architecture Principles">
-                @foreach (var principle in PortfolioData.ArchitecturePrinciples)
+                @for (var i = 0; i < PortfolioData.ArchitecturePrinciples.Count; i++)
                 {
-                    <div class="arch-card">
+                    var principle = PortfolioData.ArchitecturePrinciples[i];
+                    var idx       = i;
+                    var open      = _openArch.Contains(idx);
+
+                    <div class="arch-card @(open ? "is-open" : "")"
+                         @onclick="() => ToggleArch(idx)"
+                         role="button"
+                         tabindex="0"
+                         aria-expanded="@(open ? "true" : "false")"
+                         @onkeydown="e => OnArchKeyDown(e, idx)">
                         <div class="arch-card-header">
                             <span class="arch-icon" aria-hidden="true">@principle.Icon</span>
                             <h3 class="arch-title">@principle.Title</h3>
+                            <svg class="arch-chevron @(open ? "is-open" : "")"
+                                 xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
                         </div>
-                        <p class="arch-desc">@principle.Description</p>
+                        <div class="arch-desc-wrap @(open ? "is-visible" : "")">
+                            <div class="arch-desc-inner">
+                                <p class="arch-desc">@principle.Description</p>
+                            </div>
+                        </div>
                     </div>
                 }
             </div>
@@ -37,21 +57,43 @@
         else
         {
             <div class="cap-grid" role="tabpanel" aria-label="Skills">
-                @foreach (var group in PortfolioData.CapabilityGroups)
+                @for (var i = 0; i < PortfolioData.CapabilityGroups.Count; i++)
                 {
-                    <div class="cap-card">
+                    var group = PortfolioData.CapabilityGroups[i];
+                    var idx   = i;
+                    var open  = _openSkills.Contains(idx);
+
+                    <div class="cap-card @(open ? "is-open" : "")"
+                         @onclick="() => ToggleSkill(idx)"
+                         role="button"
+                         tabindex="0"
+                         aria-expanded="@(open ? "true" : "false")"
+                         @onkeydown="e => OnSkillKeyDown(e, idx)">
                         <div class="cap-card-header">
-                            <h3 class="cap-title">@group.Title</h3>
-                            @if (!string.IsNullOrEmpty(group.Description))
-                            {
-                                <p class="cap-desc">@group.Description</p>
-                            }
+                            <div class="cap-header-text">
+                                <h3 class="cap-title">@group.Title</h3>
+                                @if (!string.IsNullOrEmpty(group.Description))
+                                {
+                                    <p class="cap-desc">@group.Description</p>
+                                }
+                            </div>
+                            <svg class="cap-chevron @(open ? "is-open" : "")"
+                                 xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
                         </div>
-                        <div class="cap-tags">
-                            @foreach (var item in group.Items)
-                            {
-                                <TagBadge Text="@item" />
-                            }
+                        <div class="cap-tags-wrap @(open ? "is-visible" : "")">
+                            <div class="cap-tags-inner">
+                                <div class="cap-tags">
+                                    @foreach (var item in group.Items)
+                                    {
+                                        <TagBadge Text="@item" />
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
@@ -63,4 +105,27 @@
 
 @code {
     private string _activeTab = "arch";
+
+    private readonly HashSet<int> _openArch   = new();
+    private readonly HashSet<int> _openSkills = new();
+
+    private void ToggleArch(int i)
+    {
+        if (!_openArch.Remove(i)) _openArch.Add(i);
+    }
+
+    private void ToggleSkill(int i)
+    {
+        if (!_openSkills.Remove(i)) _openSkills.Add(i);
+    }
+
+    private void OnArchKeyDown(KeyboardEventArgs e, int idx)
+    {
+        if (e.Key == "Enter" || e.Key == " ") ToggleArch(idx);
+    }
+
+    private void OnSkillKeyDown(KeyboardEventArgs e, int idx)
+    {
+        if (e.Key == "Enter" || e.Key == " ") ToggleSkill(idx);
+    }
 }
