@@ -42,3 +42,4 @@ wwwroot/dist/
 
 # GitHub workflows cache
 .github/workflows/*.cache
+/Files/Article Files
