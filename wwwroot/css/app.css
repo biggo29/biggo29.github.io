@@ -164,7 +164,7 @@ body {
     left: 0;
     right: 0;
     height: 64px;
-    background: rgba(11, 18, 32, 0.92);
+    background: var(--header-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 1000;
@@ -421,6 +421,56 @@ section {
     outline-offset: 3px;
 }
 
+/* ── Theme toggle button ──────────────────────────────────────────── */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.theme-toggle-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.theme-toggle-btn svg {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle-btn:hover svg {
+    transform: rotate(22deg) scale(1.1);
+}
+
+/* ── Smooth theme transition ──────────────────────────────────────── */
+/* Applied for 400 ms during a theme switch; removed immediately after. */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+    transition:
+        background-color  0.3s ease,
+        border-color      0.3s ease,
+        color             0.25s ease,
+        box-shadow        0.3s ease,
+        fill              0.25s ease,
+        stroke            0.25s ease !important;
+}
+
 @media (max-width: 640px) {
     .footer-content {
         flex-direction: column;
@@ -444,7 +494,7 @@ section {
         top: 64px;
         left: 0;
         right: 0;
-        background: rgba(11, 18, 32, 0.98);
+        background: var(--nav-mobile-bg);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border-color);

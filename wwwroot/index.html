@@ -3,6 +3,16 @@
 
 <head>
     <meta charset="utf-8" />
+    <!-- FOUC prevention: apply saved theme before first paint so there is no
+         flash of the wrong colour scheme. Must run before any stylesheet. -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (_) { document.documentElement.setAttribute('data-theme', 'dark'); }
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Shoaib Shahriar | Lead Software Engineer | Backend APIs | .NET</title>
     <base href="/" />

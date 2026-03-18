@@ -1,4 +1,26 @@
-﻿// ─── Smooth scroll ────────────────────────────────────────────────────────────
+﻿// ─── Theme switcher ───────────────────────────────────────────────────────────
+// initializeTheme: reads the attribute already set by the FOUC-prevention script
+// in index.html and returns the theme string so Blazor can sync its state.
+window.initializeTheme = () => {
+    return document.documentElement.getAttribute('data-theme') || 'dark';
+};
+
+// toggleTheme: flips the attribute, persists to localStorage, and briefly adds
+// .theme-transitioning to <html> so CSS transitions fire across every element.
+window.toggleTheme = () => {
+    const root = document.documentElement;
+    const next = (root.getAttribute('data-theme') || 'dark') === 'dark' ? 'light' : 'dark';
+
+    root.classList.add('theme-transitioning');
+    root.setAttribute('data-theme', next);
+
+    try { localStorage.setItem('theme', next); } catch (_) { /* private browsing */ }
+
+    setTimeout(() => root.classList.remove('theme-transitioning'), 400);
+    return next;
+};
+
+// ─── Smooth scroll ────────────────────────────────────────────────────────────
 // Called from Blazor via JSInterop on nav link click
 window.scrollToSection = (sectionId) => {
     const el = document.getElementById(sectionId);
