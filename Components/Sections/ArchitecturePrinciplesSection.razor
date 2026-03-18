@@ -26,7 +26,7 @@
                 {
                     var principle = PortfolioData.ArchitecturePrinciples[i];
                     var idx       = i;
-                    var open      = _openArch.Contains(idx);
+                    var open      = _openArchIdx == idx;
 
                     <div class="arch-card @(open ? "is-open" : "")"
                          @onclick="() => ToggleArch(idx)"
@@ -56,6 +56,14 @@
         }
         else
         {
+            <div class="cap-toolbar">
+                <span class="cap-open-count">@_openSkills.Count / @PortfolioData.CapabilityGroups.Count expanded</span>
+                <button class="cap-toggle-all" @onclick="ToggleAllSkills"
+                        aria-label="@(AllSkillsExpanded ? "Collapse all skill groups" : "Expand all skill groups")">
+                    @(AllSkillsExpanded ? "↑ Collapse All" : "↓ Expand All")
+                </button>
+            </div>
+
             <div class="cap-grid" role="tabpanel" aria-label="Skills">
                 @for (var i = 0; i < PortfolioData.CapabilityGroups.Count; i++)
                 {
@@ -106,17 +114,30 @@
 @code {
     private string _activeTab = "arch";
 
-    private readonly HashSet<int> _openArch   = new();
+    // Architecture: accordion — only one card open at a time
+    private int? _openArchIdx;
+
+    // Skills: multi-open with expand/collapse all
     private readonly HashSet<int> _openSkills = new();
 
-    private void ToggleArch(int i)
-    {
-        if (!_openArch.Remove(i)) _openArch.Add(i);
-    }
+    private bool AllSkillsExpanded =>
+        PortfolioData.CapabilityGroups.Count > 0 &&
+        _openSkills.Count == PortfolioData.CapabilityGroups.Count;
+
+    private void ToggleArch(int i) =>
+        _openArchIdx = _openArchIdx == i ? null : i;
 
     private void ToggleSkill(int i)
     {
         if (!_openSkills.Remove(i)) _openSkills.Add(i);
+    }
+
+    private void ToggleAllSkills()
+    {
+        if (AllSkillsExpanded)
+            _openSkills.Clear();
+        else
+            for (var i = 0; i < PortfolioData.CapabilityGroups.Count; i++) _openSkills.Add(i);
     }
 
     private void OnArchKeyDown(KeyboardEventArgs e, int idx)

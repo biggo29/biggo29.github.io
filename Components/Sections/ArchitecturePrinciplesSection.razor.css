@@ -1,4 +1,4 @@
-/* ── Section wrapper ──────────────────────────────────────────────── */
+﻿/* ── Section wrapper ──────────────────────────────────────────────── */
 .arch-section {
     background: var(--surface);
     padding: var(--section-space) 2rem;
@@ -52,6 +52,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
+    align-items: start;
 }
 
 /* ── Individual architecture card ─────────────────────────────────── */
@@ -72,6 +73,11 @@
     border-color: var(--primary);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.arch-card:active {
+    transform: scale(0.98);
+    box-shadow: none;
 }
 
 .arch-card.is-open {
@@ -130,6 +136,7 @@
 
 .arch-desc-inner {
     overflow: hidden;
+    min-height: 0;
     padding-top: 0;
     transition: padding-top 0.25s ease;
 }
@@ -151,6 +158,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
+    align-items: start;
 }
 
 .cap-card {
@@ -170,6 +178,11 @@
     border-color: var(--primary);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.cap-card:active {
+    transform: scale(0.98);
+    box-shadow: none;
 }
 
 .cap-card.is-open {
@@ -238,6 +251,7 @@
 
 .cap-tags-inner {
     overflow: hidden;
+    min-height: 0;
     padding-top: 0;
     transition: padding-top 0.25s ease;
 }
@@ -252,6 +266,46 @@
     gap: 0.4rem;
     align-items: flex-start;
     align-content: flex-start;
+}
+
+/* ── Skills toolbar: counter + expand-all button ──────────────────────── */
+.cap-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.cap-open-count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+}
+
+.cap-toggle-all {
+    appearance: none;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.32rem 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.cap-toggle-all:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: var(--primary-soft);
+}
+
+.cap-toggle-all:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 /* ── Responsive ───────────────────────────────────────────────────── */
