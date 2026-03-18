@@ -118,6 +118,34 @@
     border-radius: var(--radius-sm);
 }
 
+/* ── GitHub stats image cards ─────────────────────────────────────── */
+.gh-stats-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    max-width: 680px;
+}
+
+.gh-stat-img-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    line-height: 0; /* removes inline-block gap below <img> */
+}
+
+.gh-stat-img-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.gh-stat-img-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 /* ── CTA button row ───────────────────────────────────────────────── */
 .gh-cta {
     display: flex;
@@ -136,5 +164,9 @@
 
     .gh-stats-row {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gh-stats-images {
+        grid-template-columns: 1fr;
     }
 }
