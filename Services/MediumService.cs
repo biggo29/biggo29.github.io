@@ -14,7 +14,7 @@ namespace biggo29.github.io.Services
         private readonly HttpClient _http;
 
         private const string FeedUrl =
-            "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@biggo29";
+            "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@biggo29&count=10&order_dir=desc";
 
         // Matches the first <img src="..."> in HTML content
         private static readonly Regex ImgSrcRegex =
@@ -29,7 +29,15 @@ namespace biggo29.github.io.Services
         {
             try
             {
-                var response = await _http.GetFromJsonAsync<Rss2JsonResponse>(FeedUrl);
+                var request = new HttpRequestMessage(HttpMethod.Get, FeedUrl);
+                request.Headers.CacheControl = new System.Net.Http.Headers.CacheControlHeaderValue
+                {
+                    NoCache = true,
+                    NoStore = true
+                };
+
+                var httpResponse = await _http.SendAsync(request);
+                var response = await httpResponse.Content.ReadFromJsonAsync<Rss2JsonResponse>();
 
                 if (response?.Items == null) return new();
 
