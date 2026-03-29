@@ -240,6 +240,70 @@ namespace biggo29.github.io.Data
             }
         };
 
+        public static readonly List<Certificate> Certificates = new()
+        {
+            new Certificate
+            {
+                Title = "Claude Code in Action",
+                Issuer = "Anthropic",
+                IssuedDate = "2025",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/ClaudeCodeInAction.pdf",
+                Category = "AI"
+            },
+            new Certificate
+            {
+                Title = "ASP.NET MVC 5 Essential Training",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "2025",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_ASP.NET MVC 5 Essential Training.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
+                Title = "ASP.NET Security",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "2025",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_ASP.NET Security.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
+                Title = "Learning ASP.NET",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "2025",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_Learning ASP.NET.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
+                Title = "Learning Docker",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "2025",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_Learning Docker.pdf",
+                Category = "Cloud"
+            },
+            new Certificate
+            {
+                Title = "SAP ERP Essential Training",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "2025",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_SAP ERP Essential Training.pdf",
+                Category = "Development"
+            }
+        };
+
         public static readonly List<EducationItem> EducationItems = new()
         {
             new EducationItem

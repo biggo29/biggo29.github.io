@@ -28,8 +28,10 @@ public static class AppIcons
         "chart"      => Chart,
         "arrow-path" => ArrowPath,
         "wrench"     => Wrench,
-        "document"   => Document,
-        _            => new MarkupString(name ?? string.Empty)
+        "document"      => Document,
+        "certificate"   => Certificate,
+        "external-link" => ExternalLink,
+        _               => new MarkupString(name ?? string.Empty)
     };
 
     // ── Official brand icons ────────────────────────────────────────────
@@ -106,5 +108,13 @@ public static class AppIcons
 
     public static readonly MarkupString Document = new(
         """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" x2="12" y1="18" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>"""
+    );
+
+    public static readonly MarkupString Certificate = new(
+        """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>"""
+    );
+
+    public static readonly MarkupString ExternalLink = new(
+        """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>"""
     );
 }

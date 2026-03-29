@@ -1,0 +1,335 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.cert-section {
+    background: var(--bg);
+    padding: var(--section-space) 2rem;
+}
+
+.cert-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+}
+
+/* ── Filter buttons ───────────────────────────────────────────────── */
+.cert-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.cert-filter-btn {
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.cert-filter-btn:hover,
+.cert-filter-btn.active {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.cert-filter-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* ── Carousel wrapper ─────────────────────────────────────────────── */
+.cert-carousel-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Track ────────────────────────────────────────────────────────── */
+.cert-track {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cert-track.is-slider {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+}
+
+.cert-track.is-slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* Desktop: 3 cards visible at once */
+.cert-track.is-slider .cert-card {
+    flex: 0 0 calc((100% - 2 * 1.5rem) / 3);
+    scroll-snap-align: start;
+}
+
+.cert-track:not(.is-slider) .cert-card {
+    flex: 1 1 300px;
+}
+
+/* ── Certificate card ─────────────────────────────────────────────── */
+.cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cert-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+/* ── Card header: seal + title block ─────────────────────────────── */
+.cert-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+/* Square badge with issuer initials — styled like gh-lang-badge */
+.cert-seal {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--primary-soft);
+    border: 1px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--primary);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.cert-issuer {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin: 0 0 0.3rem;
+}
+
+.cert-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+    margin: 0;
+}
+
+/* ── Meta row: category badge + credential ID ─────────────────────── */
+.cert-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.cert-category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-sm);
+}
+
+.cert-credential-id {
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    opacity: 0.65;
+}
+
+/* ── Card footer: date + action buttons ──────────────────────────── */
+.cert-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--border);
+}
+
+.cert-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+.cert-actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.cert-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.cert-action-btn.primary {
+    background: var(--primary-soft);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.cert-action-btn.primary:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.cert-action-btn.secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+}
+
+.cert-action-btn.secondary:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* ── Controls row (arrows + progress bar) ────────────────────────── */
+.cert-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+}
+
+.cert-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    cursor: pointer;
+    padding: 0;
+    transition:
+        border-color 0.2s ease,
+        background   0.2s ease,
+        color        0.2s ease,
+        transform    0.15s ease;
+}
+
+.cert-nav-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--primary);
+    transform: scale(1.08);
+}
+
+.cert-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.cert-nav-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.cert-progress {
+    flex: 1;
+    max-width: 300px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.cert-progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 99px;
+    min-width: 6%;
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Responsive: tablet → 2 cards ────────────────────────────────── */
+@media (max-width: 900px) {
+    .cert-track.is-slider .cert-card {
+        flex: 0 0 calc((100% - 1.5rem) / 2);
+    }
+}
+
+/* ── Responsive: mobile → swipe slider ───────────────────────────── */
+@media (max-width: 640px) {
+    .cert-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .cert-track,
+    .cert-track.is-slider {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        gap: 1rem;
+    }
+
+    .cert-track::-webkit-scrollbar,
+    .cert-track.is-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .cert-track .cert-card,
+    .cert-track.is-slider .cert-card {
+        flex: 0 0 83%;
+        scroll-snap-align: start;
+    }
+
+    .cert-progress {
+        max-width: 160px;
+    }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .cert-track,
+    .cert-track.is-slider {
+        scroll-behavior: auto;
+    }
+}

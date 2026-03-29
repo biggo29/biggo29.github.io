@@ -1,0 +1,221 @@
+@using System.Text.Json.Serialization
+@inject IJSRuntime JSRuntime
+
+<section id="certificates" class="cert-section" aria-label="Certificates">
+    <div class="cert-inner">
+
+        <SectionTitle Title="Certificates"
+                      Subtitle="Recognised credentials in cloud, architecture, and software engineering." />
+
+        <div class="cert-filters" role="group" aria-label="Filter certificates by category">
+            <button class="cert-filter-btn @(_activeFilter == "All" ? "active" : "")"
+                    @onclick='() => SetFilter("All")'
+                    aria-pressed="@(_activeFilter == "All" ? "true" : "false")">
+                All
+            </button>
+            @foreach (var cat in ActiveCategories)
+            {
+                <button class="cert-filter-btn @(_activeFilter == cat ? "active" : "")"
+                        @onclick="() => SetFilter(cat)"
+                        aria-pressed="@(_activeFilter == cat ? "true" : "false")">
+                    @cat
+                </button>
+            }
+        </div>
+
+        <div class="cert-carousel-wrapper"
+             role="region"
+             aria-label="Certificates slider"
+             aria-roledescription="carousel">
+
+            <div class="cert-track @(IsSlider ? "is-slider" : "")"
+                 @ref="_trackRef">
+
+                @foreach (var cert in FilteredCerts)
+                {
+                    <div class="cert-card" role="article" aria-label="@cert.Title">
+
+                        <div class="cert-card-header">
+                            <div class="cert-seal" aria-hidden="true" title="@cert.Issuer">
+                                @GetSealInitials(cert.Issuer)
+                            </div>
+                            <div>
+                                <p class="cert-issuer">@cert.Issuer</p>
+                                <h3 class="cert-title">@cert.Title</h3>
+                            </div>
+                        </div>
+
+                        <div class="cert-meta">
+                            <span class="cert-category">@cert.Category</span>
+                            @if (!string.IsNullOrEmpty(cert.CredentialId))
+                            {
+                                <span class="cert-credential-id">ID: @cert.CredentialId</span>
+                            }
+                        </div>
+
+                        <div class="cert-card-footer">
+                            <span class="cert-date">@cert.IssuedDate</span>
+                            <div class="cert-actions">
+                                @if (!string.IsNullOrEmpty(cert.FilePath))
+                                {
+                                    <a class="cert-action-btn primary"
+                                       href="@cert.FilePath"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       aria-label="View @cert.Title certificate (opens in new tab)">
+                                        <span aria-hidden="true">@AppIcons.Get("certificate")</span>
+                                        View
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(cert.CredentialUrl))
+                                {
+                                    <a class="cert-action-btn secondary"
+                                       href="@cert.CredentialUrl"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       aria-label="Verify @cert.Title credential (opens in new tab)">
+                                        <span aria-hidden="true">@AppIcons.Get("external-link")</span>
+                                        Verify
+                                    </a>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        @if (IsSlider)
+        {
+            <div class="cert-controls" role="group" aria-label="Carousel navigation">
+
+                <button class="cert-nav-btn"
+                        @onclick="PrevAsync"
+                        disabled="@(!_canPrev)"
+                        aria-label="Show previous certificates">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                </button>
+
+                <div class="cert-progress"
+                     role="progressbar"
+                     aria-valuenow="@_progress"
+                     aria-valuemin="0"
+                     aria-valuemax="100"
+                     aria-label="Certificate carousel progress">
+                    <div class="cert-progress-fill" style="width: @_progress%"></div>
+                </div>
+
+                <button class="cert-nav-btn"
+                        @onclick="NextAsync"
+                        disabled="@(!_canNext)"
+                        aria-label="Show next certificates">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </button>
+
+            </div>
+        }
+
+    </div>
+</section>
+
+@code {
+    private string _activeFilter = "All";
+    private bool   _needsCarouselReset;
+
+    private ElementReference _trackRef;
+    private bool _canPrev;
+    private bool _canNext = true;
+    private int  _progress;
+    private bool _carouselReady;
+
+    private IEnumerable<string> ActiveCategories =>
+        PortfolioData.Certificates
+            .Select(c => c.Category)
+            .Distinct()
+            .OrderBy(c => c);
+
+    private IEnumerable<Certificate> FilteredCerts =>
+        _activeFilter == "All"
+            ? PortfolioData.Certificates
+            : PortfolioData.Certificates.Where(c => c.Category == _activeFilter);
+
+    private bool IsSlider => FilteredCerts.Count() >= 3;
+
+    private void SetFilter(string filter)
+    {
+        if (_activeFilter == filter) return;
+        _activeFilter        = filter;
+        _carouselReady       = false;
+        _needsCarouselReset  = true;
+        _canPrev             = false;
+        _canNext             = true;
+        _progress            = 0;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_needsCarouselReset)
+        {
+            _needsCarouselReset = false;
+            await JSRuntime.InvokeVoidAsync("carouselScrollToIndex", _trackRef, 0);
+        }
+
+        if (!_carouselReady && IsSlider)
+        {
+            _carouselReady = true;
+            await SyncStateAsync();
+            StateHasChanged();
+        }
+    }
+
+    private async Task PrevAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("carouselScroll", _trackRef, -1);
+        await Task.Delay(350);
+        await SyncStateAsync();
+    }
+
+    private async Task NextAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("carouselScroll", _trackRef, 1);
+        await Task.Delay(350);
+        await SyncStateAsync();
+    }
+
+    private async Task SyncStateAsync()
+    {
+        var s     = await JSRuntime.InvokeAsync<CarouselState>("getCarouselState", _trackRef);
+        _canPrev  = s.CanPrev;
+        _canNext  = s.CanNext;
+        _progress = s.Progress;
+        StateHasChanged();
+    }
+
+    private static string GetSealInitials(string issuer)
+    {
+        if (string.IsNullOrWhiteSpace(issuer)) return "?";
+        var words = issuer.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return words.Length == 1
+            ? issuer[..Math.Min(2, issuer.Length)].ToUpper()
+            : string.Concat(words.Take(2).Select(w => w[0])).ToUpper();
+    }
+
+    private record CarouselState(
+        [property: JsonPropertyName("canPrev")]      bool CanPrev,
+        [property: JsonPropertyName("canNext")]      bool CanNext,
+        [property: JsonPropertyName("currentIndex")] int  CurrentIndex,
+        [property: JsonPropertyName("progress")]     int  Progress
+    );
+}
