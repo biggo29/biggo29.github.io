@@ -1,7 +1,8 @@
 @if (Study is not null)
 {
-    <article class="cs-card">
+    <article class="cs-card @(_open ? "is-open" : "")">
 
+        <!-- ── Always-visible teaser ─────────────────────────────── -->
         <div class="cs-card-header">
             <span class="cs-role-badge">@Study.Role</span>
             <div class="cs-links">
@@ -41,30 +42,64 @@
         <h3 class="cs-title">@Study.Title</h3>
         <p class="cs-context">@Study.Context</p>
 
-        <div class="cs-detail-block cs-architecture">
-            <p class="cs-detail-label">Architecture</p>
-            <p class="cs-detail-text">@Study.Architecture</p>
-        </div>
-
-        <div class="cs-detail-block cs-outcome">
-            <p class="cs-outcome-label">Outcome</p>
-            <p class="cs-detail-text">@Study.Outcome</p>
-        </div>
-
-        <div class="cs-tech-row">
-            @foreach (var tag in Study.Technologies.Take(9))
+        <!-- Tech preview shown only when collapsed -->
+        <div class="cs-tech-preview @(_open ? "is-hidden" : "")">
+            @foreach (var tag in Study.Technologies.Take(5))
             {
                 <TagBadge Text="@tag" />
             }
-            @if (Study.Technologies.Count > 9)
+            @if (Study.Technologies.Count > 5)
             {
-                <span class="cs-more">+@(Study.Technologies.Count - 9) more</span>
+                <span class="cs-more">+@(Study.Technologies.Count - 5) more</span>
             }
         </div>
+
+        <!-- ── Expandable details panel ───────────────────────────── -->
+        <div class="cs-details @(_open ? "is-visible" : "")" aria-hidden="@(_open ? "false" : "true")">
+            <div class="cs-details-inner">
+
+                <div class="cs-detail-block cs-architecture">
+                    <p class="cs-detail-label">Architecture</p>
+                    <p class="cs-detail-text">@Study.Architecture</p>
+                </div>
+
+                <div class="cs-detail-block cs-outcome">
+                    <p class="cs-outcome-label">Outcome</p>
+                    <p class="cs-detail-text">@Study.Outcome</p>
+                </div>
+
+                <div class="cs-tech-row">
+                    @foreach (var tag in Study.Technologies.Take(9))
+                    {
+                        <TagBadge Text="@tag" />
+                    }
+                    @if (Study.Technologies.Count > 9)
+                    {
+                        <span class="cs-more">+@(Study.Technologies.Count - 9) more</span>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── Expand / collapse toggle ───────────────────────────── -->
+        <button class="cs-expand-btn"
+                @onclick="() => _open = !_open"
+                aria-expanded="@(_open ? "true" : "false")">
+            <svg class="cs-expand-chevron @(_open ? "is-open" : "")"
+                 xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <polyline points="6 9 12 15 18 9" />
+            </svg>
+            @(_open ? "Collapse" : "View Details")
+        </button>
 
     </article>
 }
 
 @code {
     [Parameter, EditorRequired] public CaseStudy? Study { get; set; }
+    private bool _open;
 }

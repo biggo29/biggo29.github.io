@@ -19,6 +19,10 @@
     --success:      #10b981;
     --shadow:       rgba(0, 0, 0, 0.35);
 
+    /* ── Nav backgrounds (themed) ───────────────────────────────── */
+    --header-bg:       rgba(11, 18, 32, 0.92);
+    --nav-mobile-bg:   rgba(11, 18, 32, 0.98);
+
     /* ── Typography ─────────────────────────────────────────────── */
     --font-body: Inter, 'Segoe UI', system-ui, sans-serif;
     --font-mono: Consolas, 'JetBrains Mono', monospace;
@@ -31,6 +35,30 @@
     --radius-sm: 8px;
     --radius-md: 14px;
     --radius-lg: 20px;
+
+    /* ── Images ─────────────────────────────────────────────────── */
+    --hero-bg-image: url('/images/hero-bg-dark.webp');
+}
+
+/* ── Light theme overrides ───────────────────────────────────────── */
+[data-theme="light"] {
+    --bg:           #f8fafc;
+    --surface:      #ffffff;
+    --surface-2:    #f1f5f9;
+    --border:       #e2e8f0;
+    --text:         #0f172a;
+    --muted:        #64748b;
+    --primary:      #2563eb;
+    --primary-soft: rgba(37, 99, 235, 0.10);
+    --secondary:    #16a34a;
+    --danger:       #dc2626;
+    --success:      #059669;
+    --shadow:       rgba(0, 0, 0, 0.08);
+
+    --header-bg:     rgba(248, 250, 252, 0.92);
+    --nav-mobile-bg: rgba(248, 250, 252, 0.98);
+
+    --hero-bg-image: url('/images/hero-bg-light.webp');
 }
 
 @media (max-width: 768px) {

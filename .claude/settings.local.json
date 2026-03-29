@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build:*)",
+      "Bash(Get-Process -Name \"dotnet\" -ErrorAction SilentlyContinue)",
+      "Bash(Where-Object { $_ommandLine -like \"*biggo29*\" })",
+      "Bash(Stop-Process -Force)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":5135\")",
+      "Bash(taskkill:*)"
+    ]
+  }
+}

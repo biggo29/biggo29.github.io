@@ -46,6 +46,8 @@
     font-size: 2.75rem;
     line-height: 1;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
 .gh-name {
@@ -128,6 +130,7 @@
 }
 
 .gh-stat-img-card {
+    background: #141321; /* matches github-readme-stats "radical" theme bg */
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;

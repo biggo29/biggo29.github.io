@@ -5,13 +5,19 @@
                       Subtitle="Career progression across enterprise product, national e-governance, and digital signage engineering." />
 
         <div class="exp-timeline">
-            @foreach (var item in PortfolioData.ExperienceItems)
+            @for (var i = 0; i < PortfolioData.ExperienceItems.Count; i++)
             {
+                var item = PortfolioData.ExperienceItems[i];
+                var idx  = i;
+                var open = _expanded.Contains(idx);
+
                 <div class="exp-entry">
                     <div class="exp-dot" aria-hidden="true"></div>
-                    <div class="exp-card">
+                    <div class="exp-card @(open ? "is-expanded" : "")">
 
-                        <div class="exp-card-header">
+                        <button class="exp-card-header exp-toggle"
+                                @onclick="() => Toggle(idx)"
+                                aria-expanded="@(open ? "true" : "false")">
                             <div class="exp-role-info">
                                 <h3 class="exp-role">@item.Role</h3>
                                 <div class="exp-meta">
@@ -23,23 +29,36 @@
                                     }
                                 </div>
                             </div>
-                            <span class="exp-duration">@item.Duration</span>
-                        </div>
+                            <div class="exp-toggle-right">
+                                <span class="exp-duration">@item.Duration</span>
+                                <svg class="exp-chevron @(open ? "is-open" : "")"
+                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </div>
+                        </button>
 
-                        <p class="exp-summary">@item.Summary</p>
+                        <div class="exp-details @(open ? "is-visible" : "")" aria-hidden="@(open ? "false" : "true")">
+                            <div class="exp-details-inner">
+                                <p class="exp-summary">@item.Summary</p>
 
-                        <ul class="exp-accomplishments" aria-label="Key accomplishments">
-                            @foreach (var acc in item.Accomplishments)
-                            {
-                                <li>@acc</li>
-                            }
-                        </ul>
+                                <ul class="exp-accomplishments" aria-label="Key accomplishments">
+                                    @foreach (var acc in item.Accomplishments)
+                                    {
+                                        <li>@acc</li>
+                                    }
+                                </ul>
 
-                        <div class="exp-tech">
-                            @foreach (var tech in item.Technologies)
-                            {
-                                <TagBadge Text="@tech" />
-                            }
+                                <div class="exp-tech">
+                                    @foreach (var tech in item.Technologies)
+                                    {
+                                        <TagBadge Text="@tech" />
+                                    }
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -71,3 +90,12 @@
 
     </div>
 </section>
+
+@code {
+    private readonly HashSet<int> _expanded = new() { 0 };
+
+    private void Toggle(int i)
+    {
+        if (!_expanded.Remove(i)) _expanded.Add(i);
+    }
+}
