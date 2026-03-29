@@ -43,3 +43,6 @@ wwwroot/dist/
 # GitHub workflows cache
 .github/workflows/*.cache
 /Files/Article Files
+
+# Local dev config overrides (may contain secrets)
+wwwroot/appsettings.Development.json

@@ -9,11 +9,43 @@
     margin: 0 auto;
 }
 
-/* ── Article grid ─────────────────────────────────────────────────── */
-.med-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+/* ── Carousel wrapper ─────────────────────────────────────────────── */
+.med-carousel-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Track ────────────────────────────────────────────────────────── */
+.med-track {
+    display: flex;
     gap: 1.75rem;
+    flex-wrap: wrap;        /* default: grid-like for < 3 articles */
+}
+
+/* Slider mode — enabled by Blazor when articles >= 3 */
+.med-track.is-slider {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;    /* prevent card hover box-shadow clip at bottom */
+}
+
+.med-track.is-slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* Desktop: 3 cards visible at once */
+.med-track.is-slider .med-card {
+    flex: 0 0 calc((100% - 2 * 1.75rem) / 3);
+    scroll-snap-align: start;
+}
+
+/* Non-slider: cards fill the row like auto-fill minmax grid */
+.med-track:not(.is-slider) .med-card {
+    flex: 1 1 280px;
 }
 
 /* ── Article card ─────────────────────────────────────────────────── */
@@ -24,12 +56,13 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .med-card:hover {
     border-color: var(--primary);
     transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--shadow);
 }
 
 /* ── Thumbnail ────────────────────────────────────────────────────── */
@@ -47,7 +80,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.5rem;
+    font-size: 3rem;
+    color: var(--muted);
 }
 
 /* ── Card body ────────────────────────────────────────────────────── */
@@ -101,6 +135,71 @@
     gap: 0.55rem;
 }
 
+/* ── Controls row (arrows + progress bar) ────────────────────────── */
+.med-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+}
+
+/* ── Arrow buttons ────────────────────────────────────────────────── */
+.med-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    cursor: pointer;
+    padding: 0;
+    transition:
+        border-color 0.2s ease,
+        background   0.2s ease,
+        color        0.2s ease,
+        transform    0.15s ease;
+}
+
+.med-nav-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--primary);
+    transform: scale(1.08);
+}
+
+.med-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.med-nav-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* ── Progress bar ─────────────────────────────────────────────────── */
+.med-progress {
+    flex: 1;
+    max-width: 300px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.med-progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 99px;
+    min-width: 6%;          /* shows a sliver at position 0 */
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* ── Status message ───────────────────────────────────────────────── */
 .med-status {
     text-align: center;
@@ -116,9 +215,53 @@
     margin-top: 2.5rem;
 }
 
-/* ── Responsive ───────────────────────────────────────────────────── */
+/* ── Responsive: tablet (641 – 900 px) → 2 cards visible ─────────── */
+@media (max-width: 900px) {
+    .med-track.is-slider .med-card {
+        flex: 0 0 calc((100% - 1.75rem) / 2);
+    }
+}
+
+/* ── Responsive: mobile (≤ 640 px) → always a swipe slider ──────── */
 @media (max-width: 640px) {
-    .med-grid {
-        grid-template-columns: 1fr;
+    .med-section {
+        padding: 4rem 1.25rem;
+    }
+
+    /* Force every track into scroll-snap mode on mobile,
+       even the non-slider (< 3 article) case */
+    .med-track,
+    .med-track.is-slider {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        gap: 1rem;
+    }
+
+    .med-track::-webkit-scrollbar,
+    .med-track.is-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 1 card + peek of next — overrides both slider and non-slider widths */
+    .med-track .med-card,
+    .med-track.is-slider .med-card {
+        flex: 0 0 83%;
+        scroll-snap-align: start;
+    }
+
+    .med-progress {
+        max-width: 160px;
+    }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .med-track,
+    .med-track.is-slider {
+        scroll-behavior: auto;
     }
 }

@@ -23,10 +23,10 @@
             </p>
 
             <div class="hero-chips">
-                <MetricChip Icon="⚡" Text="8+ Years Experience" />
-                <MetricChip Icon="🔗" Text="30+ Microservices" />
-                <MetricChip Icon="🏆" Text="WSIS Award 2021" />
-                <MetricChip Icon="👥" Text="Technical Leadership" />
+                <MetricChip Icon="bolt"   Text="8+ Years Experience" />
+                <MetricChip Icon="link"   Text="30+ Microservices" />
+                <MetricChip Icon="trophy" Text="WSIS Award 2021" />
+                <MetricChip Icon="users"  Text="Technical Leadership" />
             </div>
 
             <div class="hero-actions">
@@ -64,7 +64,7 @@
                     {
                         <div class="stack-group">
                             <p class="stack-group-label">
-                                <span>@group.Icon</span>@group.Label
+                                <span>@AppIcons.Get(group.Icon)</span>@group.Label
                             </p>
                             <div class="stack-tags">
                                 @foreach (var tag in group.Tags)
@@ -88,19 +88,19 @@
 
     private static readonly StackGroup[] StackGroups =
     {
-        new("⚙️ ", "Backend",
+        new("server",   "Backend",
             new[] { "C#", "ASP.NET Core", ".NET 8", "EF Core", "LINQ" }),
 
-        new("🏗️ ", "Architecture",
+        new("layers",   "Architecture",
             new[] { "CQRS", "Clean Architecture", "Microservices", "Event-Driven" }),
 
-        new("☁️ ", "Cloud & DevOps",
+        new("cloud",    "Cloud & DevOps",
             new[] { "Azure DevOps", "CI/CD", "Docker", "Observability" }),
 
-        new("🧪 ", "Quality",
+        new("beaker",   "Quality",
             new[] { "TDD", "XUnit", "MSpec", "99%+ Coverage" }),
 
-        new("🤖 ", "AI-Assisted Dev",
+        new("sparkles", "AI-Assisted Dev",
             new[] { "GitHub Copilot", "Claude", "ChatGPT" }),
     };
 
