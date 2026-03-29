@@ -244,9 +244,19 @@ namespace biggo29.github.io.Data
         {
             new Certificate
             {
+                Title = "SAP ERP Essential Training",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "Mar 01, 2026",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_SAP ERP Essential Training.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
                 Title = "Claude Code in Action",
                 Issuer = "Anthropic",
-                IssuedDate = "2025",
+                IssuedDate = "Mar 29, 2026",
                 CredentialId = null,
                 CredentialUrl = null,
                 FilePath = "/files/certificates/ClaudeCodeInAction.pdf",
@@ -254,39 +264,9 @@ namespace biggo29.github.io.Data
             },
             new Certificate
             {
-                Title = "ASP.NET MVC 5 Essential Training",
-                Issuer = "LinkedIn Learning",
-                IssuedDate = "2025",
-                CredentialId = null,
-                CredentialUrl = null,
-                FilePath = "/files/certificates/CertificateOfCompletion_ASP.NET MVC 5 Essential Training.pdf",
-                Category = "Development"
-            },
-            new Certificate
-            {
-                Title = "ASP.NET Security",
-                Issuer = "LinkedIn Learning",
-                IssuedDate = "2025",
-                CredentialId = null,
-                CredentialUrl = null,
-                FilePath = "/files/certificates/CertificateOfCompletion_ASP.NET Security.pdf",
-                Category = "Development"
-            },
-            new Certificate
-            {
-                Title = "Learning ASP.NET",
-                Issuer = "LinkedIn Learning",
-                IssuedDate = "2025",
-                CredentialId = null,
-                CredentialUrl = null,
-                FilePath = "/files/certificates/CertificateOfCompletion_Learning ASP.NET.pdf",
-                Category = "Development"
-            },
-            new Certificate
-            {
                 Title = "Learning Docker",
                 Issuer = "LinkedIn Learning",
-                IssuedDate = "2025",
+                IssuedDate = "Aug 10, 2023",
                 CredentialId = null,
                 CredentialUrl = null,
                 FilePath = "/files/certificates/CertificateOfCompletion_Learning Docker.pdf",
@@ -294,12 +274,32 @@ namespace biggo29.github.io.Data
             },
             new Certificate
             {
-                Title = "SAP ERP Essential Training",
+                Title = "ASP.NET: Security",
                 Issuer = "LinkedIn Learning",
-                IssuedDate = "2025",
+                IssuedDate = "Apr 18, 2022",
                 CredentialId = null,
                 CredentialUrl = null,
-                FilePath = "/files/certificates/CertificateOfCompletion_SAP ERP Essential Training.pdf",
+                FilePath = "/files/certificates/CertificateOfCompletion_ASP.NET Security.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
+                Title = "ASP.NET MVC 5 Essential Training",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "Mar 23, 2022",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_ASP.NET MVC 5 Essential Training.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
+                Title = "Learning ASP.NET",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "Mar 17, 2022",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_Learning ASP.NET.pdf",
                 Category = "Development"
             }
         };
