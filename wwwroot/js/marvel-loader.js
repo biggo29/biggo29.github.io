@@ -3,8 +3,8 @@
    Phase 1 : Black screen + film grain         (0 – 200ms)
    Phase 2 : Tech stack panel shuffle          (200 – ~2050ms)
    Phase 3 : Red flash burst                   (~2050 – ~2320ms)
-   Phase 4 : Name reveal — SHOAIB SHAHRIAR     (~2320 – ~3020ms)
-   Phase 5 : White flash + portfolio reveal    (~3020 – ~3500ms)
+   Phase 4 : Name reveal — SHOAIB SHAHRIAR     (~2320 – ~4020ms)
+   Phase 5 : White flash + portfolio reveal    (~4020 – ~4500ms)
    ═══════════════════════════════════════════════════════════════ */
 (function () {
     'use strict';
@@ -133,9 +133,9 @@
 
     /* ════════════════════════════════════════════════════════════
        PHASE 4 — Name Reveal: SHOAIB SHAHRIAR
-       Word 1 slams in → Word 2 slams in (+90ms)
-       Both sweep to Marvel red via CSS transition
-       Total: ~700ms
+       Chrome silver text on deep crimson red (matched to marvel-theme.png)
+       Word 1 slams in → Word 2 slams in (+90ms) → hold
+       Total: ~1700ms  (+1s from original 700ms)
        ════════════════════════════════════════════════════════════ */
     function runNameReveal(onDone) {
         setOpacity(nameEl, 1);
@@ -148,27 +148,17 @@
             if (words[1]) words[1].classList.add('ml-word-in');
         }, 90);
 
-        /* After both slams complete (90ms stagger + 120ms anim = 210ms),
-           lock opacity + transform inline so colour transition never
-           accidentally resets them, then trigger the red sweep.          */
+        /* Lock final state inline after both slams complete
+           (prevents any animation restart from resetting values) */
         setTimeout(function () {
             words.forEach(function (w) {
                 w.style.opacity   = '1';
                 w.style.transform = 'scale(1)';
             });
-
-            /* Sweep word 0 to red */
-            if (words[0]) words[0].classList.add('ml-word-red');
-
-            /* Sweep word 1 to red — slight stagger for a roll-on effect */
-            setTimeout(function () {
-                if (words[1]) words[1].classList.add('ml-word-red');
-            }, 80);
-
         }, 220);
 
-        /* Hold name on screen before white flash */
-        setTimeout(onDone, 700);
+        /* Hold chrome name on crimson — 1700ms before white flash */
+        setTimeout(onDone, 1700);
     }
 
     /* ════════════════════════════════════════════════════════════

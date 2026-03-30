@@ -110,6 +110,7 @@
 }
 
 /* ── Name plate (Phase 4) ──────────────────────────────────────── */
+/*    Deep crimson background — matched to marvel-theme.png card    */
 #ml-name {
     position: absolute;
     inset: 0;
@@ -121,8 +122,16 @@
     opacity: 0;
     pointer-events: none;
     gap: 0;
+    /* Marvel card red: bright centre, deep edges */
+    background: radial-gradient(
+        ellipse at center,
+        #a50018 0%,
+        #7a0012 55%,
+        #5c000e 100%
+    );
 }
 
+/*    Chrome/metallic silver — matched to the card's letter treatment */
 .ml-word {
     display: block;
     font-family: 'Bebas Neue', 'Anton', 'Impact', sans-serif;
@@ -130,18 +139,32 @@
     font-weight: 400;
     letter-spacing: 0.06em;
     line-height: 0.92;
-    color: #fff;
     text-align: center;
-    /* Marvel-style deep emboss */
-    text-shadow:
-        0 3px 0 rgba(0,0,0,0.9),
-        0 6px 20px rgba(0,0,0,0.7),
-        0 0 80px rgba(232,4,44,0.25);
     opacity: 0;
     transform: scale(1.18);
     will-change: transform, opacity;
-    /* Transition handles colour sweep — keeps slam animation intact */
-    transition: color 0.5s ease, text-shadow 0.5s ease;
+
+    /* Chrome gradient: bright top → dark mid → bright base */
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #e8e8e8 12%,
+        #c2c2c2 30%,
+        #d8d8d8 45%,
+        #888888 62%,
+        #b2b2b2 78%,
+        #d4d4d4 90%,
+        #eeeeee 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* Drop-shadow for 3-D depth (text-shadow ignored with clip-text) */
+    filter:
+        drop-shadow(0 3px 0px rgba(0,0,0,0.95))
+        drop-shadow(0 6px 14px rgba(0,0,0,0.7))
+        drop-shadow(0 0 40px rgba(255,255,255,0.08));
 }
 
 /* Slam: scale + opacity snap into frame */
@@ -154,16 +177,6 @@
         opacity: 1;
         transform: scale(1);
     }
-}
-
-/* Red sweep: just sets target colour — CSS transition does the work.
-   No animation here so it never conflicts with ml-word-slam forwards fill. */
-.ml-word.ml-word-red {
-    color: #E8042C;
-    text-shadow:
-        0 3px 0 rgba(0,0,0,0.9),
-        0 6px 20px rgba(0,0,0,0.5),
-        0 0 120px rgba(232,4,44,0.6);
 }
 
 /* ── White flash (Phase 5) ─────────────────────────────────────── */

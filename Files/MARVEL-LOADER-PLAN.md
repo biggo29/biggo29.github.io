@@ -141,11 +141,11 @@ wwwroot/
 | Phase | Start | End | Duration |
 |---|---|---|---|
 | Black screen | 0ms | 200ms | 200ms |
-| Tech panel shuffle (accel.) | 200ms | 2400ms | ~2200ms |
-| Red flash burst | 2400ms | 2700ms | 300ms |
-| Name reveal | 2700ms | 3400ms | 700ms |
-| White flash + portfolio fade-in | 3400ms | 3800ms | 400ms |
-| **Total** | | | **~3.8s** |
+| Tech panel shuffle (accel.) | 200ms | ~2050ms | ~1850ms |
+| Red flash burst | ~2050ms | ~2320ms | ~270ms |
+| Name reveal | ~2320ms | ~4020ms | ~1700ms *(+1s added)* |
+| White flash + portfolio fade-in | ~4020ms | ~4500ms | ~480ms |
+| **Total** | | | **~4.5s** |
 
 ---
 
@@ -159,10 +159,24 @@ wwwroot/
 
 ---
 
-## Open Questions for Review
+## Changelog
 
-1. **Font choice** — Bebas Neue vs. Anton vs. a custom CSS stencil approach (no Google Fonts dependency)?
-2. **Panel style** — pure text only, or add a faint background grid/halftone texture to each panel to feel more "comic book"?
-3. **Name colour** — white slamming in then red sweep, or straight red from the start like the actual Marvel title card?
-4. **Replay** — should there be a hidden trigger (e.g. clicking the site logo) to replay the intro?
-5. **Sound** — Marvel's intro has that iconic audio swell. Out of scope for web (autoplay blocked), but worth noting.
+### v1.1 — Marvel Card Tone Update
+**Reference:** `Files/marvel-theme.png` — Official Marvel Studios card
+
+**Changes made:**
+
+1. **Name screen background** — Changed from pure black to deep crimson red matching the Marvel Studios card:
+   - `radial-gradient(ellipse at center, #a50018 0%, #7a0012 60%, #5c000e 100%)`
+   - Brighter centre fades to near-black edges, replicating the card's depth
+
+2. **Name text — chrome metallic** — Replaced flat white + red sweep with a proper chrome/silver metallic gradient:
+   - CSS `background-clip: text` with a vertical chrome gradient (bright top highlight → dark mid → bright base)
+   - `filter: drop-shadow()` replaces `text-shadow` (required because `text-shadow` is ignored when `-webkit-text-fill-color: transparent` is set)
+   - Removed the white→red colour sweep; the drama now comes entirely from chrome silver on deep red — true to the card
+
+3. **+1 second added to Phase 4** — Name hold time extended from 700ms to 1700ms so the reveal breathes
+
+### Open Questions — Resolved
+- **Name colour** → Chrome/silver metallic on deep crimson red (matched to `marvel-theme.png`)
+- **Font** → Bebas Neue (Google Fonts), Anton + Impact as fallbacks
