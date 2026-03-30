@@ -161,6 +161,23 @@ wwwroot/
 
 ## Changelog
 
+### v1.2 — Exact Marvel Studios Layout Match
+**Reference:** `Files/marvel-theme.png`
+
+**Changes made:**
+
+1. **One-line layout** — Changed `#ml-name` from `flex-direction: column` to `flex-direction: row` with `align-items: center`. Both words now sit on the same horizontal baseline.
+
+2. **SHOAIB = MARVEL, SHAHRIAR = STUDIOS** — Separate font sizes matching the ~2:1 height ratio in the card:
+   - SHOAIB: `clamp(4rem, 14vw, 11rem)` — large, like MARVEL
+   - SHAHRIAR: `clamp(2rem, 7vw, 5.5rem)` — smaller, like STUDIOS
+
+3. **Vertical separator** — `border-right` on SHOAIB word replicates the thin bar between MARVEL and STUDIOS
+
+4. **Chrome fixed** — Removed `background-clip: text` (unreliable; chrome was not visible). Replaced with `color: #d8d8d8` + multi-layer `text-shadow` stack: bright top-edge highlight + deep bottom shadows. Universally supported and matches the card's extruded metallic letter look.
+
+5. **Theme independence confirmed** — Loader uses only hardcoded values, fully isolated from portfolio dark/light theme.
+
 ### v1.1 — Marvel Card Tone Update
 **Reference:** `Files/marvel-theme.png` — Official Marvel Studios card
 
