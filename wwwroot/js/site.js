@@ -242,6 +242,384 @@ window.initializeCardAnimations = () => {
     newCards.forEach(card => observer.observe(card));
 };
 
+// ─── Scroll Progress Bar ──────────────────────────────────────────────────────
+// Reads window.scrollY each scroll event and writes --scroll-progress to :root
+// so the CSS #scroll-progress-bar can track it with no layout cost.
+window.initializeScrollProgress = () => {
+    const update = () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
+        document.documentElement.style.setProperty('--scroll-progress', pct + '%');
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+};
+
+// ─── Cursor Spotlight ─────────────────────────────────────────────────────────
+// Tracks mouse position into --cx / --cy on :root so the .cursor-spotlight
+// div can paint a radial gradient centred on the cursor (pure CSS, zero repaints).
+window.initializeCursorSpotlight = () => {
+    const root = document.documentElement;
+    document.addEventListener('mousemove', e => {
+        root.style.setProperty('--cx', e.clientX + 'px');
+        root.style.setProperty('--cy', e.clientY + 'px');
+    }, { passive: true });
+};
+
+// ─── Section Navigator ────────────────────────────────────────────────────────
+// Dynamically builds a fixed right-side dot navigator from section[id] elements.
+// Uses IntersectionObserver (same margin as initializeNavHighlight) to keep the
+// active dot in sync while scrolling.  Hidden on < 900 px via CSS.
+window.initializeSectionNav = () => {
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    if (!sections.length) return;
+
+    const existing = document.getElementById('section-nav');
+    if (existing) existing.remove();
+
+    const nav = document.createElement('nav');
+    nav.id    = 'section-nav';
+    nav.className = 'section-nav';
+    nav.setAttribute('aria-label', 'Jump to section');
+
+    const labels = {
+        'home':         'Home',
+        'impact':       'Impact',
+        'case-studies': 'Case Studies',
+        'architecture': 'Technical',
+        'experience':   'Experience',
+        'github':       'GitHub',
+        'certificates': 'Certificates',
+        'writing':      'Writing',
+        'contact':      'Contact'
+    };
+
+    sections.forEach(section => {
+        const btn   = document.createElement('button');
+        btn.className = 'section-nav-item';
+        btn.setAttribute('aria-label', 'Go to ' + (labels[section.id] || section.id));
+
+        const label = document.createElement('span');
+        label.className = 'section-nav-label';
+        label.textContent = labels[section.id] || section.id;
+
+        const dot = document.createElement('span');
+        dot.className = 'section-nav-dot';
+
+        btn.appendChild(label);
+        btn.appendChild(dot);
+        btn.addEventListener('click', () => {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        nav.appendChild(btn);
+    });
+
+    document.body.appendChild(nav);
+
+    const items = Array.from(nav.querySelectorAll('.section-nav-item'));
+
+    const setActive = id => {
+        items.forEach((item, i) => {
+            item.classList.toggle('active', sections[i]?.id === id);
+        });
+    };
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) setActive(entry.target.id);
+        });
+    }, { threshold: 0, rootMargin: '-64px 0px -65% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+    setActive(sections[0].id);
+};
+
+// ─── 3D Card Tilt ─────────────────────────────────────────────────────────────
+// Adds perspective tilt + glare to .impact-card, .cs-card, .arch-card on hover.
+// Injects a glare child element (avoids ::after conflicts with scoped CSS).
+// Skipped for touch devices and when prefers-reduced-motion is set.
+window.initializeTilt = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    const SELECTORS = '.impact-card, .cs-card, .arch-card';
+
+    const applyTilt = card => {
+        if (card._tiltApplied) return;
+        card._tiltApplied = true;
+
+        const glare = document.createElement('div');
+        glare.setAttribute('aria-hidden', 'true');
+        Object.assign(glare.style, {
+            position: 'absolute', inset: '0',
+            borderRadius: 'inherit', pointerEvents: 'none',
+            zIndex: '2', opacity: '0',
+            transition: 'opacity 0.2s ease',
+            background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.09), transparent 55%)'
+        });
+        card.style.position = 'relative';
+        card.appendChild(glare);
+
+        card.addEventListener('mousemove', e => {
+            const r  = card.getBoundingClientRect();
+            const cx = e.clientX - r.left;
+            const cy = e.clientY - r.top;
+            const rx = ((cy / r.height) - 0.5) * -14;
+            const ry = ((cx / r.width)  - 0.5) *  14;
+
+            card.style.transform  = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(4px)`;
+            glare.style.background = `radial-gradient(circle at ${(cx/r.width*100).toFixed(0)}% ${(cy/r.height*100).toFixed(0)}%, rgba(255,255,255,0.09), transparent 55%)`;
+            glare.style.opacity   = '1';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            glare.style.opacity  = '0';
+        });
+
+        card.style.transition = 'transform 0.18s ease-out, box-shadow 0.3s ease';
+        card.style.willChange = 'transform';
+    };
+
+    document.querySelectorAll(SELECTORS).forEach(applyTilt);
+
+    // Re-apply after Blazor re-renders (e.g. case-study filter change)
+    new MutationObserver(() => {
+        document.querySelectorAll(SELECTORS).forEach(applyTilt);
+    }).observe(document.body, { childList: true, subtree: true });
+};
+
+// ─── Constellation Hero ───────────────────────────────────────────────────────
+// Draws a particle network on a <canvas> element.
+// 60 dots connect with lines when within 120 px. Cursor repels within 100 px.
+// Pauses the rAF loop via IntersectionObserver when the hero scrolls off-screen.
+window.initializeConstellation = canvasId => {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    // Respect OS reduced-motion preference — draw one static frame, no loop
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+        const ctx = canvas.getContext('2d');
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        const N = 40;
+        const pts = Array.from({ length: N }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.2 + 0.5
+        }));
+        const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+        pts.forEach(p => {
+            ctx.fillStyle = dark ? 'rgba(99,155,246,0.4)' : 'rgba(37,99,235,0.25)';
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        return;
+    }
+
+    const ctx   = canvas.getContext('2d');
+    let   raf   = null;
+    const mouse = { x: -2000, y: -2000 };
+
+    const resize = () => {
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    new ResizeObserver(resize).observe(canvas);
+
+    const N = 60;
+    const pts = Array.from({ length: N }, () => ({
+        x:  Math.random() * canvas.width,
+        y:  Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.42,
+        vy: (Math.random() - 0.5) * 0.42,
+        r:  Math.random() * 1.2 + 0.5
+    }));
+
+    const dark = () => document.documentElement.getAttribute('data-theme') !== 'light';
+
+    const draw = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const d = dark();
+
+        pts.forEach(p => {
+            const dx = p.x - mouse.x, dy = p.y - mouse.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 100 && dist > 0) {
+                const f = ((100 - dist) / 100) * 0.65;
+                p.vx += (dx / dist) * f;
+                p.vy += (dy / dist) * f;
+            }
+            p.vx *= 0.97; p.vy *= 0.97;
+            p.x  += p.vx;  p.y  += p.vy;
+            if (p.x < 0 || p.x > canvas.width)  { p.vx *= -1; p.x = Math.max(0, Math.min(canvas.width, p.x));   }
+            if (p.y < 0 || p.y > canvas.height) { p.vy *= -1; p.y = Math.max(0, Math.min(canvas.height, p.y)); }
+        });
+
+        for (let i = 0; i < N; i++) {
+            for (let j = i + 1; j < N; j++) {
+                const dist = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+                if (dist < 120) {
+                    const a = (1 - dist / 120) * (d ? 0.22 : 0.12);
+                    ctx.strokeStyle = d ? `rgba(99,155,246,${a})` : `rgba(37,99,235,${a})`;
+                    ctx.lineWidth   = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(pts[j].x, pts[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        pts.forEach(p => {
+            ctx.fillStyle = d ? 'rgba(99,155,246,0.6)' : 'rgba(37,99,235,0.38)';
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        raf = requestAnimationFrame(draw);
+    };
+
+    const section = canvas.closest('section');
+    if (section) {
+        new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { if (!raf) draw(); }
+                else { cancelAnimationFrame(raf); raf = null; }
+            });
+        }, { threshold: 0.01 }).observe(section);
+    }
+
+    draw();
+
+    canvas.addEventListener('mousemove', e => {
+        const r = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+    }, { passive: true });
+
+    canvas.addEventListener('mouseleave', () => { mouse.x = -2000; mouse.y = -2000; });
+};
+
+// ─── Button Particle Burst ────────────────────────────────────────────────────
+// On .cta-primary click, spawns 12 particles that burst radially and fade.
+// Particles are fixed-position DOM nodes removed after 700 ms.
+window.initializeParticleBurst = () => {
+    const burst = btn => {
+        const rect = btn.getBoundingClientRect();
+        const cx   = rect.left + rect.width  / 2;
+        const cy   = rect.top  + rect.height / 2;
+
+        for (let i = 0; i < 12; i++) {
+            const el    = document.createElement('div');
+            const angle = (i / 12) * Math.PI * 2;
+            const dist  = 26 + Math.random() * 22;
+            const size  = 3 + Math.random() * 3;
+
+            el.setAttribute('aria-hidden', 'true');
+            el.style.cssText = [
+                'position:fixed',
+                `left:${cx}px`, `top:${cy}px`,
+                `width:${size}px`, `height:${size}px`,
+                'border-radius:50%',
+                'background:var(--primary)',
+                'pointer-events:none',
+                'z-index:9997',
+                'transform:translate(-50%,-50%)',
+                'animation:particle-burst 0.6s ease-out forwards',
+                `--tx:${(Math.cos(angle) * dist).toFixed(1)}px`,
+                `--ty:${(Math.sin(angle) * dist).toFixed(1)}px`
+            ].join(';');
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 700);
+        }
+    };
+
+    const attach = btn => {
+        if (btn._burstApplied) return;
+        btn._burstApplied = true;
+        btn.addEventListener('click', () => burst(btn));
+    };
+
+    document.querySelectorAll('.cta-primary').forEach(attach);
+
+    new MutationObserver(() => {
+        document.querySelectorAll('.cta-primary').forEach(attach);
+    }).observe(document.body, { childList: true, subtree: true });
+};
+
+// ─── Theme Toggle Sparkle ─────────────────────────────────────────────────────
+// Bursts 8 small coloured particles from the theme button after each toggle.
+// Called from Blazor ToggleThemeAsync after the theme has been switched.
+window.triggerThemeSparkle = btnSelector => {
+    const btn = document.querySelector(btnSelector);
+    if (!btn) return;
+
+    const rect  = btn.getBoundingClientRect();
+    const cx    = rect.left + rect.width  / 2;
+    const cy    = rect.top  + rect.height / 2;
+    const isDk  = document.documentElement.getAttribute('data-theme') !== 'light';
+    const color = isDk ? 'rgba(251,191,36,0.9)' : 'rgba(99,155,246,0.9)';
+
+    for (let i = 0; i < 8; i++) {
+        const el    = document.createElement('div');
+        const angle = (i / 8) * Math.PI * 2;
+        const dist  = 18 + Math.random() * 14;
+
+        el.setAttribute('aria-hidden', 'true');
+        el.style.cssText = [
+            'position:fixed',
+            `left:${cx}px`, `top:${cy}px`,
+            'width:4px', 'height:4px',
+            'border-radius:50%',
+            `background:${color}`,
+            'pointer-events:none',
+            'z-index:9997',
+            'transform:translate(-50%,-50%)',
+            'animation:particle-burst 0.55s ease-out forwards',
+            `--tx:${(Math.cos(angle) * dist).toFixed(1)}px`,
+            `--ty:${(Math.sin(angle) * dist).toFixed(1)}px`
+        ].join(';');
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 650);
+    }
+};
+
+// ─── Magnetic Buttons ─────────────────────────────────────────────────────────
+// .cta-primary buttons subtly attract toward the cursor within ~80 px.
+// Skipped for touch devices and prefers-reduced-motion.
+window.initializeMagneticButtons = () => {
+    if (window.matchMedia('(hover: none)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const attach = btn => {
+        if (btn._magnetApplied) return;
+        btn._magnetApplied = true;
+
+        btn.addEventListener('mousemove', e => {
+            const r  = btn.getBoundingClientRect();
+            const dx = (e.clientX - (r.left + r.width  / 2)) * 0.32;
+            const dy = (e.clientY - (r.top  + r.height / 2)) * 0.32;
+            btn.style.transform = `translate(${dx}px, ${dy}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+        });
+    };
+
+    document.querySelectorAll('.cta-primary').forEach(attach);
+
+    new MutationObserver(() => {
+        document.querySelectorAll('.cta-primary').forEach(attach);
+    }).observe(document.body, { childList: true, subtree: true });
+};
+
 // ─── Hero role typewriter effect ──────────────────────────────────────────────
 // Called from HeroSection.razor via JSInterop on first render.
 // Types `text` into `el` one character at a time, then fades out the cursor.

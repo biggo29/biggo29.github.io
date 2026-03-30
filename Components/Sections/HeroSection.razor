@@ -1,6 +1,17 @@
 @inject IJSRuntime JS
 
 <section id="home" class="hero" aria-label="Introduction">
+
+    <!-- Constellation canvas — replaces static hero background image -->
+    <canvas id="constellation-canvas" class="hero-constellation" aria-hidden="true"></canvas>
+
+    <!-- Floating code snippet — desktop only, purely decorative -->
+    <div class="hero-code-snippet" aria-hidden="true"><pre><span class="hcs-kw">const</span> engineer = &#123;
+  name:   <span class="hcs-str">"Shoaib Shahriar"</span>,
+  stack:  [<span class="hcs-str">".NET"</span>, <span class="hcs-str">"CQRS"</span>, <span class="hcs-str">"Microservices"</span>],
+  uptime: <span class="hcs-str">"99.9%"</span>,
+&#125;;</pre></div>
+
     <div class="hero-inner">
 
         <!-- ── Left: identity & CTAs ───────────────────────── -->
@@ -108,14 +119,14 @@
     {
         if (firstRender)
         {
-            // hero-role stagger: delay 0.20 s + duration 0.50 s = visible at 0.70 s.
-            // 820 ms gives a natural 120 ms cursor-blink pause before typing begins.
             await JS.InvokeVoidAsync(
                 "startTypewriter",
                 _roleTypedRef,
                 "Backend Architect · .NET · Microservices · Azure",
-                40,    // ms per character
-                820);  // ms before first character appears
+                40,
+                820);
+
+            await JS.InvokeVoidAsync("initializeConstellation", "constellation-canvas");
         }
     }
 }

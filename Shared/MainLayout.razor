@@ -1,6 +1,12 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
 
+<!-- Scroll progress bar — filled by initializeScrollProgress() -->
+<div id="scroll-progress-bar" aria-hidden="true"></div>
+
+<!-- Cursor spotlight — radial glow at --cx/--cy set by initializeCursorSpotlight() -->
+<div class="cursor-spotlight" aria-hidden="true"></div>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <header class="header" role="banner">
@@ -140,6 +146,14 @@
             await JSRuntime.InvokeVoidAsync("initializeNavHighlight");
             await JSRuntime.InvokeVoidAsync("initializeBackToTop");
             await JSRuntime.InvokeVoidAsync("initializeCardAnimations");
+
+            // Enhancement layer — all progressive, fail gracefully without JS
+            await JSRuntime.InvokeVoidAsync("initializeScrollProgress");
+            await JSRuntime.InvokeVoidAsync("initializeCursorSpotlight");
+            await JSRuntime.InvokeVoidAsync("initializeSectionNav");
+            await JSRuntime.InvokeVoidAsync("initializeTilt");
+            await JSRuntime.InvokeVoidAsync("initializeParticleBurst");
+            await JSRuntime.InvokeVoidAsync("initializeMagneticButtons");
         }
     }
 
@@ -147,6 +161,7 @@
     {
         var next = await JSRuntime.InvokeAsync<string>("toggleTheme");
         _isDark = next != "light";
+        await JSRuntime.InvokeVoidAsync("triggerThemeSparkle", ".theme-toggle-btn");
     }
 
     private async Task HandleNavClick(string sectionId)
