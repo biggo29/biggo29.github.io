@@ -122,14 +122,9 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Approach:** Token-aware typewriter — iterate over the child nodes of `<pre>`, reveal text nodes character by character and span nodes word-by-word in order, keeping the HTML structure intact.
 
 **Technical steps:**
-- [ ] Add `initializeCodeTypewriter(elementId)` function to `wwwroot/js/site.js`
-  - Walk `pre` child nodes: text nodes → character by character; span elements → appear as whole tokens (word-level)
-  - Start with all content hidden (opacity 0 or stored in data attributes)
-  - Reveal characters at ~25ms interval, spans at word boundary with a short pause
-  - Trigger only when the hero element is visible (IntersectionObserver, fires once)
-  - Respect `prefers-reduced-motion: reduce` — skip animation, show full text immediately
-- [ ] In `Components/Sections/HeroSection.razor` `OnAfterRenderAsync`: call `initializeCodeTypewriter("hero-code-snippet")` after the `initializeConstellation` call
-- [ ] Remove or adjust the existing CSS `hero-enter` fade-in animation on `.hero-code-snippet` (the JS will control visibility instead)
+- [x] Added `initializeCodeTypewriter(elementId)` to `wwwroot/js/site.js` — tokenizes existing DOM (text nodes + spans), clears `pre`, reveals container, then replays each character at 28ms/char with 85ms pause on newlines; spans recreated with correct class
+- [x] In `Components/Sections/HeroSection.razor` `OnAfterRenderAsync`: calls `initializeCodeTypewriter("hero-code-snippet")` after `initializeConstellation`; starts at 1800ms to let hero entrance animations settle first
+- [x] Removed `hero-enter` CSS animation from `.hero-code-snippet`; replaced with `opacity: 0` + `transition: opacity 0.3s ease` — JS sets opacity 0.14 before typing begins; reduced-motion path shows full text immediately
 
 ---
 
@@ -314,7 +309,7 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 |-------|-------------|--------|
 | A | Trivial Fixes (tab swap, edu title) | ✅ Done |
 | B | Light Theme Visibility | ✅ Done |
-| C | Hero Code Snippet Typing | ⬜ Not started |
+| C | Hero Code Snippet Typing | ✅ Done |
 | D | Certificate Issuer Theming | ⬜ Not started |
 | E | Constellation Interactivity | ⬜ Not started |
 | F | Section-Specific Animations | ⬜ Not started |

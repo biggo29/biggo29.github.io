@@ -28,6 +28,8 @@
 }
 
 /* ── Floating code snippet — desktop only, decorative ─────────────── */
+/* Starts hidden (opacity: 0); initializeCodeTypewriter() in site.js
+   reveals the container and types the content character by character. */
 .hero-code-snippet {
     position: absolute;
     bottom: 2.5rem;
@@ -35,12 +37,12 @@
     font-family: var(--font-mono);
     font-size: 0.72rem;
     line-height: 1.75;
-    opacity: 0.14;
+    opacity: 0;
     pointer-events: none;
     z-index: 0;
     user-select: none;
     color: var(--primary);
-    animation: hero-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.1s both;
+    transition: opacity 0.3s ease;
 }
 
 .hero-code-snippet pre {

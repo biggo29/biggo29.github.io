@@ -620,6 +620,107 @@ window.initializeMagneticButtons = () => {
     }).observe(document.body, { childList: true, subtree: true });
 };
 
+// ─── Code snippet typewriter ──────────────────────────────────────────────────
+// Reveals the floating hero code block by typing it character-by-character while
+// preserving syntax-highlighted <span> elements.
+//
+// Algorithm:
+//   1. Walk pre.childNodes and collect tokens (text nodes → type char by char;
+//      span elements → create the span first, then type its text).
+//   2. Clear pre content.
+//   3. Show the wrapper div (opacity 0 → 0.14 via CSS transition).
+//   4. Replay each token character by character with a configurable delay.
+//
+// Reduced-motion: skips animation, shows final content immediately.
+// Touch: still runs (snippet is hidden on mobile via CSS, so this is a no-op there).
+window.initializeCodeTypewriter = elementId => {
+    const wrapper = document.getElementById(elementId);
+    if (!wrapper) return;
+
+    const pre = wrapper.querySelector('pre');
+    if (!pre) return;
+
+    // Tokenize before clearing
+    const tokens = [];
+    pre.childNodes.forEach(node => {
+        if (node.nodeType === 3 /* TEXT_NODE */) {
+            tokens.push({ kind: 'text', content: node.textContent });
+        } else if (node.nodeType === 1 /* ELEMENT_NODE */) {
+            tokens.push({ kind: 'span', content: node.textContent, cls: node.className });
+        }
+    });
+
+    // Reduced-motion: reveal immediately without typing
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        wrapper.style.opacity = '0.14';
+        return;
+    }
+
+    // Clear and show container so the typing itself is the reveal
+    pre.textContent = '';
+    wrapper.style.opacity = '0.14';
+
+    const CHAR_MS = 28;  // ms per character — fast but readable
+    const NL_MS   = 85;  // extra pause at line breaks (lets each line register)
+
+    let tIdx    = 0;  // current token index
+    let cIdx    = 0;  // character index within current token
+    let txtNode = null;  // active text node being appended to
+    let spanEl  = null;  // active span element being typed into
+    let spanCIdx = 0;   // character index within active span
+
+    const tick = () => {
+        if (tIdx >= tokens.length) return;
+
+        const tok = tokens[tIdx];
+
+        if (tok.kind === 'text') {
+            // Append to (or create) a text node
+            if (!txtNode) {
+                txtNode = document.createTextNode('');
+                pre.appendChild(txtNode);
+            }
+
+            const ch = tok.content[cIdx];
+            txtNode.textContent += ch;
+            cIdx++;
+
+            if (cIdx >= tok.content.length) {
+                tIdx++;
+                cIdx    = 0;
+                txtNode = null;
+            }
+
+            setTimeout(tick, ch === '\n' ? NL_MS : CHAR_MS);
+
+        } else { // 'span'
+            // Create the span on the first character, then type into it
+            if (!spanEl) {
+                spanEl   = document.createElement('span');
+                spanEl.className = tok.cls;
+                pre.appendChild(spanEl);
+                spanCIdx = 0;
+            }
+
+            spanEl.textContent += tok.content[spanCIdx];
+            spanCIdx++;
+
+            if (spanCIdx >= tok.content.length) {
+                tIdx++;
+                cIdx     = 0;
+                spanEl   = null;
+                spanCIdx = 0;
+            }
+
+            setTimeout(tick, CHAR_MS);
+        }
+    };
+
+    // Delay start until after the hero entrance animations have settled
+    // Role typewriter starts at 820 ms; code snippet begins after it's done typing
+    setTimeout(tick, 1800);
+};
+
 // ─── Hero role typewriter effect ──────────────────────────────────────────────
 // Called from HeroSection.razor via JSInterop on first render.
 // Types `text` into `el` one character at a time, then fades out the cursor.
