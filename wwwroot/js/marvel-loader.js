@@ -65,9 +65,18 @@
         }
     };
 
-    /* Resolve active theme — default to marvel-studio */
-    var themeKey = loader.dataset.loaderTheme || 'loader-theme-marvel-studio';
-    var cfg      = THEMES[themeKey] || THEMES['loader-theme-marvel-studio'];
+    /* ── Theme resolution — priority order: ────────────────────────
+       1. ?loader-theme=<key> URL parameter  (used by GIF generator)
+       2. Random pick from all registered themes (every page load)   */
+    var urlParam  = new URLSearchParams(window.location.search).get('loader-theme');
+    var themeKeys = Object.keys(THEMES);
+    var themeKey  = (urlParam && THEMES[urlParam])
+        ? urlParam
+        : themeKeys[Math.floor(Math.random() * themeKeys.length)];
+
+    /* Apply chosen theme — CSS variable overrides kick in instantly */
+    loader.dataset.loaderTheme = themeKey;
+    var cfg = THEMES[themeKey];
 
     /* ── Tech stack — 18 frames ─────────────────────────────────── */
     var TECH = [
