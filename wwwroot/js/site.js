@@ -804,105 +804,203 @@ window.initializeContactGlow = () => {
     obs.observe(section);
 };
 
-// ─── Code snippet typewriter ──────────────────────────────────────────────────
-// Reveals the floating hero code block by typing it character-by-character while
-// preserving syntax-highlighted <span> elements.
+// ─── Code editor typewriter ───────────────────────────────────────────────────
+// Renders a glass-morphism code editor in the hero section and types C# code
+// line by line with syntax highlighting, a blinking cursor, and natural jitter.
 //
-// Algorithm:
-//   1. Walk pre.childNodes and collect tokens (text nodes → type char by char;
-//      span elements → create the span first, then type its text).
-//   2. Clear pre content.
-//   3. Show the wrapper div (opacity 0 → 0.14 via CSS transition).
-//   4. Replay each token character by character with a configurable delay.
+// HTML structure expected (built in HeroSection.razor):
+//   #hero-code-snippet > .hcs-titlebar + .hcs-body > (.hcs-gutter + .hcs-pre)
 //
-// Reduced-motion: skips animation, shows final content immediately.
-// Touch: still runs (snippet is hidden on mobile via CSS, so this is a no-op there).
+// Features:
+//   • Token-aware C# syntax highlighter (keywords, types, strings, comments)
+//   • Line numbers appear as each line starts typing
+//   • Hover pauses typing; cursor changes to pointer when done
+//   • Click after completion restarts the animation
+//   • prefers-reduced-motion: renders complete code immediately
 window.initializeCodeTypewriter = elementId => {
     const wrapper = document.getElementById(elementId);
     if (!wrapper) return;
 
-    const pre = wrapper.querySelector('pre');
-    if (!pre) return;
+    const gutter = wrapper.querySelector('.hcs-gutter');
+    const pre    = wrapper.querySelector('.hcs-pre');
+    if (!gutter || !pre) return;
 
-    // Tokenize before clearing
-    const tokens = [];
-    pre.childNodes.forEach(node => {
-        if (node.nodeType === 3 /* TEXT_NODE */) {
-            tokens.push({ kind: 'text', content: node.textContent });
-        } else if (node.nodeType === 1 /* ELEMENT_NODE */) {
-            tokens.push({ kind: 'span', content: node.textContent, cls: node.className });
-        }
-    });
+    // ── Code content — ASP.NET Core 8 Minimal API + MediatR pattern ──
+    const CODE = [
+        '// ASP.NET Core 8 · Minimal API · MediatR',
+        'var builder = WebApplication.CreateBuilder(args);',
+        '',
+        'builder.Services',
+        '    .AddMediatR(cfg => cfg',
+        '        .RegisterServicesFromAssembly(',
+        '            typeof(Program).Assembly))',
+        '    .AddDbContext<AppDbContext>(opt =>',
+        '        opt.UseSqlServer(',
+        '            builder.Configuration',
+        '                .GetConnectionString("Default")));',
+        '',
+        'var app = builder.Build();',
+        '',
+        'app.UseAuthentication()',
+        '   .UseAuthorization();',
+        '',
+        'app.MapGroup("/api/orders")',
+        '   .MapOrderEndpoints()',
+        '   .RequireAuthorization();',
+        '',
+        'await app.RunAsync();',
+    ];
 
-    // Reduced-motion: reveal immediately without typing
+    // ── C# syntax highlighter ────────────────────────────────────────
+    const highlight = (() => {
+        const KW = new Set([
+            'public','sealed','record','async','await','var','new',
+            'void','class','interface','private','protected','override',
+            'using','readonly','static','abstract','return','base','this'
+        ]);
+        const esc = s => s
+            .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+        return raw => {
+            if (!raw.trim()) return '';
+            // Whole-line comment
+            if (/^\s*\/\//.test(raw))
+                return `<span class="hcs-cmt">${esc(raw)}</span>`;
+
+            // Tokenise left-to-right: strings, words, punctuation, rest
+            const toks = [];
+            let i = 0;
+            while (i < raw.length) {
+                const ch = raw[i];
+                if (ch === '"') {               // string literal
+                    let j = i + 1;
+                    while (j < raw.length && raw[j] !== '"') j++;
+                    toks.push({ k: 'str',  t: raw.slice(i, j + 1) });
+                    i = j + 1;
+                } else if (/[a-zA-Z_]/.test(ch)) {  // identifier / keyword
+                    let j = i;
+                    while (j < raw.length && /[a-zA-Z0-9_]/.test(raw[j])) j++;
+                    const w = raw.slice(i, j);
+                    toks.push({ k: KW.has(w) ? 'kw' : /^[A-Z]/.test(w) ? 'type' : 'plain', t: w });
+                    i = j;
+                } else if (/[(){}[\].,;:<>=!+\-*/|&~^@?]/.test(ch)) { // punc
+                    toks.push({ k: 'punc', t: ch });
+                    i++;
+                } else {
+                    toks.push({ k: 'plain', t: ch });
+                    i++;
+                }
+            }
+            return toks.map(({ k, t }) => {
+                const e = esc(t);
+                if (k === 'kw')   return `<span class="hcs-kw">${e}</span>`;
+                if (k === 'type') return `<span class="hcs-type">${e}</span>`;
+                if (k === 'str')  return `<span class="hcs-str">${e}</span>`;
+                if (k === 'punc') return `<span class="hcs-punc">${e}</span>`;
+                return e;
+            }).join('');
+        };
+    })();
+
+    // ── Helpers ───────────────────────────────────────────────────────
+    const addLineNum = n => {
+        const el = document.createElement('div');
+        el.className = 'hcs-lnum';
+        el.textContent = String(n).padStart(2, ' ');
+        gutter.appendChild(el);
+    };
+
+    const renderAll = () => {
+        CODE.forEach((line, i) => {
+            addLineNum(i + 1);
+            const el = document.createElement('div');
+            el.className = 'hcs-line';
+            el.innerHTML = line ? highlight(line) : '&nbsp;';
+            pre.appendChild(el);
+        });
+    };
+
+    // ── Reduced motion: show everything instantly ─────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        wrapper.style.opacity = '0.14';
+        renderAll();
+        wrapper.classList.add('hcs-visible', 'hcs-done');
         return;
     }
 
-    // Clear and show container so the typing itself is the reveal
-    pre.textContent = '';
-    wrapper.style.opacity = '0.14';
+    // ── Animated typewriter ───────────────────────────────────────────
+    let isPaused   = false;
+    let lineIdx    = 0;
+    let charIdx    = 0;
+    let curLineEl  = null;
+    let typingDone = false;
 
-    const CHAR_MS = 28;  // ms per character — fast but readable
-    const NL_MS   = 85;  // extra pause at line breaks (lets each line register)
+    const CHAR_MS  = 22;   // base ms per character
+    const JITTER   = 12;   // random extra ms per char (natural feel)
+    const LINE_MS  = 85;   // pause after each line completes
+    const START_MS = 2000; // delay before first character (hero entrance settles)
 
-    let tIdx    = 0;  // current token index
-    let cIdx    = 0;  // character index within current token
-    let txtNode = null;  // active text node being appended to
-    let spanEl  = null;  // active span element being typed into
-    let spanCIdx = 0;   // character index within active span
+    // Fade the window in at the same moment typing begins
+    setTimeout(() => wrapper.classList.add('hcs-visible'), START_MS - 700);
 
     const tick = () => {
-        if (tIdx >= tokens.length) return;
+        if (isPaused) { setTimeout(tick, 60); return; }
 
-        const tok = tokens[tIdx];
-
-        if (tok.kind === 'text') {
-            // Append to (or create) a text node
-            if (!txtNode) {
-                txtNode = document.createTextNode('');
-                pre.appendChild(txtNode);
+        if (lineIdx >= CODE.length) {
+            // All done — attach persistent blinking cursor to last line
+            typingDone = true;
+            wrapper.classList.add('hcs-done');
+            if (curLineEl) {
+                const cur = document.createElement('span');
+                cur.className = 'hcs-cursor';
+                curLineEl.appendChild(cur);
             }
+            return;
+        }
 
-            const ch = tok.content[cIdx];
-            txtNode.textContent += ch;
-            cIdx++;
+        const line = CODE[lineIdx];
 
-            if (cIdx >= tok.content.length) {
-                tIdx++;
-                cIdx    = 0;
-                txtNode = null;
-            }
+        if (charIdx === 0) {
+            // Start a new line: add line number + create line element
+            addLineNum(lineIdx + 1);
+            curLineEl = document.createElement('div');
+            curLineEl.className = 'hcs-line is-typing';
+            pre.appendChild(curLineEl);
+        }
 
-            setTimeout(tick, ch === '\n' ? NL_MS : CHAR_MS);
-
-        } else { // 'span'
-            // Create the span on the first character, then type into it
-            if (!spanEl) {
-                spanEl   = document.createElement('span');
-                spanEl.className = tok.cls;
-                pre.appendChild(spanEl);
-                spanCIdx = 0;
-            }
-
-            spanEl.textContent += tok.content[spanCIdx];
-            spanCIdx++;
-
-            if (spanCIdx >= tok.content.length) {
-                tIdx++;
-                cIdx     = 0;
-                spanEl   = null;
-                spanCIdx = 0;
-            }
-
-            setTimeout(tick, CHAR_MS);
+        if (charIdx < line.length) {
+            // Type the next character (plain text during typing)
+            curLineEl.textContent = line.slice(0, charIdx + 1);
+            charIdx++;
+            setTimeout(tick, CHAR_MS + (Math.random() * JITTER | 0));
+        } else {
+            // Line complete — swap to syntax-highlighted HTML
+            curLineEl.classList.remove('is-typing');
+            curLineEl.innerHTML = line ? highlight(line) : '&nbsp;';
+            charIdx = 0;
+            lineIdx++;
+            setTimeout(tick, LINE_MS);
         }
     };
 
-    // Delay start until after the hero entrance animations have settled
-    // Role typewriter starts at 820 ms; code snippet begins after it's done typing
-    setTimeout(tick, 1800);
+    setTimeout(tick, START_MS);
+
+    // Hover: pause typing so the user can read; resume on leave
+    wrapper.addEventListener('mouseenter', () => { if (!typingDone) isPaused = true; });
+    wrapper.addEventListener('mouseleave', () => { isPaused = false; });
+
+    // Click when done: clear and replay from the beginning
+    wrapper.addEventListener('click', () => {
+        if (!typingDone) return;
+        typingDone = false;
+        isPaused   = false;
+        lineIdx = charIdx = 0;
+        curLineEl  = null;
+        gutter.innerHTML = '';
+        pre.innerHTML    = '';
+        wrapper.classList.remove('hcs-done');
+        setTimeout(tick, 300);
+    });
 };
 
 // ─── Hero role typewriter effect ──────────────────────────────────────────────

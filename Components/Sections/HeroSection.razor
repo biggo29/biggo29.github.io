@@ -5,12 +5,19 @@
     <!-- Constellation canvas — replaces static hero background image -->
     <canvas id="constellation-canvas" class="hero-constellation" aria-hidden="true"></canvas>
 
-    <!-- Floating code snippet — desktop only, purely decorative -->
-    <div class="hero-code-snippet" aria-hidden="true"><pre><span class="hcs-kw">const</span> engineer = &#123;
-  name:   <span class="hcs-str">"Shoaib Shahriar"</span>,
-  stack:  [<span class="hcs-str">".NET"</span>, <span class="hcs-str">"CQRS"</span>, <span class="hcs-str">"Microservices"</span>],
-  uptime: <span class="hcs-str">"99.9%"</span>,
-&#125;;</pre></div>
+    <!-- Floating code editor — desktop only, purely decorative -->
+    <div class="hero-code-snippet" id="hero-code-snippet" aria-hidden="true">
+        <div class="hcs-titlebar">
+            <span class="hcs-dot hcs-dot--red"   aria-hidden="true"></span>
+            <span class="hcs-dot hcs-dot--amber" aria-hidden="true"></span>
+            <span class="hcs-dot hcs-dot--green" aria-hidden="true"></span>
+            <span class="hcs-filename">engineer.cs</span>
+        </div>
+        <div class="hcs-body">
+            <div class="hcs-gutter" id="hcs-gutter"></div>
+            <pre class="hcs-pre"    id="hcs-pre"></pre>
+        </div>
+    </div>
 
     <div class="hero-inner">
 
