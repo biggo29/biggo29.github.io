@@ -23,6 +23,21 @@
     width: 2px;
     height: calc(100% - 1.5rem);
     background: linear-gradient(to bottom, var(--primary), var(--border));
+    transform-origin: top center;
+    transform: scaleY(0);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* F.2 Phase F: triggered by JS when #experience scrolls into view */
+.exp-timeline.tl-animated::before {
+    transform: scaleY(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .exp-timeline::before {
+        transform: scaleY(1);
+        transition: none;
+    }
 }
 
 /* ── Timeline entry ───────────────────────────────────────────────── */

@@ -70,6 +70,21 @@
     line-height: 1.4;
 }
 
+/* ── F.8 Phase F: Form Field Glow Sequence ──────────────────────── */
+@keyframes ct-card-glow {
+    0%   { box-shadow: none;                                                           border-color: var(--border);  }
+    40%  { box-shadow: 0 0 0 3px rgba(59,130,246,0.25), 0 4px 16px rgba(59,130,246,0.12); border-color: var(--primary); }
+    100% { box-shadow: none;                                                           border-color: var(--border);  }
+}
+
+.ct-card.ct-glow {
+    animation: ct-card-glow 0.8s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ct-card.ct-glow { animation: none; }
+}
+
 /* ── Resume CTA ───────────────────────────────────────────────────── */
 .ct-actions {
     display: flex;

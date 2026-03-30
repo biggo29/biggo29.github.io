@@ -142,10 +142,33 @@
     transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* ── F.3 Phase F: Circuit Trace Border ──────────────────────────── */
+@property --arch-border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 .arch-card:hover {
-    border-color: var(--primary);
+    border-color: transparent;
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    background:
+        linear-gradient(var(--bg), var(--bg)) padding-box,
+        conic-gradient(from var(--arch-border-angle), var(--primary) 0%, #8b5cf6 30%, #06b6d4 60%, var(--primary) 100%) border-box;
+    animation: arch-circuit-trace 2.5s linear infinite;
+}
+
+@keyframes arch-circuit-trace {
+    to { --arch-border-angle: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .arch-card:hover {
+        animation: none;
+        border-color: var(--primary);
+        background: var(--bg);
+    }
 }
 
 .arch-card:active {

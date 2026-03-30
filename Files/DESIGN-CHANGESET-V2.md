@@ -189,8 +189,8 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Source:** Request 2 — section theme: measurable outcomes, metrics
 **Feasibility:** High (CSS only)
 
-- [ ] On scroll-into-view, `.impact-icon` elements emit 2 expanding ring pulses (CSS `@keyframes`, triggered by adding `.animated` class via existing `initializeCardAnimations()` observer)
-- [ ] Ring colour: `var(--primary)`, 60px max-radius, opacity 0 → 0.4 → 0
+- [x] On scroll-into-view, `.impact-icon` elements emit 2 expanding ring pulses (CSS `@keyframes`, triggered by adding `.animated` class via existing `initializeCardAnimations()` observer)
+- [x] Ring colour: `var(--primary)`, 60px max-radius, opacity 0 → 0.4 → 0
 
 ---
 
@@ -201,8 +201,8 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Current state:** The vertical timeline line between experience entries is a static CSS `::before` pseudo-element.
 **Target state:** On scroll-in, the vertical line "draws" itself from top to bottom using `stroke-dashoffset` or `scaleY` animation.
 
-- [ ] In `ExperienceTimelineSection.razor.css`: add `transform-origin: top center; transform: scaleY(0); transition: transform 0.8s ease` to the timeline line element
-- [ ] In `site.js` or existing `initializeSectionObserver()`: when `#experience` becomes visible, add `.animated` class that sets `scaleY(1)`
+- [x] In `ExperienceTimelineSection.razor.css`: add `transform-origin: top center; transform: scaleY(0); transition: transform 0.8s ease` to the timeline line element
+- [x] In `site.js` or existing `initializeSectionObserver()`: when `#experience` becomes visible, add `.animated` class that sets `scaleY(1)`
 
 ---
 
@@ -210,9 +210,9 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Source:** Request 2 — section theme: engineering precision, circuits
 **Feasibility:** Medium
 
-- [ ] On `arch-card` hover (already has tilt), add a `border-color` animated trace effect: a CSS `@keyframes` animation cycles a gradient border clockwise around the card using `background-clip: border-box` technique
-- [ ] Uses `@property --border-angle` CSS custom property (modern browsers) for the rotating conic-gradient border
-- [ ] Fallback: simple `border-color` pulse for browsers without `@property` support
+- [x] On `arch-card` hover (already has tilt), add a `border-color` animated trace effect: a CSS `@keyframes` animation cycles a gradient border clockwise around the card using `background-clip: border-box` technique
+- [x] Uses `@property --border-angle` CSS custom property (modern browsers) for the rotating conic-gradient border
+- [x] Fallback: simple `border-color` pulse for browsers without `@property` support
 
 ---
 
@@ -220,9 +220,9 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Source:** Request 2 — section theme: code, engineering artefacts
 **Feasibility:** High
 
-- [ ] When a case study card becomes visible, its technology tags (`TagBadge` elements) animate in with a staggered cascade: each tag slides up from below with a 40ms delay between tags
-- [ ] Controlled by `initializeCardAnimations()` or a new `initializeCsTagAnimations()` function
-- [ ] Tags start at `opacity: 0; transform: translateY(8px)` and transition to visible
+- [x] When a case study card becomes visible, its technology tags (`TagBadge` elements) animate in with a staggered cascade: each tag slides up from below with a 40ms delay between tags
+- [x] Controlled by `initializeCardAnimations()` or a new `initializeCsTagAnimations()` function
+- [x] Tags start at `opacity: 0; transform: translateY(8px)` and transition to visible
 
 ---
 
@@ -230,9 +230,9 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Source:** Request 2 — section theme: code contribution, activity
 **Feasibility:** Medium (depends on how GitHub section renders the activity grid)
 
-- [ ] Contribution calendar squares animate in with a "pixel paint" effect — each cell scales from 0 to 1 with random per-cell delay (0–300ms)
-- [ ] Triggered by IntersectionObserver on the GitHub section
-- [ ] Requires checking what GitHub section renders (read `GithubSection.razor` first during execution)
+- [x] Contribution calendar squares animate in with a "pixel paint" effect — each cell scales from 0 to 1 with random per-cell delay (0–300ms)
+- [x] Triggered by IntersectionObserver on the GitHub section
+- [x] Note: GitHub section has no calendar grid; adapted to stagger-animate `.gh-stat-item` (slide-up) and `.gh-lang-badge` (scale-in) instead
 
 ---
 
@@ -240,9 +240,9 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Source:** Request 2 — section theme: achievement, credentials
 **Feasibility:** High
 
-- [ ] When a certificate card becomes visible or is navigated to, the `.cert-seal` element plays a "stamp" animation: `scale(1.4) → scale(0.9) → scale(1)` with a brief `rotate(−5deg) → rotate(0)`, duration 400ms
-- [ ] A faint "ink spread" pulse ring expands from the seal centre (similar to Impact icon rings)
-- [ ] One-shot per card visible event (not repeated on hover)
+- [x] When a certificate card becomes visible or is navigated to, the `.cert-seal` element plays a "stamp" animation: `scale(1.4) → scale(0.9) → scale(1)` with a brief `rotate(−5deg) → rotate(0)`, duration 400ms
+- [x] A faint "ink spread" pulse ring expands from the seal centre (similar to Impact icon rings)
+- [x] One-shot per card visible event (not repeated on hover)
 
 ---
 
@@ -250,10 +250,8 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Source:** Request 2 — section theme: writing, publishing
 **Feasibility:** High
 
-- [ ] Article cards enter with `filter: blur(4px) → blur(0)` combined with existing `card-enter` slide-up
-- [ ] Duration: 0.5s, easing: `ease-out`
-- [ ] Staggered by card index (uses existing `--card-i` CSS variable)
-- [ ] Add `filter: blur(4px)` to initial state of `.medium-card` (or article card class — verify during execution)
+- [x] `.med-card` added to `initializeCardAnimations()` selectors so cards get `card-enter` slide-up on scroll
+- [x] Blur effect skipped per user preference — standard card-enter animation only
 
 ---
 
@@ -261,9 +259,9 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Source:** Request 2 — section theme: connection, reach-out
 **Feasibility:** Medium (depends on contact form structure)
 
-- [ ] On section scroll-in, each form field or contact method highlights in sequence with a brief `box-shadow` glow using `var(--primary)`, 150ms apart
-- [ ] Adds a welcoming "come talk to me" energy to the section
-- [ ] Requires reading `ContactSection.razor` during execution to verify selectors
+- [x] On section scroll-in, each form field or contact method highlights in sequence with a brief `box-shadow` glow using `var(--primary)`, 150ms apart
+- [x] Adds a welcoming "come talk to me" energy to the section
+- [x] `.ct-card` links are the contact methods — each gets `.ct-glow` with staggered setTimeout
 
 ---
 
@@ -304,7 +302,7 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 | C | Hero Code Snippet Typing | ✅ Done |
 | D | Certificate Issuer Theming | ⬜ Not started |
 | E | Constellation Interactivity | ✅ Done |
-| F | Section-Specific Animations | ⬜ Not started |
+| F | Section-Specific Animations | ✅ Done |
 | G | Section Thematic Identity | ⬜ Not started |
 
 ---

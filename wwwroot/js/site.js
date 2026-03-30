@@ -203,7 +203,7 @@ window.animateCounter = (el, target, duration) => {
 //   3. IntersectionObserver adds .card-visible when a card enters the viewport,
 //      which triggers the card-enter CSS animation (defined in app.css).
 window.initializeCardAnimations = () => {
-    const SELECTORS = '.impact-card, .cs-card, .arch-card, .cap-card, .exp-entry, .edu-card';
+    const SELECTORS = '.impact-card, .cs-card, .arch-card, .cap-card, .exp-entry, .edu-card, .med-card';
 
     // Skip cards that are already visible to keep the function idempotent
     const newCards = Array.from(document.querySelectorAll(SELECTORS))
@@ -700,6 +700,108 @@ window.initializeMagneticButtons = () => {
     new MutationObserver(() => {
         document.querySelectorAll('.cta-primary').forEach(attach);
     }).observe(document.body, { childList: true, subtree: true });
+};
+
+// ─── F.2 Experience Timeline Draw-In ─────────────────────────────────────────
+// When #experience scrolls into view, adds .tl-animated to .exp-timeline so
+// the ::before vertical line transitions from scaleY(0) to scaleY(1).
+window.initializeTimelineDrawIn = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const section = document.getElementById('experience');
+    if (!section) return;
+
+    const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            const tl = section.querySelector('.exp-timeline');
+            if (tl) tl.classList.add('tl-animated');
+            obs.disconnect();
+        }
+    }, { threshold: 0.08 });
+    obs.observe(section);
+};
+
+// ─── F.4 Case Studies Tag Cascade ────────────────────────────────────────────
+// Sets --tag-i on each .tag-badge within a .cs-card so the CSS stagger
+// transition (defined in CaseStudiesSection.razor.css) can delay each tag.
+// Re-runs on Blazor DOM mutations (filter changes re-render cards).
+window.initializeCsTagAnimations = () => {
+    const applyIndices = card => {
+        card.querySelectorAll('.tag-badge').forEach((tag, i) => {
+            tag.style.setProperty('--tag-i', i);
+        });
+    };
+
+    document.querySelectorAll('.cs-card').forEach(applyIndices);
+
+    new MutationObserver(() => {
+        document.querySelectorAll('.cs-card').forEach(applyIndices);
+    }).observe(document.body, { childList: true, subtree: true });
+};
+
+// ─── F.5 GitHub Stats Animation ──────────────────────────────────────────────
+// Stagger-reveals .gh-stat-item and .gh-lang-badge when #github enters view.
+// Adds .gh-animated to the section element; CSS transitions do the rest.
+window.initializeGithubStatsAnim = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const section = document.getElementById('github');
+    if (!section) return;
+
+    section.querySelectorAll('.gh-stat-item').forEach((el, i) => {
+        el.style.setProperty('--gh-stat-delay', (i * 80) + 'ms');
+    });
+    section.querySelectorAll('.gh-lang-badge').forEach((el, i) => {
+        el.style.setProperty('--gh-lang-delay', (i * 50 + 200) + 'ms');
+    });
+
+    const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            section.classList.add('gh-animated');
+            obs.disconnect();
+        }
+    }, { threshold: 0.1 });
+    obs.observe(section);
+};
+
+// ─── F.6 Certificate Seal Stamp-In ───────────────────────────────────────────
+// Adds .seal-stamped to the first visible .cert-seal when #certificates enters
+// the viewport, triggering the stamp + ink-ring CSS animations.
+window.initializeCertSealStamp = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const section = document.getElementById('certificates');
+    if (!section) return;
+
+    const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            // Stamp the currently-visible seal (first non-stamped one)
+            const seal = section.querySelector('.cert-seal:not(.seal-stamped)');
+            if (seal) seal.classList.add('seal-stamped');
+            obs.disconnect();
+        }
+    }, { threshold: 0.15 });
+    obs.observe(section);
+};
+
+// ─── F.8 Contact Glow Sequence ───────────────────────────────────────────────
+// When #contact enters view, adds .ct-glow to each .ct-card with a 150ms
+// stagger so each card glows in sequence, giving a welcoming pulse effect.
+window.initializeContactGlow = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const section = document.getElementById('contact');
+    if (!section) return;
+
+    const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            section.querySelectorAll('.ct-card').forEach((card, i) => {
+                setTimeout(() => card.classList.add('ct-glow'), i * 150);
+            });
+            obs.disconnect();
+        }
+    }, { threshold: 0.15 });
+    obs.observe(section);
 };
 
 // ─── Code snippet typewriter ──────────────────────────────────────────────────

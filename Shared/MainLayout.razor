@@ -154,6 +154,13 @@
             await JSRuntime.InvokeVoidAsync("initializeTilt");
             await JSRuntime.InvokeVoidAsync("initializeParticleBurst");
             await JSRuntime.InvokeVoidAsync("initializeMagneticButtons");
+
+            // Phase F — Section-specific themed animations
+            await JSRuntime.InvokeVoidAsync("initializeTimelineDrawIn");
+            await JSRuntime.InvokeVoidAsync("initializeCsTagAnimations");
+            await JSRuntime.InvokeVoidAsync("initializeGithubStatsAnim");
+            await JSRuntime.InvokeVoidAsync("initializeCertSealStamp");
+            await JSRuntime.InvokeVoidAsync("initializeContactGlow");
         }
     }
 
