@@ -55,9 +55,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet" />
 
     <!-- Stylesheets -->
+    <link href="css/marvel-loader.css" rel="stylesheet" />
     <link href="css/variables.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="css/enhancements.css" rel="stylesheet" />
@@ -65,6 +66,21 @@
 </head>
 
 <body>
+    <!-- ═══════════════════════════════════════════════════════════
+         Marvel-themed loader  —  outside #app, overlays everything
+         including the Blazor skeleton screen, fires on first paint
+         ═══════════════════════════════════════════════════════════ -->
+    <div id="marvel-loader" aria-hidden="true">
+        <div id="ml-grain"></div>
+        <div id="ml-panels"></div>
+        <div id="ml-flash-red"></div>
+        <div id="ml-name">
+            <span class="ml-word">SHOAIB</span>
+            <span class="ml-word">SHAHRIAR</span>
+        </div>
+        <div id="ml-flash-white"></div>
+    </div>
+
     <div id="app">
         <div class="ls-root">
             <style>
@@ -341,6 +357,7 @@
         <a class="dismiss">🗙</a>
     </div>
 
+    <script src="js/marvel-loader.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script src="js/site.js"></script>
 </body>
