@@ -308,3 +308,4 @@ The loader plays once per browser session. To replay:
 
 - **DevTools:** Application → Session Storage → delete the `ml-seen` key → refresh
 - **Hard refresh:** `Ctrl + Shift + R` (clears session storage in most browsers)
+- **auto switcher
