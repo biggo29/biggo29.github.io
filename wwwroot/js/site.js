@@ -391,9 +391,17 @@ window.initializeTilt = () => {
 };
 
 // ─── Constellation Hero ───────────────────────────────────────────────────────
-// Draws a particle network on a <canvas> element.
-// 60 dots connect with lines when within 120 px. Cursor repels within 100 px.
-// Pauses the rAF loop via IntersectionObserver when the hero scrolls off-screen.
+// Draws an interactive particle network on a <canvas> element.
+// 60 base dots connect with lines when within 120 px.
+//
+// Phase E enhancements:
+//   • Stronger cursor repel: 130 px radius, 1.0 force (was 100 px / 0.65)
+//   • Click-to-burst: spawns 8–12 particles at click position; max 80 total
+//   • Proximity line glow: lines near cursor spike in opacity
+//   • Double-click disturbance: all particles get a random velocity spike
+//   • Performance guard: particle count capped at MAX_PARTICLES = 80
+//
+// Pauses rAF loop via IntersectionObserver when hero scrolls off-screen.
 window.initializeConstellation = canvasId => {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
@@ -424,6 +432,13 @@ window.initializeConstellation = canvasId => {
     let   raf   = null;
     const mouse = { x: -2000, y: -2000 };
 
+    // Phase E constants
+    const REPEL_R      = 130;   // cursor repel radius (px)
+    const REPEL_F      = 1.0;   // repel force multiplier
+    const CONNECT_R    = 120;   // line connection radius (px)
+    const GLOW_R       = 150;   // proximity glow radius around cursor (px)
+    const MAX_PARTICLES = 80;  // hard cap including burst-spawned particles
+
     const resize = () => {
         canvas.width  = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
@@ -431,13 +446,14 @@ window.initializeConstellation = canvasId => {
     resize();
     new ResizeObserver(resize).observe(canvas);
 
-    const N = 60;
-    const pts = Array.from({ length: N }, () => ({
-        x:  Math.random() * canvas.width,
-        y:  Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.42,
-        vy: (Math.random() - 0.5) * 0.42,
-        r:  Math.random() * 1.2 + 0.5
+    // Base 60 permanent particles + burst particles (have finite life)
+    const pts = Array.from({ length: 60 }, () => ({
+        x:    Math.random() * canvas.width,
+        y:    Math.random() * canvas.height,
+        vx:   (Math.random() - 0.5) * 0.42,
+        vy:   (Math.random() - 0.5) * 0.42,
+        r:    Math.random() * 1.2 + 0.5,
+        life: Infinity   // permanent particles never expire
     }));
 
     const dark = () => document.documentElement.getAttribute('data-theme') !== 'light';
@@ -446,25 +462,48 @@ window.initializeConstellation = canvasId => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const d = dark();
 
-        pts.forEach(p => {
-            const dx = p.x - mouse.x, dy = p.y - mouse.y;
+        // Update physics + expire burst particles (iterate backwards for safe splice)
+        for (let i = pts.length - 1; i >= 0; i--) {
+            const p = pts[i];
+
+            if (p.life !== Infinity) {
+                p.life--;
+                if (p.life <= 0) { pts.splice(i, 1); continue; }
+            }
+
+            const dx   = p.x - mouse.x;
+            const dy   = p.y - mouse.y;
             const dist = Math.hypot(dx, dy);
-            if (dist < 100 && dist > 0) {
-                const f = ((100 - dist) / 100) * 0.65;
+            if (dist < REPEL_R && dist > 0) {
+                const f = ((REPEL_R - dist) / REPEL_R) * REPEL_F;
                 p.vx += (dx / dist) * f;
                 p.vy += (dy / dist) * f;
             }
             p.vx *= 0.97; p.vy *= 0.97;
             p.x  += p.vx;  p.y  += p.vy;
-            if (p.x < 0 || p.x > canvas.width)  { p.vx *= -1; p.x = Math.max(0, Math.min(canvas.width, p.x));   }
+            if (p.x < 0 || p.x > canvas.width)  { p.vx *= -1; p.x = Math.max(0, Math.min(canvas.width,  p.x)); }
             if (p.y < 0 || p.y > canvas.height) { p.vy *= -1; p.y = Math.max(0, Math.min(canvas.height, p.y)); }
-        });
+        }
 
-        for (let i = 0; i < N; i++) {
-            for (let j = i + 1; j < N; j++) {
-                const dist = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
-                if (dist < 120) {
-                    const a = (1 - dist / 120) * (d ? 0.22 : 0.20);
+        const n = pts.length;
+
+        // Draw connection lines with proximity glow boost
+        for (let i = 0; i < n; i++) {
+            for (let j = i + 1; j < n; j++) {
+                const dx   = pts[i].x - pts[j].x;
+                const dy   = pts[i].y - pts[j].y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < CONNECT_R) {
+                    let a = (1 - dist / CONNECT_R) * (d ? 0.22 : 0.20);
+
+                    // Boost alpha when either endpoint is near the cursor
+                    const m1 = Math.hypot(pts[i].x - mouse.x, pts[i].y - mouse.y);
+                    const m2 = Math.hypot(pts[j].x - mouse.x, pts[j].y - mouse.y);
+                    const nearestMouse = Math.min(m1, m2);
+                    if (nearestMouse < GLOW_R) {
+                        a += (1 - nearestMouse / GLOW_R) * (d ? 0.28 : 0.22);
+                    }
+
                     ctx.strokeStyle = d ? `rgba(99,155,246,${a})` : `rgba(37,99,235,${a})`;
                     ctx.lineWidth   = 0.8;
                     ctx.beginPath();
@@ -475,8 +514,18 @@ window.initializeConstellation = canvasId => {
             }
         }
 
+        // Draw particles (burst particles fade in/out via life counter)
         pts.forEach(p => {
-            ctx.fillStyle = d ? 'rgba(99,155,246,0.6)' : 'rgba(37,99,235,0.55)';
+            let lifeAlpha = 1;
+            if (p.life !== Infinity) {
+                const age     = p.maxLife - p.life;
+                const fadeIn  = Math.min(age  / 30, 1);   // 0 → 1 in first 30 frames
+                const fadeOut = Math.min(p.life / 60, 1);  // 1 → 0 in last 60 frames
+                lifeAlpha = fadeIn * fadeOut;
+            }
+            ctx.fillStyle = d
+                ? `rgba(99,155,246,${(0.6 * lifeAlpha).toFixed(3)})`
+                : `rgba(37,99,235,${(0.55 * lifeAlpha).toFixed(3)})`;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fill();
@@ -485,6 +534,7 @@ window.initializeConstellation = canvasId => {
         raf = requestAnimationFrame(draw);
     };
 
+    // Pause loop when hero is scrolled off-screen
     const section = canvas.closest('section');
     if (section) {
         new IntersectionObserver(entries => {
@@ -504,6 +554,38 @@ window.initializeConstellation = canvasId => {
     }, { passive: true });
 
     canvas.addEventListener('mouseleave', () => { mouse.x = -2000; mouse.y = -2000; });
+
+    // Phase E — Click-to-burst: spawn 8–12 particles at the click position
+    canvas.addEventListener('click', e => {
+        if (pts.length >= MAX_PARTICLES) return;
+        const rect   = canvas.getBoundingClientRect();
+        const cx     = e.clientX - rect.left;
+        const cy     = e.clientY - rect.top;
+        const count  = Math.floor(Math.random() * 5) + 8; // 8–12
+        const toAdd  = Math.min(count, MAX_PARTICLES - pts.length);
+        for (let i = 0; i < toAdd; i++) {
+            const angle   = (i / toAdd) * Math.PI * 2 + Math.random() * 0.4;
+            const speed   = 1.0 + Math.random() * 2.0;
+            const maxLife = 240;
+            pts.push({
+                x:    cx,
+                y:    cy,
+                vx:   Math.cos(angle) * speed,
+                vy:   Math.sin(angle) * speed,
+                r:    Math.random() * 1.2 + 0.5,
+                life: maxLife,
+                maxLife
+            });
+        }
+    });
+
+    // Phase E — Double-click system disturbance: spike all particle velocities
+    canvas.addEventListener('dblclick', () => {
+        pts.forEach(p => {
+            p.vx += (Math.random() - 0.5) * 4.5;
+            p.vy += (Math.random() - 0.5) * 4.5;
+        });
+    });
 };
 
 // ─── Button Particle Burst ────────────────────────────────────────────────────

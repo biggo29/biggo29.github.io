@@ -168,11 +168,11 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 **Target state:** The experience feels "playable" — user can interact and see responsive behaviour.
 
 **Enhancements to implement:**
-- [ ] **Click-to-burst**: clicking anywhere on the hero canvas spawns 8–12 new particles at the click position that drift outward and then settle into the network. Each click adds temporary velocity burst.
-- [ ] **Increase repel radius & strength**: from 100px / 0.65 force → 130px / 1.0 force for more dramatic cursor interaction
-- [ ] **Connection pulse on cursor proximity**: lines near the cursor briefly glow brighter (opacity spike then fade)
-- [ ] **Right-click / double-click**: double-click launches a "system disturbance" — all particles get a random velocity spike for 1s, then dampen back to calm. (Desktop only)
-- [ ] **Performance guard**: cap max live particles at 80 (default 60 + click-spawned cap)
+- [x] **Click-to-burst**: clicking anywhere on the hero canvas spawns 8–12 new particles at the click position that drift outward and then settle into the network. Each click adds temporary velocity burst.
+- [x] **Increase repel radius & strength**: from 100px / 0.65 force → 130px / 1.0 force for more dramatic cursor interaction
+- [x] **Connection pulse on cursor proximity**: lines near the cursor briefly glow brighter (opacity spike then fade)
+- [x] **Right-click / double-click**: double-click launches a "system disturbance" — all particles get a random velocity spike for 1s, then dampen back to calm. (Desktop only)
+- [x] **Performance guard**: cap max live particles at 80 (default 60 + click-spawned cap)
 
 ---
 
@@ -303,7 +303,7 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 | B | Light Theme Visibility | ✅ Done |
 | C | Hero Code Snippet Typing | ✅ Done |
 | D | Certificate Issuer Theming | ⬜ Not started |
-| E | Constellation Interactivity | ⬜ Not started |
+| E | Constellation Interactivity | ✅ Done |
 | F | Section-Specific Animations | ⬜ Not started |
 | G | Section Thematic Identity | ⬜ Not started |
 
