@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, feature/porfolio-redesign-2, feature/portfolio-redesign-theme ]
+    branches: [ main, feature/portfolio-redesign-theme ]
   workflow_dispatch:
 
 permissions:
