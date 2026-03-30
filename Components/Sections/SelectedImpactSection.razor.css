@@ -139,3 +139,24 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ── G.1 Phase G: Section motif — radial pulse rings ────────────── */
+.impact-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.impact-inner::before {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -8%;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at center, transparent 28%, rgba(59,130,246,0.028) 42%, transparent 56%),
+        radial-gradient(circle at center, transparent 52%, rgba(59,130,246,0.018) 66%, transparent 80%);
+    pointer-events: none;
+    z-index: 0;
+}

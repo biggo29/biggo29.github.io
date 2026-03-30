@@ -131,3 +131,24 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ── G.1 Phase G: Section motif — diagonal line texture ─────────── */
+.ct-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.ct-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(59,130,246,0.014) 18px,
+        rgba(59,130,246,0.014) 19px
+    );
+    pointer-events: none;
+    z-index: 0;
+}

@@ -82,3 +82,26 @@
         transition: none;
     }
 }
+
+/* ── G.1 Phase G: Section motif — code brackets { } ─────────────── */
+.cs-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.cs-inner::before {
+    content: '{ }';
+    position: absolute;
+    bottom: 0;
+    right: -1rem;
+    font-family: var(--font-mono);
+    font-size: 9rem;
+    font-weight: 800;
+    color: var(--primary);
+    opacity: 0.025;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    letter-spacing: -0.15em;
+    z-index: 0;
+}

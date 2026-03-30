@@ -366,3 +366,26 @@
         padding: 1.25rem;
     }
 }
+
+/* ── G.1 Phase G: Section motif — timeline glow extension ───────── */
+.exp-inner {
+    position: relative;
+}
+
+.exp-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(59,130,246,0.07) 20%,
+        rgba(59,130,246,0.05) 80%,
+        transparent 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+}

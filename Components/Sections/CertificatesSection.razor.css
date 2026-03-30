@@ -439,3 +439,24 @@
         scroll-behavior: auto;
     }
 }
+
+/* ── G.1 Phase G: Section motif — faint seal outline ────────────── */
+.cert-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.cert-inner::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2.5px solid var(--primary);
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+    box-shadow: inset 0 0 0 10px transparent, 0 0 0 8px rgba(59,130,246,0.012);
+}

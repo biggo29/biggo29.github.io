@@ -287,9 +287,9 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 | Writing | Open quote marks `"` | CSS `::before` large mono quote character |
 | Contact | Diagonal line texture | CSS `repeating-linear-gradient` |
 
-- [ ] Implement per-section motifs in respective `*.razor.css` files using `::before`/`::after` on the section wrapper or `.inner` div
-- [ ] All at ≤ 3% opacity, pointer-events: none
-- [ ] Must not conflict with existing section number watermarks (use `::before`, since `::after` is reserved for section numbers via `enhancements.css`)
+- [x] Implement per-section motifs in respective `*.razor.css` files using `::before` on each section's `.inner` div
+- [x] All at ≤ 3% opacity, pointer-events: none
+- [x] No conflict with section number watermarks — `::before` on inner divs is completely safe from global `::after` on section elements
 
 ---
 
@@ -300,10 +300,10 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 | A | Trivial Fixes (tab swap, edu title) | ✅ Done |
 | B | Light Theme Visibility | ✅ Done |
 | C | Hero Code Snippet Typing | ✅ Done |
-| D | Certificate Issuer Theming | ⬜ Not started |
+| D | Certificate Issuer Theming | ✅ Done |
 | E | Constellation Interactivity | ✅ Done |
 | F | Section-Specific Animations | ✅ Done |
-| G | Section Thematic Identity | ⬜ Not started |
+| G | Section Thematic Identity | ✅ Done |
 
 ---
 

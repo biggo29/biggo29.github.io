@@ -446,3 +446,20 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ── G.1 Phase G: Section motif — circuit-dot grid ──────────────── */
+.arch-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.arch-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(59,130,246,0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+}
