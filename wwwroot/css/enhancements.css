@@ -33,7 +33,7 @@
 [data-theme="light"] .cursor-spotlight {
     background: radial-gradient(
         600px circle at var(--cx, -1000px) var(--cy, -1000px),
-        rgba(37, 99, 235, 0.03),
+        rgba(37, 99, 235, 0.055),
         transparent 80%
     );
 }
@@ -149,6 +149,22 @@ section[id]:not(#home)::after {
     font-family: var(--font-body);
     z-index: 0;
     user-select: none;
+}
+
+/* ── B.3 — Section numbers: reduce opacity on light theme ────── */
+/* Dark text (#0f172a) at the default 0.028 opacity reads heavier
+   on white than light text (#e5e7eb) does on the dark background,
+   so we pull it back to match the perceived visual weight.        */
+[data-theme="light"] section[id]:not(#home)::after {
+    opacity: 0.018;
+}
+
+/* ── B.4 — Tech marquee badges: add border on light theme ─────── */
+/* On light, --primary-soft is rgba(37,99,235,0.10) on #f8fafc —
+   without a border the badge outline disappears. A thin border
+   gives it the same definition it has on the dark theme.          */
+[data-theme="light"] .tech-mq-badge {
+    border: 1px solid rgba(37, 99, 235, 0.22);
 }
 
 /* ── Responsive ───────────────────────────────────────────────── */

@@ -171,8 +171,9 @@
 .edu-divider {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    margin-top: 1rem;
 }
 
 .edu-divider::before,
@@ -183,14 +184,21 @@
     background: var(--border);
 }
 
-.edu-divider-label {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+/* Matches .section-heading typography from SectionTitle.razor.css */
+.edu-section-title {
+    font-size: 2.25rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
     white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .edu-section-title {
+        font-size: 1.75rem;
+    }
 }
 
 /* ── Education grid ───────────────────────────────────────────────── */

@@ -412,7 +412,7 @@ window.initializeConstellation = canvasId => {
         }));
         const dark = document.documentElement.getAttribute('data-theme') !== 'light';
         pts.forEach(p => {
-            ctx.fillStyle = dark ? 'rgba(99,155,246,0.4)' : 'rgba(37,99,235,0.25)';
+            ctx.fillStyle = dark ? 'rgba(99,155,246,0.4)' : 'rgba(37,99,235,0.45)';
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fill();
@@ -464,7 +464,7 @@ window.initializeConstellation = canvasId => {
             for (let j = i + 1; j < N; j++) {
                 const dist = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
                 if (dist < 120) {
-                    const a = (1 - dist / 120) * (d ? 0.22 : 0.12);
+                    const a = (1 - dist / 120) * (d ? 0.22 : 0.20);
                     ctx.strokeStyle = d ? `rgba(99,155,246,${a})` : `rgba(37,99,235,${a})`;
                     ctx.lineWidth   = 0.8;
                     ctx.beginPath();
@@ -476,7 +476,7 @@ window.initializeConstellation = canvasId => {
         }
 
         pts.forEach(p => {
-            ctx.fillStyle = d ? 'rgba(99,155,246,0.6)' : 'rgba(37,99,235,0.38)';
+            ctx.fillStyle = d ? 'rgba(99,155,246,0.6)' : 'rgba(37,99,235,0.55)';
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fill();

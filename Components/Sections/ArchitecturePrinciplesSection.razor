@@ -53,17 +53,17 @@
         </div>
 
         <div class="arch-tabs" role="tablist" aria-label="Technical profile tabs">
-            <button class="arch-tab @(_activeTab == "arch" ? "active" : "")"
-                    role="tab"
-                    aria-selected="@(_activeTab == "arch" ? "true" : "false")"
-                    @onclick='() => _activeTab = "arch"'>
-                @AppIcons.Get("layers") Architecture Principles
-            </button>
             <button class="arch-tab @(_activeTab == "skills" ? "active" : "")"
                     role="tab"
                     aria-selected="@(_activeTab == "skills" ? "true" : "false")"
                     @onclick='() => _activeTab = "skills"'>
                 @AppIcons.Get("bolt") Skills
+            </button>
+            <button class="arch-tab @(_activeTab == "arch" ? "active" : "")"
+                    role="tab"
+                    aria-selected="@(_activeTab == "arch" ? "true" : "false")"
+                    @onclick='() => _activeTab = "arch"'>
+                @AppIcons.Get("layers") Architecture Principles
             </button>
         </div>
 
@@ -160,7 +160,7 @@
 </section>
 
 @code {
-    private string _activeTab = "arch";
+    private string _activeTab = "skills";
 
     // Architecture: accordion — only one card open at a time
     private int? _openArchIdx;
