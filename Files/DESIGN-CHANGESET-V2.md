@@ -148,18 +148,10 @@ Connection lines: `rgba(37,99,235, alpha)` where alpha max ≈ 0.12 — nearly i
 | (default) | existing `GetCategoryColor` fallback | all other issuers |
 
 **Technical steps:**
-- [ ] In `Components/Sections/CertificatesSection.razor` `@code` block: add `GetIssuerColor(string issuer)` method
-  ```csharp
-  private static string GetIssuerColor(string issuer) => issuer switch
-  {
-      "Anthropic"          => "#D97757",
-      "LinkedIn Learning"  => "#0A66C2",
-      _                    => null   // fall through to category color
-  };
-  ```
-- [ ] Update `style="--cat-color: @GetCategoryColor(cert.Category)"` to use issuer color when available: `style="--cat-color: @(GetIssuerColor(cert.Issuer) ?? GetCategoryColor(cert.Category))"`
-- [ ] Update seal initials for branded issuers: Anthropic → "AN" or a stylised "A"; keep "LL" for LinkedIn Learning
-- [ ] Add a `[data-theme="light"]` override for the Anthropic orange so it doesn't wash out on white
+- [x] Added `GetIssuerColor(string issuer)` to `CertificatesSection.razor` — "Anthropic" → `#D97757` (Claude coral-orange), "LinkedIn Learning" → `#0A66C2` (LinkedIn blue), unknown → `null`
+- [x] Updated `style="--cat-color: ..."` to `@(GetIssuerColor(cert.Issuer) ?? GetCategoryColor(cert.Category))` — issuer brand takes priority
+- [x] Seal initials unchanged — existing logic already produces "AN" for Anthropic and "LL" for LinkedIn Learning
+- [x] No light theme override needed — both brand colors are dark enough to carry white text on both themes
 
 ---
 

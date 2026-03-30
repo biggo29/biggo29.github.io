@@ -51,7 +51,7 @@
                              aria-roledescription="slide"
                              aria-label="@cert.Title">
 
-                        <div class="cert-card-accent" style="--cat-color: @GetCategoryColor(cert.Category)">
+                        <div class="cert-card-accent" style="--cat-color: @(GetIssuerColor(cert.Issuer) ?? GetCategoryColor(cert.Category))">
                             <div class="cert-accent-bg" aria-hidden="true"></div>
                             <div class="cert-seal" aria-hidden="true">@GetSealInitials(cert.Issuer)</div>
                             <span class="cert-seal-label">@cert.Issuer</span>
@@ -230,6 +230,17 @@
             ? issuer[..Math.Min(2, issuer.Length)].ToUpper()
             : string.Concat(words.Take(2).Select(w => w[0])).ToUpper();
     }
+
+    /// <summary>
+    /// Returns the issuer's official brand color when recognised, or null to
+    /// fall back to the category color.  Add new issuers here as needed.
+    /// </summary>
+    private static string? GetIssuerColor(string issuer) => issuer switch
+    {
+        "Anthropic"         => "#D97757",   // Claude coral-orange
+        "LinkedIn Learning" => "#0A66C2",   // LinkedIn official blue
+        _                   => null
+    };
 
     private static string GetCategoryColor(string category) => category switch
     {
