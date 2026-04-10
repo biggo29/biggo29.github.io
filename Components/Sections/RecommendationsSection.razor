@@ -24,7 +24,7 @@
                     <blockquote class="rec-text">@rec.Text</blockquote>
 
                     <div class="rec-author-row">
-                        <div class="rec-author-avatar" aria-hidden="true">@rec.AuthorName[0]</div>
+                        <div class="rec-author-avatar" aria-hidden="true">@(rec.AuthorName?.Length > 0 ? rec.AuthorName[0] : '?')</div>
                         <div class="rec-author-info">
                             <p class="rec-author-name">@rec.AuthorName</p>
                             <p class="rec-author-meta">@rec.AuthorCurrentTitle &middot; @rec.AuthorCurrentCompany</p>
