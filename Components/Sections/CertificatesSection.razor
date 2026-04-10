@@ -1,0 +1,256 @@
+@implements IDisposable
+@inject IJSRuntime JSRuntime
+
+<section id="certificates" class="cert-section" aria-label="Certificates">
+    <div class="cert-inner">
+
+        <SectionTitle Title="Certificates"
+                      Subtitle="Recognised credentials in cloud, architecture, and software engineering." />
+
+        <div class="cert-filters" role="group" aria-label="Filter certificates by category">
+            <button class="cert-filter-btn @(_activeFilter == "All" ? "active" : "")"
+                    @onclick='() => SetFilter("All")'
+                    aria-pressed="@(_activeFilter == "All" ? "true" : "false")">
+                All
+            </button>
+            @foreach (var cat in ActiveCategories)
+            {
+                <button class="cert-filter-btn @(_activeFilter == cat ? "active" : "")"
+                        @onclick="() => SetFilter(cat)"
+                        aria-pressed="@(_activeFilter == cat ? "true" : "false")">
+                    @cat
+                </button>
+            }
+        </div>
+
+        <div class="cert-banner-outer"
+             @onmouseenter="() => _isPaused = true"
+             @onmouseleave="() => _isPaused = false">
+
+            <button class="cert-arrow cert-arrow-prev"
+                    @onclick="PrevAsync"
+                    disabled="@(_currentIndex == 0)"
+                    aria-label="Previous certificate">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+            </button>
+
+            <div class="cert-track"
+                 @ref="_trackRef"
+                 role="region"
+                 aria-label="Certificates banner"
+                 aria-roledescription="carousel">
+
+                @foreach (var cert in _certList)
+                {
+                    <article class="cert-card"
+                             aria-roledescription="slide"
+                             aria-label="@cert.Title">
+
+                        <div class="cert-card-accent" style="--cat-color: @(GetIssuerColor(cert.Issuer) ?? GetCategoryColor(cert.Category))">
+                            <div class="cert-accent-bg" aria-hidden="true"></div>
+                            <div class="cert-seal" aria-hidden="true">@GetSealInitials(cert.Issuer)</div>
+                            <span class="cert-seal-label">@cert.Issuer</span>
+                        </div>
+
+                        <div class="cert-card-body">
+                            <p class="cert-label">Certificate of Completion</p>
+                            <h3 class="cert-title">@cert.Title</h3>
+                            <p class="cert-meta-text">
+                                <span>@cert.Issuer</span>
+                                <span class="cert-meta-dot" aria-hidden="true">·</span>
+                                <span>@cert.IssuedDate</span>
+                                @if (!string.IsNullOrEmpty(cert.CredentialId))
+                                {
+                                    <span class="cert-meta-dot" aria-hidden="true">·</span>
+                                    <span class="cert-cred-id">ID: @cert.CredentialId</span>
+                                }
+                            </p>
+                            <div class="cert-card-footer">
+                                <span class="cert-category-badge">@cert.Category</span>
+                                @if (!string.IsNullOrEmpty(cert.FilePath))
+                                {
+                                    <a class="cert-action-btn primary"
+                                       href="@cert.FilePath"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       aria-label="View @cert.Title certificate (opens in new tab)">
+                                        <span aria-hidden="true">@AppIcons.Get("certificate")</span>
+                                        View Certificate
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(cert.CredentialUrl))
+                                {
+                                    <a class="cert-action-btn secondary"
+                                       href="@cert.CredentialUrl"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       aria-label="Verify @cert.Title credential (opens in new tab)">
+                                        <span aria-hidden="true">@AppIcons.Get("external-link")</span>
+                                        Verify
+                                    </a>
+                                }
+                            </div>
+                        </div>
+
+                    </article>
+                }
+
+            </div>
+
+            <button class="cert-arrow cert-arrow-next"
+                    @onclick="NextAsync"
+                    disabled="@(_currentIndex == _certList.Count - 1)"
+                    aria-label="Next certificate">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </button>
+
+        </div>
+
+        @if (_certList.Count > 1)
+        {
+            <div class="cert-dots" role="tablist" aria-label="Certificate navigation">
+                @for (int i = 0; i < _certList.Count; i++)
+                {
+                    var idx = i;
+                    <button class="cert-dot @(_currentIndex == idx ? "active" : "")"
+                            @onclick="() => GoToSlideAsync(idx)"
+                            role="tab"
+                            aria-selected="@(_currentIndex == idx ? "true" : "false")"
+                            aria-label="Go to certificate @(idx + 1) of @_certList.Count" />
+                }
+            </div>
+        }
+
+    </div>
+</section>
+
+@code {
+    private string _activeFilter = "All";
+    private bool   _isPaused;
+    private int    _currentIndex;
+    private bool   _timerStarted;
+    private int?   _pendingScrollIndex;
+
+    private List<Certificate> _certList = new();
+    private ElementReference  _trackRef;
+    private PeriodicTimer?    _timer;
+
+    private IEnumerable<string> ActiveCategories =>
+        PortfolioData.Certificates.Select(c => c.Category).Distinct().OrderBy(c => c);
+
+    protected override void OnInitialized() => RebuildList();
+
+    private void RebuildList()
+    {
+        _certList = _activeFilter == "All"
+            ? PortfolioData.Certificates.ToList()
+            : PortfolioData.Certificates.Where(c => c.Category == _activeFilter).ToList();
+    }
+
+    private void SetFilter(string filter)
+    {
+        if (_activeFilter == filter) return;
+        _activeFilter       = filter;
+        _currentIndex       = 0;
+        _timerStarted       = false;
+        _pendingScrollIndex = 0;
+        RebuildList();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            _pendingScrollIndex = 0;
+
+        if (_pendingScrollIndex.HasValue)
+        {
+            var idx = _pendingScrollIndex.Value;
+            _pendingScrollIndex = null;
+            await JSRuntime.InvokeVoidAsync("carouselScrollToIndex", _trackRef, idx);
+        }
+
+        if (!_timerStarted && _certList.Count > 1)
+        {
+            _timerStarted = true;
+            _timer?.Dispose();
+            _timer = new PeriodicTimer(TimeSpan.FromSeconds(4));
+            _ = RunAutoSlideAsync();
+        }
+    }
+
+    private async Task RunAutoSlideAsync()
+    {
+        while (_timer != null && await _timer.WaitForNextTickAsync())
+        {
+            if (_isPaused) continue;
+            await InvokeAsync(async () =>
+            {
+                _currentIndex = _currentIndex < _certList.Count - 1 ? _currentIndex + 1 : 0;
+                await JSRuntime.InvokeVoidAsync("carouselScrollToIndex", _trackRef, _currentIndex);
+                StateHasChanged();
+            });
+        }
+    }
+
+    private async Task PrevAsync()
+    {
+        if (_currentIndex == 0) return;
+        _currentIndex--;
+        await JSRuntime.InvokeVoidAsync("carouselScrollToIndex", _trackRef, _currentIndex);
+    }
+
+    private async Task NextAsync()
+    {
+        if (_currentIndex == _certList.Count - 1) return;
+        _currentIndex++;
+        await JSRuntime.InvokeVoidAsync("carouselScrollToIndex", _trackRef, _currentIndex);
+    }
+
+    private async Task GoToSlideAsync(int index)
+    {
+        _currentIndex = index;
+        await JSRuntime.InvokeVoidAsync("carouselScrollToIndex", _trackRef, index);
+    }
+
+    private static string GetSealInitials(string issuer)
+    {
+        if (string.IsNullOrWhiteSpace(issuer)) return "?";
+        var words = issuer.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return words.Length == 1
+            ? issuer[..Math.Min(2, issuer.Length)].ToUpper()
+            : string.Concat(words.Take(2).Select(w => w[0])).ToUpper();
+    }
+
+    /// <summary>
+    /// Returns the issuer's official brand color when recognised, or null to
+    /// fall back to the category color.  Add new issuers here as needed.
+    /// </summary>
+    private static string? GetIssuerColor(string issuer) => issuer switch
+    {
+        "Anthropic"         => "#D97757",   // Claude coral-orange
+        "LinkedIn Learning" => "#0A66C2",   // LinkedIn official blue
+        _                   => null
+    };
+
+    private static string GetCategoryColor(string category) => category switch
+    {
+        "AI"           => "#7c3aed",
+        "Cloud"        => "#2563eb",
+        "Development"  => "#059669",
+        "Architecture" => "#d97706",
+        "Leadership"   => "#0891b2",
+        _              => "#3b82f6"
+    };
+
+    public void Dispose() => _timer?.Dispose();
+}

@@ -46,6 +46,8 @@
     font-size: 2.75rem;
     line-height: 1;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
 .gh-name {
@@ -83,6 +85,11 @@
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+        opacity   0.4s ease var(--gh-stat-delay, 0ms),
+        transform 0.4s ease var(--gh-stat-delay, 0ms);
 }
 
 .gh-stat-value {
@@ -116,6 +123,27 @@
     color: var(--primary);
     padding: 0.3rem 0.75rem;
     border-radius: var(--radius-sm);
+    opacity: 0;
+    transform: scale(0.8);
+    transition:
+        opacity   0.3s ease var(--gh-lang-delay, 0ms),
+        transform 0.3s ease var(--gh-lang-delay, 0ms);
+}
+
+/* ── F.5 Phase F: GitHub Pixel Paint (stats + lang badge animate-in) */
+.gh-section.gh-animated .gh-stat-item,
+.gh-section.gh-animated .gh-lang-badge {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gh-stat-item,
+    .gh-lang-badge {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 /* ── GitHub stats image cards ─────────────────────────────────────── */
@@ -128,6 +156,7 @@
 }
 
 .gh-stat-img-card {
+    background: #141321; /* matches github-readme-stats "radical" theme bg */
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -169,4 +198,26 @@
     .gh-stats-images {
         grid-template-columns: 1fr;
     }
+}
+
+/* ── G.1 Phase G: Section motif — </> tag mark ──────────────────── */
+.gh-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.gh-inner::before {
+    content: '</>';
+    position: absolute;
+    top: 2rem;
+    right: -0.5rem;
+    font-family: var(--font-mono);
+    font-size: 8rem;
+    font-weight: 800;
+    color: var(--primary);
+    opacity: 0.025;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
 }

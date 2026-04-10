@@ -23,6 +23,21 @@
     width: 2px;
     height: calc(100% - 1.5rem);
     background: linear-gradient(to bottom, var(--primary), var(--border));
+    transform-origin: top center;
+    transform: scaleY(0);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* F.2 Phase F: triggered by JS when #experience scrolls into view */
+.exp-timeline.tl-animated::before {
+    transform: scaleY(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .exp-timeline::before {
+        transform: scaleY(1);
+        transition: none;
+    }
 }
 
 /* ── Timeline entry ───────────────────────────────────────────────── */
@@ -171,8 +186,9 @@
 .edu-divider {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    margin-top: 1rem;
 }
 
 .edu-divider::before,
@@ -183,14 +199,21 @@
     background: var(--border);
 }
 
-.edu-divider-label {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+/* Matches .section-heading typography from SectionTitle.razor.css */
+.edu-section-title {
+    font-size: 2.25rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
     white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .edu-section-title {
+        font-size: 1.75rem;
+    }
 }
 
 /* ── Education grid ───────────────────────────────────────────────── */
@@ -258,6 +281,66 @@
     line-height: 1.55;
 }
 
+/* ── Collapsible toggle button ────────────────────────────────────── */
+.exp-toggle {
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    color: inherit;
+    font: inherit;
+}
+
+.exp-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+/* ── Right-side group: duration badge + chevron ───────────────────── */
+.exp-toggle-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+/* ── Chevron icon ─────────────────────────────────────────────────── */
+.exp-chevron {
+    color: var(--muted);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.exp-chevron.is-open {
+    transform: rotate(180deg);
+}
+
+/* ── Remove header bottom-margin when card is collapsed ───────────── */
+.exp-card:not(.is-expanded) .exp-card-header {
+    margin-bottom: 0;
+}
+
+/* ── Smooth height animation for details panel ────────────────────── */
+.exp-details {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+}
+
+.exp-details.is-visible {
+    grid-template-rows: 1fr;
+}
+
+.exp-details-inner {
+    overflow: hidden;
+}
+
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .exp-card-header {
@@ -282,4 +365,27 @@
     .edu-card {
         padding: 1.25rem;
     }
+}
+
+/* ── G.1 Phase G: Section motif — timeline glow extension ───────── */
+.exp-inner {
+    position: relative;
+}
+
+.exp-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(59,130,246,0.07) 20%,
+        rgba(59,130,246,0.05) 80%,
+        transparent 100%
+    );
+    pointer-events: none;
+    z-index: 0;
 }

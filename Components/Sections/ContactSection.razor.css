@@ -41,6 +41,9 @@
 .ct-icon {
     font-size: 1.85rem;
     line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ── Card text ────────────────────────────────────────────────────── */
@@ -65,6 +68,21 @@
     color: var(--primary);
     word-break: break-all;
     line-height: 1.4;
+}
+
+/* ── F.8 Phase F: Form Field Glow Sequence ──────────────────────── */
+@keyframes ct-card-glow {
+    0%   { box-shadow: none;                                                           border-color: var(--border);  }
+    40%  { box-shadow: 0 0 0 3px rgba(59,130,246,0.25), 0 4px 16px rgba(59,130,246,0.12); border-color: var(--primary); }
+    100% { box-shadow: none;                                                           border-color: var(--border);  }
+}
+
+.ct-card.ct-glow {
+    animation: ct-card-glow 0.8s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ct-card.ct-glow { animation: none; }
 }
 
 /* ── Resume CTA ───────────────────────────────────────────────────── */
@@ -112,4 +130,25 @@
     .ct-links {
         grid-template-columns: 1fr;
     }
+}
+
+/* ── G.1 Phase G: Section motif — diagonal line texture ─────────── */
+.ct-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.ct-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(59,130,246,0.014) 18px,
+        rgba(59,130,246,0.014) 19px
+    );
+    pointer-events: none;
+    z-index: 0;
 }

@@ -59,3 +59,49 @@
         padding: 4rem 1.25rem;
     }
 }
+
+/* ── F.4 Phase F: Tag Cascade Reveal ────────────────────────────── */
+/* Tags in cs-cards start hidden; stagger-reveal when card-visible is added */
+.cs-card .tag-badge {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+        opacity   0.30s ease calc(var(--tag-i, 0) * 40ms + 200ms),
+        transform 0.30s ease calc(var(--tag-i, 0) * 40ms + 200ms);
+}
+
+.cs-card.card-visible .tag-badge {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-card .tag-badge {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ── G.1 Phase G: Section motif — code brackets { } ─────────────── */
+.cs-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.cs-inner::before {
+    content: '{ }';
+    position: absolute;
+    bottom: 0;
+    right: -1rem;
+    font-family: var(--font-mono);
+    font-size: 9rem;
+    font-weight: 800;
+    color: var(--primary);
+    opacity: 0.025;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    letter-spacing: -0.15em;
+    z-index: 0;
+}

@@ -262,3 +262,50 @@ Dhaka, Bangladesh
 ---
 
 *This profile is a living document. Projects, links, and content are updated regularly to reflect my latest work and interests.*
+
+---
+
+## Portfolio Loader — Theme Configuration
+
+The portfolio opening sequence is a Marvel-themed cinematic loader. The active theme is set via a single attribute in `wwwroot/index.html`.
+
+### How to switch themes
+
+Open `wwwroot/index.html` and find the `#marvel-loader` div near the top of `<body>`:
+
+```html
+<div id="marvel-loader" data-loader-theme="loader-theme-marvel-studio" aria-hidden="true">
+```
+
+Change `data-loader-theme` to any of the four values below, then rebuild:
+
+```bash
+dotnet publish biggo29.github.io.csproj --configuration Release --output ./publish -p:PublishTrimmed=false
+```
+
+### Available themes
+
+| Theme value | Visual style | Background | Text | Flash |
+|---|---|---|---|---|
+| `loader-theme-marvel-studio` | Marvel Studios card — **SHOAIB \| SHAHRIAR** side-by-side with chrome silver text on deep crimson | Crimson red radial gradient | Chrome silver `#d8d8d8` | Red `#E8042C` |
+| `loader-theme-marvel-old` | Original two-line — **SHOAIB** above **SHAHRIAR**, white slamming in then sweeping to red | Pure black | White → Red sweep | Red `#E8042C` |
+| `loader-theme-avengers` | Avengers navy + gold — one line, Avengers gold text on deep navy | Dark navy radial gradient | Gold `#E8C547` | Electric blue `#1155BB` |
+| `loader-theme-avengers-doomsday` | Doomsday copper — one line, copper/ember text on near-black | Dark ember radial gradient | Copper `#D4941C` | Blood red `#6B1010` |
+
+### Sequence overview (all themes)
+
+All themes run the same 5-phase sequence (~4.5 s total):
+
+1. **Black screen + film grain** — 200 ms cinematic hold
+2. **Tech stack panel shuffle** — 18 panels, accelerating from 200 ms → 40 ms per frame; panel text colour matches the active theme
+3. **Accent flash** — hard-cut flash in the theme's accent colour, then fades
+4. **Name reveal** — SHOAIB + SHAHRIAR slam in; layout and colours driven by theme; `loader-theme-marvel-old` adds a white→red colour sweep
+5. **White flash + portfolio reveal** — blinding white exit, portfolio fades in underneath
+
+### Replay during development
+
+The loader plays once per browser session. To replay:
+
+- **DevTools:** Application → Session Storage → delete the `ml-seen` key → refresh
+- **Hard refresh:** `Ctrl + Shift + R` (clears session storage in most browsers)
+- **auto switcher

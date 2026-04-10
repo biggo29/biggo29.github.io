@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, feature/porfolio-redesign-2 ]
+    branches: [ main, feature/portfolio-redesign-theme ]
   workflow_dispatch:
 
 permissions:
@@ -34,6 +34,25 @@ jobs:
 
       - name: Publish
         run: dotnet publish biggo29.github.io.csproj --configuration Release --no-build --output ./publish
+
+      - name: Inject Medium settings from GitHub Secrets and Variables
+        env:
+          MEDIUM_BASE_URL:        ${{ vars.MEDIUM_BASE_URL }}
+          MEDIUM_RSS_URL:         ${{ vars.MEDIUM_RSS_URL }}
+          MEDIUM_API_KEY:         ${{ secrets.MEDIUM_API_KEY }}
+          MEDIUM_COUNT:           ${{ vars.MEDIUM_COUNT }}
+          MEDIUM_ORDER_DIR:       ${{ vars.MEDIUM_ORDER_DIR }}
+          MEDIUM_DESC_LENGTH:     ${{ vars.MEDIUM_DESC_LENGTH }}
+        run: |
+          jq \
+            --arg baseUrl       "${MEDIUM_BASE_URL:-https://api.rss2json.com/v1/api.json}" \
+            --arg rssUrl        "${MEDIUM_RSS_URL:-https://medium.com/feed/@biggo29}" \
+            --arg apiKey        "${MEDIUM_API_KEY:-}" \
+            --argjson count     "${MEDIUM_COUNT:-10}" \
+            --arg orderDir      "${MEDIUM_ORDER_DIR:-desc}" \
+            --argjson descLen   "${MEDIUM_DESC_LENGTH:-150}" \
+            '.Medium.BaseUrl = $baseUrl | .Medium.RssUrl = $rssUrl | .Medium.ApiKey = $apiKey | .Medium.Count = $count | .Medium.OrderDir = $orderDir | .Medium.DescriptionLength = $descLen' \
+            ./publish/wwwroot/appsettings.json > tmp.json && mv tmp.json ./publish/wwwroot/appsettings.json
 
       - name: Change base href in index.html
         run: |
