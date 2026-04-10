@@ -330,7 +330,7 @@ namespace biggo29.github.io.Data
                 AuthorName = "Simon Parry",
                 AuthorCurrentTitle = "Lead Developer",
                 AuthorCurrentCompany = "Bunzl UK and Ireland",
-                Relationship = "Former Team Lead",
+                Relationship = "Former Team Lead @ EchoLogyx | ScrewfixSpares",
                 Category = "Engineering & Technical Leadership",
                 Text = "I had the pleasure of working with Shoaib as the C# Team Lead for Screwfix Spares, his ability to follow instructions diligently while being eager to embrace new technologies truly stood out. Shoaib has excellent communication skills which made collaboration seamless, and his approachable nature made him not only easy to work with but also a fantastic member of the team. Shoaib has exceptional technical skills and commendable professionalism.",
                 IsActive = true
@@ -340,7 +340,7 @@ namespace biggo29.github.io.Data
                 AuthorName = "Moinul Islam",
                 AuthorCurrentTitle = "Head of Software Development & Implementation",
                 AuthorCurrentCompany = "Synesis IT PLC",
-                Relationship = "Former Manager",
+                Relationship = "Former Team Lead @ Synesis IT PLC",
                 Category = "Engineering & Technical Leadership",
                 Text = "Shoaib Shahriar was a brilliant person to work with. When you get to connect with him, you'll find a fantastic person! Loyal, insightful, and independent. He had the vision to see the benefits and the passion to turn that into a competitive advantage for Synesis IT. Ambitious and independent expert. He denotes a lot of analytical capability and willingness for both his personal & professional development. He is also creative which is rare for in technical person.",
                 IsActive = true
@@ -350,7 +350,7 @@ namespace biggo29.github.io.Data
                 AuthorName = "Mohammad Atiqur Rahman",
                 AuthorCurrentTitle = "Senior Manager",
                 AuthorCurrentCompany = "Epyllion Group",
-                Relationship = "Former Colleague",
+                Relationship = "Former Team Member @ EchoLogyx | ScrewfixSpares",
                 Category = "Engineering & Technical Leadership",
                 Text = "Shoaib's collaborative nature, problem-solving mindset, and mentorship qualities make him an outstanding team player and a dependable leader. I've personally learned a great deal from his ability to analyze complex systems and deliver robust, scalable solutions. Any team would benefit greatly from his presence. I wish him continued success.",
                 IsActive = true
@@ -362,7 +362,7 @@ namespace biggo29.github.io.Data
                 AuthorName = "Md Shohanur Rahman",
                 AuthorCurrentTitle = "Senior iOS Developer",
                 AuthorCurrentCompany = "Cloud Ten Labs (USA)",
-                Relationship = "Former Colleague",
+                Relationship = "Former Colleague @ RMG Networks",
                 Category = "Backend & System Architecture",
                 Text = "I had the pleasure of working with Shoaib Shahriar, and I was always impressed by his strong expertise in C# and ASP.NET. He consistently delivered clean, scalable backend solutions and played a key role in ensuring smooth API integrations and system performance. What stands out most is his problem-solving ability and collaborative mindset. He is always ready to support teammates and share knowledge. I highly recommend him as a reliable and talented developer who would be an asset to any team.",
                 IsActive = true
@@ -372,7 +372,7 @@ namespace biggo29.github.io.Data
                 AuthorName = "Tom Hodgson",
                 AuthorCurrentTitle = "CRO & UX Lead",
                 AuthorCurrentCompany = "EchoLogyx Ltd",
-                Relationship = "Former Manager",
+                Relationship = "Former UI/UX Manager @ EchoLogyx | ScrewfixSpares",
                 Category = "Backend & System Architecture",
                 Text = "Shoaib is a talented Software Engineer. His ability to develop to the highest standard to ensure that his tasks are always developed as specified are exceptional. Shoaib is a kind and friendly individual, and that makes his an excellent team player, who will always go that extra step in order to fulfil his work to the best of his potential. Shoaib would make a valuable member for any team that he is a part of.",
                 IsActive = true

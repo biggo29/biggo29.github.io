@@ -1,59 +1,229 @@
+@implements IDisposable
+
 <section id="recommendations" class="rec-section" aria-label="Recommendations">
     <div class="rec-inner">
 
         <SectionTitle Title="Recommendations"
                       Subtitle="What colleagues and clients say about working with me." />
 
-        <div class="rec-filters" role="group" aria-label="Filter recommendations by category">
-            @foreach (var filter in Filters)
-            {
-                <button class="rec-filter-btn @(_activeFilter == filter.Value ? "active" : "")"
-                        @onclick="() => _activeFilter = filter.Value"
-                        aria-pressed="@(_activeFilter == filter.Value ? "true" : "false")">
-                    @filter.Label
-                </button>
-            }
+        <!-- ── Split slideshow ───────────────────────────────────────────── -->
+        <div class="rec-slideshow"
+             @onmouseenter="Pause"
+             @onmouseleave="Resume">
+
+            <!-- Left panel — Author identity -->
+            <div class="rec-panel rec-panel--left" aria-live="polite" aria-atomic="true">
+                @for (var i = 0; i < _items.Count; i++)
+                {
+                    var item = _items[i];
+                    var lcls = GetLeftClass(i);
+                    <div class="rec-slide rec-slide--left @lcls"
+                         role="group"
+                         aria-label="@item.AuthorName"
+                         aria-hidden="@(i != _activeIndex ? "true" : "false")">
+
+                        <span class="rec-bg-letter" aria-hidden="true">@item.AuthorName[0]</span>
+
+                        <div class="rec-slide-body">
+                            <div class="rec-avatar" aria-hidden="true">@item.AuthorName[0]</div>
+                            <h3 class="rec-name">@item.AuthorName</h3>
+                            <p class="rec-job-title">@item.AuthorCurrentTitle</p>
+                            <p class="rec-company">@item.AuthorCurrentCompany</p>
+                            <span class="rec-badge">@item.Relationship</span>
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+            <!-- Right panel — Quote (moves opposite direction to left) -->
+            <div class="rec-panel rec-panel--right" aria-live="polite" aria-atomic="true">
+                @for (var i = 0; i < _items.Count; i++)
+                {
+                    var item = _items[i];
+                    var rcls = GetRightClass(i);
+                    <div class="rec-slide rec-slide--right @rcls"
+                         role="group"
+                         aria-label="Recommendation from @item.AuthorName"
+                         aria-hidden="@(i != _activeIndex ? "true" : "false")">
+
+                        <div class="rec-slide-body">
+                            <span class="rec-quote-deco" aria-hidden="true">&ldquo;</span>
+                            <blockquote class="rec-quote">@item.Text</blockquote>
+                            <footer class="rec-quote-footer">
+                                <span class="rec-cat-label">@item.Category</span>
+                            </footer>
+                        </div>
+
+                    </div>
+                }
+            </div>
+
         </div>
 
-        <div class="rec-grid">
-            @foreach (var rec in FilteredItems)
-            {
-                <article class="rec-card">
-                    <div class="rec-quote-icon" aria-hidden="true">&ldquo;</div>
+        <!-- ── Controls: counter | progress dots | prev/next ────────────── -->
+        <div class="rec-controls">
 
-                    <blockquote class="rec-text">@rec.Text</blockquote>
+            <span class="rec-counter" aria-live="polite" aria-atomic="true">
+                @($"{_activeIndex + 1:D2}") <span class="rec-counter-sep" aria-hidden="true">/</span> @($"{_items.Count:D2}")
+            </span>
 
-                    <div class="rec-author-row">
-                        <div class="rec-author-avatar" aria-hidden="true">@rec.AuthorName[0]</div>
-                        <div class="rec-author-info">
-                            <p class="rec-author-name">@rec.AuthorName</p>
-                            <p class="rec-author-meta">@rec.AuthorCurrentTitle &middot; @rec.AuthorCurrentCompany</p>
-                        </div>
-                    </div>
+            <div class="rec-dots" role="tablist" aria-label="Recommendation slides">
+                @for (var i = 0; i < _items.Count; i++)
+                {
+                    var idx  = i;
+                    var name = _items[i].AuthorName;
+                    <button class="rec-dot @(_activeIndex == idx ? "is-active" : "")"
+                            @onclick="() => GoToAsync(idx)"
+                            role="tab"
+                            aria-selected="@(_activeIndex == idx ? "true" : "false")"
+                            aria-label="@name" />
+                }
+            </div>
 
-                    <div class="rec-footer">
-                        <span class="rec-relation-badge">@rec.Relationship</span>
-                    </div>
-                </article>
-            }
+            <div class="rec-nav" role="group" aria-label="Slideshow navigation">
+                <button class="rec-nav-btn"
+                        @onclick="PrevAsync"
+                        aria-label="Previous recommendation"
+                        disabled="@_isAnimating">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                </button>
+                <button class="rec-nav-btn"
+                        @onclick="NextAsync"
+                        aria-label="Next recommendation"
+                        disabled="@_isAnimating">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </button>
+            </div>
+
         </div>
 
     </div>
 </section>
 
 @code {
-    private string _activeFilter = "All";
-
-    private static readonly (string Label, string Value)[] Filters =
+    // The 5 featured recommendations shown in the slideshow
+    private static readonly string[] FeaturedNames =
     {
-        ("All",                       "All"),
-        ("Engineering & Leadership",  "Engineering & Technical Leadership"),
-        ("Backend & Architecture",    "Backend & System Architecture"),
-        ("Team Culture",              "Team Culture & Reliability"),
+        "Simon Parry",
+        "Moinul Islam",
+        "Mohammad Atiqur Rahman",
+        "Tom Hodgson",
+        "Md Shohanur Rahman"
     };
 
-    private IEnumerable<Recommendation> FilteredItems =>
-        _activeFilter == "All"
-            ? PortfolioData.Recommendations.Where(r => r.IsActive)
-            : PortfolioData.Recommendations.Where(r => r.IsActive && r.Category == _activeFilter);
+    private List<Recommendation> _items = new();
+
+    // Slide state
+    private int  _activeIndex   = 0;
+    private int  _enteringIndex = -1;   // slide animating IN
+    private int  _leavingIndex  = -1;   // slide animating OUT
+    private bool _goingForward  = true;
+    private bool _isAnimating   = false;
+    private bool _isPaused      = false;
+
+    private System.Timers.Timer? _timer;
+
+    protected override void OnInitialized()
+    {
+        _items = PortfolioData.Recommendations
+            .Where(r => r.IsActive && FeaturedNames.Contains(r.AuthorName))
+            .OrderBy(r => Array.IndexOf(FeaturedNames, r.AuthorName))
+            .ToList();
+
+        _timer = new System.Timers.Timer(3000);
+        _timer.Elapsed += (_, _) =>
+        {
+            if (!_isPaused) InvokeAsync(NextAsync);
+        };
+        _timer.AutoReset = true;
+        _timer.Start();
+    }
+
+    // Left panel: default = below (105%), active = 0%
+    // Forward : enters from below, exits to above   (opposite of right)
+    // Backward: enters from above, exits to below
+    private string GetLeftClass(int idx)
+    {
+        if (_enteringIndex == -1 && idx == _activeIndex) return "is-active";
+        if (idx == _enteringIndex) return _goingForward ? "is-enter-fwd" : "is-enter-bwd";
+        if (idx == _leavingIndex)  return _goingForward ? "is-leave-fwd" : "is-leave-bwd";
+        return string.Empty;
+    }
+
+    // Right panel: default = above (-105%), active = 0%
+    // Forward : enters from above, exits to below   (opposite of left = split effect)
+    // Backward: enters from below, exits to above
+    private string GetRightClass(int idx)
+    {
+        if (_enteringIndex == -1 && idx == _activeIndex) return "is-active";
+        if (idx == _enteringIndex) return _goingForward ? "is-enter-r-fwd" : "is-enter-r-bwd";
+        if (idx == _leavingIndex)  return _goingForward ? "is-leave-r-fwd" : "is-leave-r-bwd";
+        return string.Empty;
+    }
+
+    private Task NextAsync() =>
+        TransitionTo((_activeIndex + 1) % _items.Count, forward: true);
+
+    private Task PrevAsync() =>
+        TransitionTo((_activeIndex - 1 + _items.Count) % _items.Count, forward: false);
+
+    private Task GoToAsync(int idx)
+    {
+        if (idx == _activeIndex || _isAnimating) return Task.CompletedTask;
+        return TransitionTo(idx, forward: idx > _activeIndex);
+    }
+
+    private async Task TransitionTo(int nextIndex, bool forward)
+    {
+        if (_isAnimating) return;
+
+        // Stop timer so the progress dot restarts cleanly after transition
+        _timer?.Stop();
+
+        _isAnimating   = true;
+        _goingForward  = forward;
+        _leavingIndex  = _activeIndex;
+        _enteringIndex = nextIndex;
+        StateHasChanged();
+
+        await Task.Delay(950);  // matches animation duration in CSS
+
+        _activeIndex   = nextIndex;
+        _enteringIndex = -1;
+        _leavingIndex  = -1;
+        _isAnimating   = false;
+        StateHasChanged();
+
+        // Restart timer so the dot-progress animation starts from 0
+        if (!_isPaused) _timer?.Start();
+    }
+
+    private void Pause()
+    {
+        _isPaused = true;
+        _timer?.Stop();
+    }
+
+    private void Resume()
+    {
+        _isPaused = false;
+        if (!_isAnimating) _timer?.Start();
+    }
+
+    public void Dispose()
+    {
+        _timer?.Stop();
+        _timer?.Dispose();
+    }
 }
