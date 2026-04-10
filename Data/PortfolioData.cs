@@ -321,5 +321,104 @@ namespace biggo29.github.io.Data
                 ResearchTopic = "Human health monitoring system using Wireless Sensor Body Area Network (WSBAN)"
             }
         };
+
+        public static readonly List<Recommendation> Recommendations = new()
+        {
+            // ── Engineering & Technical Leadership ────────────────────────────
+            new Recommendation
+            {
+                AuthorName = "Simon Parry",
+                AuthorCurrentTitle = "Lead Developer",
+                AuthorCurrentCompany = "Bunzl UK and Ireland",
+                Relationship = "Former Team Lead",
+                Category = "Engineering & Technical Leadership",
+                Text = "I had the pleasure of working with Shoaib as the C# Team Lead for Screwfix Spares, his ability to follow instructions diligently while being eager to embrace new technologies truly stood out. Shoaib has excellent communication skills which made collaboration seamless, and his approachable nature made him not only easy to work with but also a fantastic member of the team. Shoaib has exceptional technical skills and commendable professionalism.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Moinul Islam",
+                AuthorCurrentTitle = "Head of Software Development & Implementation",
+                AuthorCurrentCompany = "Synesis IT PLC",
+                Relationship = "Former Manager",
+                Category = "Engineering & Technical Leadership",
+                Text = "Shoaib Shahriar was a brilliant person to work with. When you get to connect with him, you'll find a fantastic person! Loyal, insightful, and independent. He had the vision to see the benefits and the passion to turn that into a competitive advantage for Synesis IT. Ambitious and independent expert. He denotes a lot of analytical capability and willingness for both his personal & professional development. He is also creative which is rare for in technical person.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Mohammad Atiqur Rahman",
+                AuthorCurrentTitle = "Senior Manager",
+                AuthorCurrentCompany = "Epyllion Group",
+                Relationship = "Former Colleague",
+                Category = "Engineering & Technical Leadership",
+                Text = "Shoaib's collaborative nature, problem-solving mindset, and mentorship qualities make him an outstanding team player and a dependable leader. I've personally learned a great deal from his ability to analyze complex systems and deliver robust, scalable solutions. Any team would benefit greatly from his presence. I wish him continued success.",
+                IsActive = true
+            },
+
+            // ── Backend & System Architecture ─────────────────────────────────
+            new Recommendation
+            {
+                AuthorName = "Md Shohanur Rahman",
+                AuthorCurrentTitle = "Senior iOS Developer",
+                AuthorCurrentCompany = "Cloud Ten Labs (USA)",
+                Relationship = "Former Colleague",
+                Category = "Backend & System Architecture",
+                Text = "I had the pleasure of working with Shoaib Shahriar, and I was always impressed by his strong expertise in C# and ASP.NET. He consistently delivered clean, scalable backend solutions and played a key role in ensuring smooth API integrations and system performance. What stands out most is his problem-solving ability and collaborative mindset. He is always ready to support teammates and share knowledge. I highly recommend him as a reliable and talented developer who would be an asset to any team.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Tom Hodgson",
+                AuthorCurrentTitle = "CRO & UX Lead",
+                AuthorCurrentCompany = "EchoLogyx Ltd",
+                Relationship = "Former Manager",
+                Category = "Backend & System Architecture",
+                Text = "Shoaib is a talented Software Engineer. His ability to develop to the highest standard to ensure that his tasks are always developed as specified are exceptional. Shoaib is a kind and friendly individual, and that makes his an excellent team player, who will always go that extra step in order to fulfil his work to the best of his potential. Shoaib would make a valuable member for any team that he is a part of.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Bijon Kumar Dhar",
+                AuthorCurrentTitle = "General Manager, Technology",
+                AuthorCurrentCompany = "Synesis IT PLC",
+                Relationship = "Former Manager",
+                Category = "Backend & System Architecture",
+                Text = "Shoaib Shahriar, is a very good programmer and his skill set in .Net platform is good. He is a very hard working and also has good analytical skills. He is a very good person and I wish his every success.",
+                IsActive = true
+            },
+
+            // ── Team Culture & Reliability ────────────────────────────────────
+            new Recommendation
+            {
+                AuthorName = "Faroque Abdullah",
+                AuthorCurrentTitle = "Senior Software Engineer II",
+                AuthorCurrentCompany = "Cefalo",
+                Relationship = "Former Colleague",
+                Category = "Team Culture & Reliability",
+                Text = "Shoaib is one of the most delightful people I had the pleasure of working. His humor and empathy make a comforting work environment. He consistently gave 100 percent effort to the team and played a very important role in the company. Any team would be lucky to have Shoaib and I will always recommend him to any company interested in working with him.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Ratul Minhaz",
+                AuthorCurrentTitle = "Senior Software Engineer",
+                AuthorCurrentCompany = "Axel Springer (Berlin, Germany)",
+                Relationship = "University Alumnus & Colleague",
+                Category = "Team Culture & Reliability",
+                Text = "As university alumni we had the opportunity to work closely in several occasions and I got to know Shoaib as a reliable teammate. We had volunteered together for different organizations and organized sessions on open web technologies. Shoaib has always demonstrated an inherent ability to handle difficult situations with a calm demeanor, so I am very happy to see him rise above his peers in career. I wish him the best!",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Md. Emon Hossain Diza",
+                AuthorCurrentTitle = "Consultant Team Lead Manager",
+                AuthorCurrentCompany = "CONSTELL GROUP",
+                Relationship = "Former Colleague",
+                Category = "Team Culture & Reliability",
+                Text = "Shoaib Shahriar is very passionate and has great vision for his work. His focus keeps everything moving smoothly, he makes sure all the deadlines are met, and makes sure that whatever project he is working on meets the highest standards.",
+                IsActive = true
+            }
+        };
     }
 }

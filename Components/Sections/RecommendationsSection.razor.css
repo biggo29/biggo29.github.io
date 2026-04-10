@@ -1,0 +1,170 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.rec-section {
+    background: var(--bg);
+    padding: var(--section-space) 2rem;
+}
+
+.rec-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ── Filter buttons ───────────────────────────────────────────────── */
+.rec-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.rec-filter-btn {
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.rec-filter-btn:hover,
+.rec-filter-btn.active {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.rec-filter-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ── Card grid ────────────────────────────────────────────────────── */
+.rec-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .rec-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 580px) {
+    .rec-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Card ─────────────────────────────────────────────────────────── */
+.rec-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rec-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Decorative quote mark ────────────────────────────────────────── */
+.rec-quote-icon {
+    position: absolute;
+    top: 0.75rem;
+    right: 1.25rem;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--primary);
+    opacity: 0.1;
+    font-family: Georgia, 'Times New Roman', serif;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ── Quote text ───────────────────────────────────────────────────── */
+.rec-text {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0;
+    flex: 1;
+}
+
+/* ── Author row ───────────────────────────────────────────────────── */
+.rec-author-row {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.rec-author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+.rec-author-info {
+    min-width: 0;
+}
+
+.rec-author-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rec-author-meta {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin: 0.2rem 0 0;
+    line-height: 1.4;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.rec-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.rec-relation-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.65rem;
+    background: var(--primary-soft);
+    color: var(--primary);
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}

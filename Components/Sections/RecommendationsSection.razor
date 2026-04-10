@@ -1,0 +1,59 @@
+<section id="recommendations" class="rec-section" aria-label="Recommendations">
+    <div class="rec-inner">
+
+        <SectionTitle Title="Recommendations"
+                      Subtitle="What colleagues and clients say about working with me." />
+
+        <div class="rec-filters" role="group" aria-label="Filter recommendations by category">
+            @foreach (var filter in Filters)
+            {
+                <button class="rec-filter-btn @(_activeFilter == filter.Value ? "active" : "")"
+                        @onclick="() => _activeFilter = filter.Value"
+                        aria-pressed="@(_activeFilter == filter.Value ? "true" : "false")">
+                    @filter.Label
+                </button>
+            }
+        </div>
+
+        <div class="rec-grid">
+            @foreach (var rec in FilteredItems)
+            {
+                <article class="rec-card">
+                    <div class="rec-quote-icon" aria-hidden="true">&ldquo;</div>
+
+                    <blockquote class="rec-text">@rec.Text</blockquote>
+
+                    <div class="rec-author-row">
+                        <div class="rec-author-avatar" aria-hidden="true">@rec.AuthorName[0]</div>
+                        <div class="rec-author-info">
+                            <p class="rec-author-name">@rec.AuthorName</p>
+                            <p class="rec-author-meta">@rec.AuthorCurrentTitle &middot; @rec.AuthorCurrentCompany</p>
+                        </div>
+                    </div>
+
+                    <div class="rec-footer">
+                        <span class="rec-relation-badge">@rec.Relationship</span>
+                    </div>
+                </article>
+            }
+        </div>
+
+    </div>
+</section>
+
+@code {
+    private string _activeFilter = "All";
+
+    private static readonly (string Label, string Value)[] Filters =
+    {
+        ("All",                       "All"),
+        ("Engineering & Leadership",  "Engineering & Technical Leadership"),
+        ("Backend & Architecture",    "Backend & System Architecture"),
+        ("Team Culture",              "Team Culture & Reliability"),
+    };
+
+    private IEnumerable<Recommendation> FilteredItems =>
+        _activeFilter == "All"
+            ? PortfolioData.Recommendations.Where(r => r.IsActive)
+            : PortfolioData.Recommendations.Where(r => r.IsActive && r.Category == _activeFilter);
+}
