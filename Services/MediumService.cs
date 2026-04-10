@@ -83,7 +83,7 @@ namespace biggo29.github.io.Services
         }
 
         private static string StripHtml(string html) =>
-            Regex.Replace(html, "<.*?>", string.Empty, RegexOptions.Singleline);
+            Regex.Replace(html, "<.*?>", string.Empty, RegexOptions.Singleline, TimeSpan.FromSeconds(2));
 
         private string Truncate(string text)
         {
