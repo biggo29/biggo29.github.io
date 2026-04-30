@@ -331,13 +331,137 @@
         height: 255px;
     }
 
+    .rec-slide {
+        padding: 2rem 1.75rem;
+    }
+
     .rec-name      { font-size: 1.1rem; }
     .rec-bg-letter { font-size: 8rem;   }
 }
 
-/* ── Responsive — mobile ──────────────────────────────────────────── */
+/* ── Responsive — mobile (≤ 640px) ───────────────────────────────── */
+@media (max-width: 640px) {
+    .rec-section { 
+        padding: 4rem 1.25rem; 
+    }
+
+    .rec-slideshow {
+        border-radius: var(--radius-sm);
+    }
+
+    .rec-panel--left {
+        height: auto;
+        min-height: 200px;
+    }
+
+    .rec-panel--right {
+        height: auto;
+        min-height: 280px;
+    }
+
+    .rec-slide {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .rec-bg-letter {
+        font-size: 6rem;
+        bottom: -1rem;
+        left: -0.5rem;
+    }
+
+    .rec-avatar {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .rec-name {
+        font-size: 1rem;
+    }
+
+    .rec-job-title,
+    .rec-company {
+        font-size: 0.75rem;
+    }
+
+    .rec-badge {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.65rem;
+    }
+
+    .rec-quote {
+        font-size: 0.8rem;
+        line-height: 1.7;
+    }
+
+    .rec-quote-deco {
+        font-size: 3.5rem;
+    }
+
+    .rec-cat-label {
+        font-size: 0.6rem;
+    }
+
+    .rec-controls {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+
+    .rec-counter {
+        font-size: 0.7rem;
+        min-width: 48px;
+    }
+
+    .rec-dots {
+        flex: 1 1 100%;
+        order: 3;
+        margin-top: 0.25rem;
+    }
+
+    .rec-dot {
+        width: 28px;
+        height: 3px;
+    }
+
+    .rec-nav {
+        gap: 0.35rem;
+    }
+
+    .rec-nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* ── Responsive — extra small mobile (≤ 480px) ───────────────────── */
 @media (max-width: 480px) {
-    .rec-section { padding: var(--section-space) 1rem; }
-    .rec-quote   { font-size: 0.82rem; }
-    .rec-dot     { width: 24px; }
+    .rec-section { 
+        padding: 3.5rem 1rem; 
+    }
+
+    .rec-panel--left {
+        min-height: 190px;
+    }
+
+    .rec-panel--right {
+        min-height: 300px;
+    }
+
+    .rec-slide {
+        padding: 1.5rem 1rem;
+    }
+
+    .rec-bg-letter {
+        font-size: 5rem;
+    }
+
+    .rec-quote {
+        font-size: 0.78rem;
+    }
+
+    .rec-dot {
+        width: 24px;
+    }
 }
