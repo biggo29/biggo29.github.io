@@ -1,0 +1,286 @@
+/* ═══════════════════════════════════════════════════════════════
+   Marvel-Themed Loader  —  All phases
+   Theme is set via  data-loader-theme  on  #marvel-loader.
+   Available values:
+     loader-theme-marvel-old          original two-line, white→red sweep
+     loader-theme-marvel-studio       Marvel Studios card (default)
+     loader-theme-avengers            Avengers navy + gold
+     loader-theme-avengers-doomsday   Doomsday copper + ember dark
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── CSS Custom Properties ─────────────────────────────────────── */
+/*    Defaults = loader-theme-marvel-studio                         */
+#marvel-loader {
+    --ml-flash-color:   #E8042C;
+    --ml-panel-bg:      #0a0a0a;
+    --ml-panel-text:    #d4d4d4;
+    --ml-panel-glow:    rgba(232, 4, 44, 0.08);
+    --ml-name-bg:       radial-gradient(ellipse at center, #a50018 0%, #7a0012 55%, #5c000e 100%);
+    --ml-word-color:    #d8d8d8;
+    --ml-word-shadow:
+        0  1px 0    rgba(255, 255, 255, 0.90),
+        0 -1px 0    rgba(0,   0,   0,   0.45),
+        0  2px 2px  rgba(0,   0,   0,   0.40),
+        0  4px 5px  rgba(0,   0,   0,   0.60),
+        0  7px 12px rgba(0,   0,   0,   0.70),
+        0 12px 24px rgba(0,   0,   0,   0.45);
+    --ml-separator:     rgba(210, 210, 210, 0.38);
+}
+
+/* ── Theme: loader-theme-marvel-old ────────────────────────────── */
+#marvel-loader[data-loader-theme="loader-theme-marvel-old"] {
+    --ml-flash-color:   #E8042C;
+    --ml-panel-bg:      #090909;
+    --ml-panel-text:    #d4d4d4;
+    --ml-panel-glow:    rgba(232, 4, 44, 0.08);
+    --ml-name-bg:       #000000;
+    --ml-word-color:    #ffffff;
+    --ml-word-shadow:
+        0 3px 0    rgba(0, 0, 0, 0.90),
+        0 6px 20px rgba(0, 0, 0, 0.70),
+        0 0 80px   rgba(232, 4, 44, 0.25);
+    --ml-separator:     transparent;
+}
+
+/* ── Theme: loader-theme-avengers ──────────────────────────────── */
+#marvel-loader[data-loader-theme="loader-theme-avengers"] {
+    --ml-flash-color:   #1155BB;
+    --ml-panel-bg:      #050D18;
+    --ml-panel-text:    #7BB8E8;
+    --ml-panel-glow:    rgba(30, 100, 220, 0.15);
+    --ml-name-bg:       radial-gradient(ellipse at center, #1B3A5C 0%, #0A1628 55%, #040C18 100%);
+    --ml-word-color:    #E8C547;
+    --ml-word-shadow:
+        0  1px 0    rgba(255, 220, 100, 0.85),
+        0 -1px 0    rgba(0,   0,   0,   0.50),
+        0  2px 2px  rgba(0,   0,   0,   0.50),
+        0  4px 6px  rgba(0,   0,   0,   0.65),
+        0  8px 16px rgba(0,   0,   60,  0.55),
+        0  0  40px  rgba(232, 197, 71,  0.20);
+    --ml-separator:     rgba(232, 197, 71, 0.45);
+}
+
+/* ── Theme: loader-theme-avengers-doomsday ─────────────────────── */
+#marvel-loader[data-loader-theme="loader-theme-avengers-doomsday"] {
+    --ml-flash-color:   #6B1010;
+    --ml-panel-bg:      #060606;
+    --ml-panel-text:    #A06820;
+    --ml-panel-glow:    rgba(160, 80, 0, 0.12);
+    --ml-name-bg:       radial-gradient(ellipse at center, #1E0800 0%, #0F0400 55%, #050200 100%);
+    --ml-word-color:    #D4941C;
+    --ml-word-shadow:
+        0  1px 0    rgba(255, 180, 60,  0.70),
+        0 -1px 0    rgba(0,   0,   0,   0.60),
+        0  2px 2px  rgba(0,   0,   0,   0.55),
+        0  4px 6px  rgba(0,   0,   0,   0.80),
+        0  8px 18px rgba(0,   0,   0,   0.75),
+        0  0  50px  rgba(200, 100, 0,   0.18);
+    --ml-separator:     rgba(212, 148, 28, 0.42);
+}
+
+/* ── Base overlay ──────────────────────────────────────────────── */
+#marvel-loader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 99999;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Film grain ────────────────────────────────────────────────── */
+#ml-grain {
+    position: absolute;
+    inset: -120px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.045;
+    pointer-events: none;
+    z-index: 1;
+    will-change: transform;
+    animation: ml-grain 0.09s steps(1) infinite;
+}
+
+@keyframes ml-grain {
+    0%   { transform: translate(0px,   0px);  }
+    12%  { transform: translate(-6px,  4px);  }
+    25%  { transform: translate(9px,  -5px);  }
+    37%  { transform: translate(-4px,  8px);  }
+    50%  { transform: translate(7px,  -3px);  }
+    62%  { transform: translate(-9px,  6px);  }
+    75%  { transform: translate(5px,  -8px);  }
+    87%  { transform: translate(-3px,  9px);  }
+    100% { transform: translate(6px,  -4px);  }
+}
+
+/* ── Panel container (Phase 2) ─────────────────────────────────── */
+#ml-panels {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ml-panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--ml-panel-bg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ml-panel-text {
+    font-family: 'Bebas Neue', 'Anton', 'Impact', sans-serif;
+    font-size: clamp(4rem, 14vw, 11rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--ml-panel-text);
+    text-align: center;
+    line-height: 1;
+    padding: 0 1rem;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.8), 0 0 60px var(--ml-panel-glow);
+    will-change: transform;
+}
+
+/* Scanline overlay — comic halftone feel */
+.ml-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.18) 3px,
+        rgba(0,0,0,0.18) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ── Red/accent flash (Phase 3) ────────────────────────────────── */
+#ml-flash-red {
+    position: absolute;
+    inset: 0;
+    background: var(--ml-flash-color);
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ── Name plate (Phase 4) ──────────────────────────────────────── */
+#ml-name {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: row;          /* one line — SHOAIB | SHAHRIAR */
+    align-items: center;
+    justify-content: center;
+    z-index: 11;
+    opacity: 0;
+    pointer-events: none;
+    gap: 0;
+    background: var(--ml-name-bg);
+}
+
+/* SHOAIB = MARVEL  (left, large) */
+.ml-word:first-child {
+    font-size: clamp(4rem, 14vw, 11rem);
+    padding-right: clamp(0.5rem, 1.2vw, 1rem);
+    border-right: 3px solid var(--ml-separator);
+}
+
+/* SHAHRIAR = STUDIOS  (right, smaller) */
+.ml-word:last-child {
+    font-size: clamp(2rem, 7vw, 5.5rem);
+    padding-left: clamp(0.5rem, 1.2vw, 1rem);
+    letter-spacing: 0.08em;
+}
+
+/* Shared word base */
+.ml-word {
+    display: block;
+    font-family: 'Bebas Neue', 'Anton', 'Impact', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    text-align: center;
+    opacity: 0;
+    transform: scale(1.18);
+    will-change: transform, opacity;
+    color: var(--ml-word-color);
+    text-shadow: var(--ml-word-shadow);
+}
+
+/* ── loader-theme-marvel-old structural overrides ───────────────── */
+/*    Two-line stacked layout, both words same size                 */
+#marvel-loader[data-loader-theme="loader-theme-marvel-old"] #ml-name {
+    flex-direction: column;
+}
+#marvel-loader[data-loader-theme="loader-theme-marvel-old"] .ml-word {
+    font-size: clamp(4.5rem, 18vw, 14rem);
+    line-height: 0.92;
+}
+#marvel-loader[data-loader-theme="loader-theme-marvel-old"] .ml-word:first-child {
+    border-right: none;
+    padding-right: 0;
+}
+#marvel-loader[data-loader-theme="loader-theme-marvel-old"] .ml-word:last-child {
+    padding-left: 0;
+}
+
+/* ── Red sweep (old theme only) ────────────────────────────────── */
+.ml-word.ml-word-red {
+    color:        #E8042C !important;
+    text-shadow:
+        0 3px 0    rgba(0,0,0,0.90),
+        0 6px 20px rgba(0,0,0,0.50),
+        0 0 120px  rgba(232,4,44,0.60) !important;
+}
+
+/* ── Word slam animation ───────────────────────────────────────── */
+.ml-word.ml-word-in {
+    animation: ml-word-slam 0.14s ease-out forwards;
+}
+
+@keyframes ml-word-slam {
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ── White flash (Phase 5) ─────────────────────────────────────── */
+#ml-flash-white {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ── Loader exit ───────────────────────────────────────────────── */
+#marvel-loader.ml-exit {
+    animation: ml-exit 0.45s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes ml-exit {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ── Reduced-motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    #marvel-loader,
+    #ml-grain,
+    .ml-word { animation: none !important; transition: none !important; }
+}

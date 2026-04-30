@@ -4,7 +4,7 @@
 <div class="metric-chip">
     @if (!string.IsNullOrEmpty(Icon))
     {
-        <span class="metric-chip-icon" aria-hidden="true">@Icon</span>
+        <span class="metric-chip-icon" aria-hidden="true">@AppIcons.Get(Icon)</span>
     }
     @if (_hasCounter)
     {

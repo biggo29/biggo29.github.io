@@ -8,28 +8,28 @@ namespace biggo29.github.io.Data
         {
             new ImpactItem
             {
-                Icon = "🏗️",
+                Icon = "server",
                 Title = "Enterprise Backend Engineering",
                 Description = "Led backend engineering for eSpares.co.uk, a high-traffic UK eCommerce platform serving 15,000+ daily users and supporting £1M+ monthly sales.",
                 Metric = "15,000+ Daily Users"
             },
             new ImpactItem
             {
-                Icon = "🔗",
+                Icon = "link",
                 Title = "Microservices Architecture",
                 Description = "Architected and delivered 30+ microservices using CQRS, NServiceBus, and Clean Architecture with 99%+ test coverage and near-zero production defects.",
                 Metric = "30+ Microservices"
             },
             new ImpactItem
             {
-                Icon = "🏆",
+                Icon = "trophy",
                 Title = "WSIS Award 2021",
                 Description = "Key contributor to the award-winning CBVMP — a national e-Governance biometric verification platform integrating all telecom operators in Bangladesh.",
                 Metric = "100M+ SIM Holders"
             },
             new ImpactItem
             {
-                Icon = "🤖",
+                Icon = "sparkles",
                 Title = "AI-Assisted Engineering",
                 Description = "Integrated Agentic AI workflows (GitHub Copilot, Claude, ChatGPT, Gemini) across engineering teams to accelerate delivery and improve code quality.",
                 Metric = "20% Faster Deployments"
@@ -86,37 +86,37 @@ namespace biggo29.github.io.Data
         {
             new ArchitecturePrinciple
             {
-                Icon = "🏗️",
+                Icon = "layers",
                 Title = "Design for Change",
                 Description = "Systems should evolve easily. Abstractions, clear interfaces, and modular boundaries allow features to be added or replaced with minimal friction."
             },
             new ArchitecturePrinciple
             {
-                Icon = "📦",
+                Icon = "box",
                 Title = "Explicit Service Boundaries",
                 Description = "Clear ownership and contracts between services prevent coupling. Each service should have a well-defined responsibility and interface."
             },
             new ArchitecturePrinciple
             {
-                Icon = "⚡",
+                Icon = "bolt",
                 Title = "CQRS Where Complexity Justifies It",
                 Description = "Separating read and write models improves scalability and clarity in complex domains — applied deliberately, not by default."
             },
             new ArchitecturePrinciple
             {
-                Icon = "📊",
+                Icon = "chart",
                 Title = "Observability by Design",
                 Description = "Logging, metrics, and tracing should be built in from day one — not added after production incidents. Systems must be understandable in production."
             },
             new ArchitecturePrinciple
             {
-                Icon = "🔄",
+                Icon = "arrow-path",
                 Title = "Automation Over Manual Operations",
                 Description = "CI/CD pipelines, automated tests, and release gates replace manual processes. Reliability and speed improve when humans are removed from repetitive steps."
             },
             new ArchitecturePrinciple
             {
-                Icon = "🔧",
+                Icon = "wrench",
                 Title = "Maintainability Over Shortcuts",
                 Description = "Long-term code health matters more than short-term velocity. Clean architecture, disciplined code reviews, and TDD pay compounding dividends over time."
             }
@@ -240,6 +240,70 @@ namespace biggo29.github.io.Data
             }
         };
 
+        public static readonly List<Certificate> Certificates = new()
+        {
+            new Certificate
+            {
+                Title = "SAP ERP Essential Training",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "Mar 01, 2026",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_SAP ERP Essential Training.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
+                Title = "Claude Code in Action",
+                Issuer = "Anthropic",
+                IssuedDate = "Mar 29, 2026",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/ClaudeCodeInAction.pdf",
+                Category = "AI"
+            },
+            new Certificate
+            {
+                Title = "Learning Docker",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "Aug 10, 2023",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_Learning Docker.pdf",
+                Category = "Cloud"
+            },
+            new Certificate
+            {
+                Title = "ASP.NET: Security",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "Apr 18, 2022",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_ASP.NET Security.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
+                Title = "ASP.NET MVC 5 Essential Training",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "Mar 23, 2022",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_ASP.NET MVC 5 Essential Training.pdf",
+                Category = "Development"
+            },
+            new Certificate
+            {
+                Title = "Learning ASP.NET",
+                Issuer = "LinkedIn Learning",
+                IssuedDate = "Mar 17, 2022",
+                CredentialId = null,
+                CredentialUrl = null,
+                FilePath = "/files/certificates/CertificateOfCompletion_Learning ASP.NET.pdf",
+                Category = "Development"
+            }
+        };
+
         public static readonly List<EducationItem> EducationItems = new()
         {
             new EducationItem
@@ -255,6 +319,105 @@ namespace biggo29.github.io.Data
                 Institution = "American International University-Bangladesh (AIUB), Dhaka, Bangladesh",
                 Duration = "May 2013 – Dec 2016",
                 ResearchTopic = "Human health monitoring system using Wireless Sensor Body Area Network (WSBAN)"
+            }
+        };
+
+        public static readonly List<Recommendation> Recommendations = new()
+        {
+            // ── Engineering & Technical Leadership ────────────────────────────
+            new Recommendation
+            {
+                AuthorName = "Simon Parry",
+                AuthorCurrentTitle = "Lead Developer",
+                AuthorCurrentCompany = "Bunzl UK and Ireland",
+                Relationship = "Former Team Lead @ EchoLogyx | ScrewfixSpares",
+                Category = "Engineering & Technical Leadership",
+                Text = "I had the pleasure of working with Shoaib as the C# Team Lead for Screwfix Spares, his ability to follow instructions diligently while being eager to embrace new technologies truly stood out. Shoaib has excellent communication skills which made collaboration seamless, and his approachable nature made him not only easy to work with but also a fantastic member of the team. Shoaib has exceptional technical skills and commendable professionalism.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Moinul Islam",
+                AuthorCurrentTitle = "Head of Software Development & Implementation",
+                AuthorCurrentCompany = "Synesis IT PLC",
+                Relationship = "Former Team Lead @ Synesis IT PLC",
+                Category = "Engineering & Technical Leadership",
+                Text = "Shoaib Shahriar was a brilliant person to work with. When you get to connect with him, you'll find a fantastic person! Loyal, insightful, and independent. He had the vision to see the benefits and the passion to turn that into a competitive advantage for Synesis IT. Ambitious and independent expert. He denotes a lot of analytical capability and willingness for both his personal & professional development. He is also creative which is rare for in technical person.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Mohammad Atiqur Rahman",
+                AuthorCurrentTitle = "Senior Manager",
+                AuthorCurrentCompany = "Epyllion Group",
+                Relationship = "Former Team Member @ EchoLogyx | ScrewfixSpares",
+                Category = "Engineering & Technical Leadership",
+                Text = "Shoaib's collaborative nature, problem-solving mindset, and mentorship qualities make him an outstanding team player and a dependable leader. I've personally learned a great deal from his ability to analyze complex systems and deliver robust, scalable solutions. Any team would benefit greatly from his presence. I wish him continued success.",
+                IsActive = true
+            },
+
+            // ── Backend & System Architecture ─────────────────────────────────
+            new Recommendation
+            {
+                AuthorName = "Md Shohanur Rahman",
+                AuthorCurrentTitle = "Senior iOS Developer",
+                AuthorCurrentCompany = "Cloud Ten Labs (USA)",
+                Relationship = "Former Colleague @ RMG Networks",
+                Category = "Backend & System Architecture",
+                Text = "I had the pleasure of working with Shoaib Shahriar, and I was always impressed by his strong expertise in C# and ASP.NET. He consistently delivered clean, scalable backend solutions and played a key role in ensuring smooth API integrations and system performance. What stands out most is his problem-solving ability and collaborative mindset. He is always ready to support teammates and share knowledge. I highly recommend him as a reliable and talented developer who would be an asset to any team.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Tom Hodgson",
+                AuthorCurrentTitle = "CRO & UX Lead",
+                AuthorCurrentCompany = "EchoLogyx Ltd",
+                Relationship = "Former UI/UX Manager @ EchoLogyx | ScrewfixSpares",
+                Category = "Backend & System Architecture",
+                Text = "Shoaib is a talented Software Engineer. His ability to develop to the highest standard to ensure that his tasks are always developed as specified are exceptional. Shoaib is a kind and friendly individual, and that makes his an excellent team player, who will always go that extra step in order to fulfil his work to the best of his potential. Shoaib would make a valuable member for any team that he is a part of.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Bijon Kumar Dhar",
+                AuthorCurrentTitle = "General Manager, Technology",
+                AuthorCurrentCompany = "Synesis IT PLC",
+                Relationship = "Former Manager",
+                Category = "Backend & System Architecture",
+                Text = "Shoaib Shahriar, is a very good programmer and his skill set in .Net platform is good. He is a very hard working and also has good analytical skills. He is a very good person and I wish his every success.",
+                IsActive = true
+            },
+
+            // ── Team Culture & Reliability ────────────────────────────────────
+            new Recommendation
+            {
+                AuthorName = "Faroque Abdullah",
+                AuthorCurrentTitle = "Senior Software Engineer II",
+                AuthorCurrentCompany = "Cefalo",
+                Relationship = "Former Colleague",
+                Category = "Team Culture & Reliability",
+                Text = "Shoaib is one of the most delightful people I had the pleasure of working. His humor and empathy make a comforting work environment. He consistently gave 100 percent effort to the team and played a very important role in the company. Any team would be lucky to have Shoaib and I will always recommend him to any company interested in working with him.",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Ratul Minhaz",
+                AuthorCurrentTitle = "Senior Software Engineer",
+                AuthorCurrentCompany = "Axel Springer (Berlin, Germany)",
+                Relationship = "University Alumnus & Colleague",
+                Category = "Team Culture & Reliability",
+                Text = "As university alumni we had the opportunity to work closely in several occasions and I got to know Shoaib as a reliable teammate. We had volunteered together for different organizations and organized sessions on open web technologies. Shoaib has always demonstrated an inherent ability to handle difficult situations with a calm demeanor, so I am very happy to see him rise above his peers in career. I wish him the best!",
+                IsActive = true
+            },
+            new Recommendation
+            {
+                AuthorName = "Md. Emon Hossain Diza",
+                AuthorCurrentTitle = "Consultant Team Lead Manager",
+                AuthorCurrentCompany = "CONSTELL GROUP",
+                Relationship = "Former Colleague",
+                Category = "Team Culture & Reliability",
+                Text = "Shoaib Shahriar is very passionate and has great vision for his work. His focus keeps everything moving smoothly, he makes sure all the deadlines are met, and makes sure that whatever project he is working on meets the highest standards.",
+                IsActive = true
             }
         };
     }

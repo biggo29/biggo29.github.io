@@ -4,9 +4,192 @@
     display: flex;
     align-items: center;
     padding: 5rem 2rem 4rem;
-    background: var(--bg);
+    background-color: var(--bg);
     position: relative;
     overflow: hidden;
+}
+
+/* ── Constellation canvas — fills the hero, behind all content ─── */
+.hero-constellation {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+}
+
+/* Allow mouse events on the canvas for the repel effect */
+@media (hover: hover) {
+    .hero-constellation {
+        pointer-events: auto;
+    }
+}
+
+/* ── Floating code editor — desktop only ─────────────────────────── */
+/* Starts at opacity 0. JS adds .hcs-visible to reveal and begin      */
+/* typing. Glass-morphism dark panel — theme-independent dark palette. */
+.hero-code-snippet {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    width: 370px;
+    background: rgba(10, 14, 26, 0.84);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(99, 155, 246, 0.16);
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    user-select: none;
+    transition: opacity 0.8s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow:
+        0 0 0 1px rgba(99, 155, 246, 0.05),
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(59, 130, 246, 0.04);
+}
+
+/* JS adds .hcs-visible to fade the editor in */
+.hero-code-snippet.hcs-visible {
+    opacity: 0.82;
+    pointer-events: auto;
+}
+
+/* Hover: fully opaque + stronger border glow */
+.hero-code-snippet:hover {
+    opacity: 1 !important;
+    border-color: rgba(99, 155, 246, 0.38);
+    box-shadow:
+        0 0 0 1px rgba(99, 155, 246, 0.12),
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(59, 130, 246, 0.14);
+}
+
+/* Cursor changes to pointer when replay is available */
+.hero-code-snippet.hcs-done { cursor: pointer; }
+
+/* ── Titlebar ─────────────────────────────────────────────────────── */
+.hcs-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.55rem 0.9rem;
+    background: rgba(255, 255, 255, 0.025);
+    border-bottom: 1px solid rgba(99, 155, 246, 0.08);
+}
+
+.hcs-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+.hcs-dot--red   { background: #ff5f57; }
+.hcs-dot--amber { background: #febc2e; }
+.hcs-dot--green { background: #28c840; }
+
+.hcs-filename {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: rgba(168, 192, 224, 0.5);
+    margin-left: 0.5rem;
+    letter-spacing: 0.04em;
+}
+
+/* ── Body: gutter + code area ────────────────────────────────────── */
+.hcs-body {
+    display: flex;
+    max-height: 300px;
+    overflow: hidden;
+}
+
+.hcs-gutter {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0.55rem 0.75rem 0.65rem;
+    background: rgba(255, 255, 255, 0.012);
+    border-right: 1px solid rgba(99, 155, 246, 0.06);
+    min-width: 32px;
+    flex-shrink: 0;
+}
+
+.hcs-lnum {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    line-height: 1.72;
+    color: #2d3f5a;
+    text-align: right;
+    white-space: pre;
+}
+
+.hcs-pre {
+    flex: 1;
+    margin: 0;
+    padding: 0.75rem 0.9rem;
+    background: transparent;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.72;
+    overflow: hidden;
+    white-space: pre;
+    color: #a8c0e0;
+}
+
+/* Each typed line */
+.hcs-line {
+    display: block;
+    min-height: 1.72em;
+    position: relative;
+    color: #a8c0e0;
+}
+
+/* Block cursor shown on the actively-typing line */
+.hcs-line.is-typing::after {
+    content: '▋';
+    color: #63a4f4;
+    animation: hcs-blink 0.65s step-end infinite;
+    margin-left: 1px;
+}
+
+/* Persistent blinking cursor after typing finishes */
+.hcs-cursor {
+    display: inline-block;
+    width: 6px;
+    height: 0.88em;
+    background: #63a4f4;
+    vertical-align: text-bottom;
+    animation: hcs-blink 0.65s step-end infinite;
+    border-radius: 1px;
+    margin-left: 1px;
+}
+
+@keyframes hcs-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+/* ── Syntax palette — fixed dark-editor colours ───────────────────── */
+.hcs-cmt  { color: #4a6070; font-style: italic; }
+.hcs-kw   { color: #c792ea; }
+.hcs-type { color: #82aaff; }
+.hcs-str  { color: #c3e88d; }
+.hcs-punc { color: #89ddff; }
+
+/* ── Hidden at single-column breakpoint ──────────────────────────── */
+@media (max-width: 1100px) {
+    .hero-code-snippet { display: none; }
+}
+
+/* ── Accessibility ────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .hero-code-snippet           { transition: none; }
+    .hcs-line.is-typing::after,
+    .hcs-cursor                  { animation: none; opacity: 1; }
 }
 
 /* Subtle ambient glow — not a noisy background */
@@ -31,6 +214,7 @@
     gap: 5rem;
     align-items: center;
     position: relative;
+    z-index: 1;
 }
 
 /* ── Left column ──────────────────────────────────────────────────── */

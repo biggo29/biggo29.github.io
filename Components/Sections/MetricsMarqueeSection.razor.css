@@ -1,0 +1,97 @@
+/* ── Outer wrapper ─────────────────────────────────────────────── */
+.metrics-marquee {
+    background: var(--primary);
+    overflow: hidden;
+    padding: 0;
+    /* Stacked rows with no gap */
+}
+
+[data-theme="light"] .metrics-marquee {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+/* ── Each row ──────────────────────────────────────────────────── */
+.marquee-row {
+    display: flex;
+    padding: 0.6rem 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-row + .marquee-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .marquee-row + .marquee-row {
+    border-top: 1px solid var(--border);
+}
+
+/* ── Scrolling track ───────────────────────────────────────────── */
+.marquee-track {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 100%;
+}
+
+.marquee-row--fwd .marquee-track {
+    animation: mq-scroll-fwd 28s linear infinite;
+}
+
+.marquee-row--rev .marquee-track {
+    animation: mq-scroll-rev 28s linear infinite;
+}
+
+/* Pause both rows when the user hovers the whole strip */
+.metrics-marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+/* ── Individual metric item ────────────────────────────────────── */
+.mq-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 2.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.95);
+    text-transform: uppercase;
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+    flex-shrink: 0;
+}
+
+[data-theme="light"] .mq-item {
+    color: var(--primary);
+    border-right-color: var(--border);
+}
+
+/* ── Scroll keyframes ──────────────────────────────────────────── */
+@keyframes mq-scroll-fwd {
+    from { transform: translateX(0);    }
+    to   { transform: translateX(-50%); }
+}
+
+@keyframes mq-scroll-rev {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0);    }
+}
+
+/* ── Reduced motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+        animation: none !important;
+    }
+}
+
+/* ── Mobile ────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .mq-item {
+        font-size: 0.72rem;
+        padding: 0 1.5rem;
+    }
+}

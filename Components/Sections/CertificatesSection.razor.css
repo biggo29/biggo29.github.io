@@ -1,0 +1,462 @@
+/* ── Section wrapper ──────────────────────────────────────────────── */
+.cert-section {
+    background: var(--bg);
+    padding: var(--section-space) 2rem;
+}
+
+.cert-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ── Filter buttons ───────────────────────────────────────────────── */
+.cert-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.cert-filter-btn {
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.cert-filter-btn:hover,
+.cert-filter-btn.active {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.cert-filter-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* ── Banner outer: positions arrows over the track edges ─────────── */
+.cert-banner-outer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+/* ── Arrow buttons — sit outside the track ───────────────────────── */
+.cert-arrow {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    z-index: 2;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.cert-arrow:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--primary);
+    transform: scale(1.08);
+}
+
+.cert-arrow:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.cert-arrow:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.cert-arrow-prev { margin-right: 1rem; }
+.cert-arrow-next { margin-left:  1rem; }
+
+/* ── Track — full-width scroll container ─────────────────────────── */
+.cert-track {
+    flex: 1;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-radius: var(--radius-lg);
+}
+
+.cert-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* ── Certificate banner card ──────────────────────────────────────── */
+.cert-card {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: row;
+    min-height: 210px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.cert-card:hover {
+    box-shadow: 0 8px 32px var(--shadow);
+}
+
+/* ── Left accent panel ────────────────────────────────────────────── */
+.cert-card-accent {
+    position: relative;
+    width: 200px;
+    flex-shrink: 0;
+    background: var(--cat-color, var(--primary));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem 1.25rem;
+    overflow: hidden;
+}
+
+/* Decorative large circle behind the seal */
+.cert-accent-bg {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* Second smaller circle for depth */
+.cert-accent-bg::after {
+    content: '';
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Circular seal with issuer initials */
+.cert-seal {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    z-index: 1;
+}
+
+/* ── F.6 Phase F: Seal Stamp-In ─────────────────────────────────── */
+.cert-seal.seal-stamped {
+    animation: cert-seal-stamp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.cert-seal.seal-stamped::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+    animation: cert-seal-ring 0.65s ease-out 0.05s both;
+}
+
+@keyframes cert-seal-stamp {
+    0%   { transform: scale(1.4) rotate(-5deg); opacity: 0.3; }
+    60%  { transform: scale(0.92) rotate(1deg);  opacity: 1;   }
+    80%  { transform: scale(1.04) rotate(0deg);  opacity: 1;   }
+    100% { transform: scale(1)    rotate(0deg);  opacity: 1;   }
+}
+
+@keyframes cert-seal-ring {
+    0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0;   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cert-seal.seal-stamped {
+        animation: none;
+    }
+    .cert-seal.seal-stamped::after {
+        animation: none;
+        opacity: 0;
+    }
+}
+
+.cert-seal-label {
+    position: relative;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    line-height: 1.3;
+    z-index: 1;
+    max-width: 150px;
+}
+
+/* ── Right content panel ──────────────────────────────────────────── */
+.cert-card-body {
+    flex: 1;
+    padding: 2rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+/* "CERTIFICATE OF COMPLETION" label */
+.cert-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin: 0;
+}
+
+.cert-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+    margin: 0;
+}
+
+.cert-meta-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.cert-meta-dot {
+    opacity: 0.4;
+}
+
+.cert-cred-id {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    opacity: 0.65;
+}
+
+/* ── Footer: category badge + action buttons ─────────────────────── */
+.cert-card-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+}
+
+.cert-category-badge {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    font-weight: 500;
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-sm);
+}
+
+.cert-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.cert-action-btn.primary {
+    background: var(--primary-soft);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.cert-action-btn.primary:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.cert-action-btn.secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+}
+
+.cert-action-btn.secondary:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* ── Dot indicators ───────────────────────────────────────────────── */
+.cert-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.cert-dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 99px;
+    border: none;
+    background: var(--border);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.25s ease, width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cert-dot.active {
+    background: var(--primary);
+    width: 28px;
+}
+
+.cert-dot:hover:not(.active) {
+    background: var(--muted);
+}
+
+.cert-dot:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* ── Responsive: tablet ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .cert-card-accent {
+        width: 150px;
+    }
+
+    .cert-card-body {
+        padding: 1.5rem;
+    }
+
+    .cert-title {
+        font-size: 1.05rem;
+    }
+
+    .cert-arrow-prev { margin-right: 0.5rem; }
+    .cert-arrow-next { margin-left:  0.5rem; }
+}
+
+/* ── Responsive: mobile — stack accent on top ─────────────────────── */
+@media (max-width: 560px) {
+    .cert-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .cert-card {
+        flex-direction: column;
+        min-height: unset;
+    }
+
+    .cert-card-accent {
+        width: 100%;
+        min-height: 110px;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 1rem;
+        padding: 1.25rem 1.5rem;
+    }
+
+    .cert-seal {
+        width: 52px;
+        height: 52px;
+        font-size: 0.85rem;
+    }
+
+    .cert-accent-bg {
+        width: 120px;
+        height: 120px;
+    }
+
+    .cert-arrow {
+        display: none; /* swipe on mobile */
+    }
+
+    .cert-banner-outer {
+        gap: 0;
+    }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .cert-track {
+        scroll-behavior: auto;
+    }
+}
+
+/* ── G.1 Phase G: Section motif — faint seal outline ────────────── */
+.cert-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.cert-inner::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2.5px solid var(--primary);
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+    box-shadow: inset 0 0 0 10px transparent, 0 0 0 8px rgba(59,130,246,0.012);
+}

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build:*)",
+      "Bash(Get-Process -Name \"dotnet\" -ErrorAction SilentlyContinue)",
+      "Bash(Where-Object { $_ommandLine -like \"*biggo29*\" })",
+      "Bash(Stop-Process -Force)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":5135\")",
+      "Bash(taskkill:*)",
+      "Bash(powershell -Command \"\nImport-Module WebAdministration\n\\\\$publishPath = 'D:\\\\Biggo\\\\Github\\\\biggo29.github.io\\\\publish'\n\\\\$siteName = 'biggo29-portfolio'\n\\\\$port = 8090\n\nif \\(Get-Website -Name \\\\$siteName -ErrorAction SilentlyContinue\\) {\n    Write-Host 'Site already exists, updating physical path...'\n    Set-ItemProperty \\\\\"IIS:\\\\Sites\\\\\\\\$siteName\\\\\" -Name physicalPath -Value \\\\$publishPath\n} else {\n    Write-Host 'Creating new IIS site...'\n    New-Website -Name \\\\$siteName -PhysicalPath \\\\$publishPath -Port \\\\$port -Force\n}\nStart-Website -Name \\\\$siteName\nWrite-Host 'Done. Site running at http://localhost:'\\\\$port\n\" 2>&1)",
+      "Bash(powershell -Command \"\n\\\\$rewriteKey = 'HKLM:\\\\SOFTWARE\\\\Microsoft\\\\IIS Extensions\\\\URL Rewrite'\nif \\(Test-Path \\\\$rewriteKey\\) {\n    Write-Host 'URL Rewrite module is installed'\n} else {\n    Write-Host 'WARNING: URL Rewrite module NOT found - SPA routing will not work'\n}\n\" 2>&1)",
+      "Bash(powershell -Command \"\nImport-Module WebAdministration\n\\\\$wwwrootPath = 'D:\\\\Biggo\\\\Github\\\\biggo29.github.io\\\\publish\\\\wwwroot'\nSet-ItemProperty 'IIS:\\\\Sites\\\\biggo29-portfolio' -Name physicalPath -Value \\\\$wwwrootPath\nWrite-Host 'Physical path updated to:' \\\\$wwwrootPath\n\\(Get-Website -Name 'biggo29-portfolio'\\).State\n\" 2>&1)",
+      "Bash(powershell -Command \"\n\\\\$response = Invoke-WebRequest -Uri 'http://localhost:8090' -UseBasicParsing -TimeoutSec 10 -ErrorAction SilentlyContinue\nif \\(\\\\$response\\) { Write-Host 'HTTP' \\\\$response.StatusCode; \\\\$response.Content.Substring\\(0, [Math]::Min\\(200, \\\\$response.Content.Length\\)\\) }\nelse { Write-Host 'No response' }\n\" 2>&1)"
+    ]
+  }
+}

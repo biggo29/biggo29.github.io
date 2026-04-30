@@ -3,7 +3,7 @@
     <a href="@Href" target="@Target" class="cta-primary" aria-label="@AriaLabel">
         @if (!string.IsNullOrEmpty(Icon))
         {
-            <span class="cta-icon" aria-hidden="true">@Icon</span>
+            <span class="cta-icon" aria-hidden="true">@AppIcons.Get(Icon)</span>
         }
         @Text
     </a>
@@ -13,7 +13,7 @@ else
     <button type="button" class="cta-primary" @onclick="OnClick" aria-label="@AriaLabel">
         @if (!string.IsNullOrEmpty(Icon))
         {
-            <span class="cta-icon" aria-hidden="true">@Icon</span>
+            <span class="cta-icon" aria-hidden="true">@AppIcons.Get(Icon)</span>
         }
         @Text
     </button>

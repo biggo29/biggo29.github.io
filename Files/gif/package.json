@@ -1,0 +1,20 @@
+{
+  "name": "marvel-loader-gif-generator",
+  "version": "1.0.0",
+  "description": "Captures the portfolio Marvel loader animation as a GIF for social media",
+  "main": "generate-loader-gif.js",
+  "scripts": {
+    "generate": "node generate-loader-gif.js",
+    "generate:studio":    "node generate-loader-gif.js loader-theme-marvel-studio",
+    "generate:old":       "node generate-loader-gif.js loader-theme-marvel-old",
+    "generate:avengers":  "node generate-loader-gif.js loader-theme-avengers",
+    "generate:doomsday":  "node generate-loader-gif.js loader-theme-avengers-doomsday",
+    "generate:all":       "node generate-loader-gif.js all",
+    "install:browsers":   "npx playwright install chromium"
+  },
+  "dependencies": {
+    "gif-encoder-2": "^1.0.5",
+    "playwright": "^1.40.0",
+    "pngjs": "^7.0.0"
+  }
+}

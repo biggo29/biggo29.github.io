@@ -3,6 +3,16 @@
 
 <head>
     <meta charset="utf-8" />
+    <!-- FOUC prevention: apply saved theme before first paint so there is no
+         flash of the wrong colour scheme. Must run before any stylesheet. -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (_) { document.documentElement.setAttribute('data-theme', 'dark'); }
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Shoaib Shahriar | Lead Software Engineer | Backend APIs | .NET</title>
     <base href="/" />
@@ -45,57 +55,302 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet" />
 
     <!-- Stylesheets -->
+    <link href="css/marvel-loader.css" rel="stylesheet" />
     <link href="css/variables.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
+    <link href="css/enhancements.css" rel="stylesheet" />
     <link href="biggo29.github.io.styles.css" rel="stylesheet" />
 </head>
 
 <body>
+    <!-- ═══════════════════════════════════════════════════════════
+         Marvel-themed loader  —  outside #app, overlays everything
+         including the Blazor skeleton screen, fires on first paint
+         ═══════════════════════════════════════════════════════════ -->
+    <div id="marvel-loader" data-loader-theme="loader-theme-marvel-studio" aria-hidden="true">
+    <!--<div id="marvel-loader" data-loader-theme="loader-theme-marvel-old" aria-hidden="true">-->
+    <!--<div id="marvel-loader" data-loader-theme="loader-theme-avengers" aria-hidden="true">-->
+    <!--<div id="marvel-loader" data-loader-theme="loader-theme-avengers-doomsday" aria-hidden="true">-->
+        <div id="ml-grain"></div>
+        <div id="ml-panels"></div>
+        <div id="ml-flash-red"></div>
+        <div id="ml-name">
+            <span class="ml-word">SHOAIB</span>
+            <span class="ml-word">SHAHRIAR</span>
+        </div>
+        <div id="ml-flash-white"></div>
+    </div>
+
     <div id="app">
-        <div class="loading-screen">
+        <div class="ls-root">
             <style>
-                .loading-screen {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
+                /* ── Root ─────────────────────────────────────────────── */
+                .ls-root {
+                    position: fixed; inset: 0;
                     background: #0b1220;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
+                    display: flex; align-items: center; justify-content: center;
                     z-index: 9999;
                     font-family: Inter, 'Segoe UI', system-ui, sans-serif;
+                    overflow: hidden;
                 }
 
-                .loading-spinner {
-                    width: 60px;
-                    height: 60px;
-                    border: 4px solid rgba(59, 130, 246, 0.15);
-                    border-top-color: #3b82f6;
+                /* ── Ambient glow ─────────────────────────────────────── */
+                .ls-glow {
+                    position: absolute;
+                    width: 640px; height: 640px;
                     border-radius: 50%;
-                    animation: spin 1s linear infinite;
+                    background: radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 70%);
+                    top: 50%; left: 50%;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                    animation: ls-glow-pulse 4s ease-in-out infinite;
                 }
 
-                @keyframes spin {
-                    to {
-                        transform: rotate(360deg);
-                    }
+                @keyframes ls-glow-pulse {
+                    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1);   }
+                    50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
                 }
 
-                .loading-text {
-                    margin-top: 20px;
-                    color: #94a3b8;
-                    font-size: 1rem;
-                    letter-spacing: 0.02em;
+                /* ── Floating particles ───────────────────────────────── */
+                @keyframes ls-float {
+                    0%   { transform: translateY(0) rotate(0deg);   opacity: 0;   }
+                    8%   { opacity: 0.7; }
+                    88%  { opacity: 0.3; }
+                    100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+                }
+
+                .ls-p {
+                    position: absolute;
+                    bottom: -8px;
+                    border-radius: 50%;
+                    background: rgba(59, 130, 246, 0.45);
+                    animation: ls-float linear infinite;
+                }
+
+                .ls-p:nth-child(1)  { left: 4%;  width: 4px;  height: 4px;  animation-duration: 9s;  animation-delay: 0s;   }
+                .ls-p:nth-child(2)  { left: 11%; width: 6px;  height: 6px;  animation-duration: 13s; animation-delay: 1.2s; background: rgba(139,92,246,0.5); }
+                .ls-p:nth-child(3)  { left: 21%; width: 3px;  height: 3px;  animation-duration: 10s; animation-delay: 3.1s; }
+                .ls-p:nth-child(4)  { left: 33%; width: 5px;  height: 5px;  animation-duration: 11s; animation-delay: 0.6s; background: rgba(59,130,246,0.25); }
+                .ls-p:nth-child(5)  { left: 46%; width: 4px;  height: 4px;  animation-duration: 8s;  animation-delay: 2.3s; background: rgba(139,92,246,0.4); }
+                .ls-p:nth-child(6)  { left: 57%; width: 7px;  height: 7px;  animation-duration: 14s; animation-delay: 4.2s; background: rgba(59,130,246,0.2); }
+                .ls-p:nth-child(7)  { left: 66%; width: 3px;  height: 3px;  animation-duration: 9s;  animation-delay: 1.8s; }
+                .ls-p:nth-child(8)  { left: 74%; width: 5px;  height: 5px;  animation-duration: 11s; animation-delay: 2.7s; background: rgba(139,92,246,0.35); }
+                .ls-p:nth-child(9)  { left: 82%; width: 4px;  height: 4px;  animation-duration: 10s; animation-delay: 0.9s; }
+                .ls-p:nth-child(10) { left: 91%; width: 6px;  height: 6px;  animation-duration: 12s; animation-delay: 3.8s; }
+                .ls-p:nth-child(11) { left: 14%; width: 4px;  height: 4px;  animation-duration: 16s; animation-delay: 5.5s; background: rgba(139,92,246,0.5); }
+                .ls-p:nth-child(12) { left: 54%; width: 3px;  height: 3px;  animation-duration: 11s; animation-delay: 6.4s; }
+
+                /* ── Center content ───────────────────────────────────── */
+                .ls-content {
+                    position: relative; z-index: 1;
+                    display: flex; flex-direction: column;
+                    align-items: center; gap: 1.4rem;
+                    transition: transform 0.12s ease-out;
+                    will-change: transform;
+                }
+
+                /* ── Monogram ─────────────────────────────────────────── */
+                .ls-monogram {
+                    position: relative;
+                    width: 80px; height: 80px;
+                    display: flex; align-items: center; justify-content: center;
+                    margin-bottom: 0.25rem;
+                }
+
+                @keyframes ls-ring-pulse {
+                    0%, 100% { transform: scale(1);    opacity: 1;   }
+                    50%      { transform: scale(1.1);  opacity: 0.35; }
+                }
+
+                .ls-ring {
+                    position: absolute;
+                    border-radius: 50%;
+                    animation: ls-ring-pulse ease-in-out infinite;
+                }
+
+                .ls-ring-inner {
+                    width: 100px; height: 100px;
+                    border: 1.5px solid rgba(59, 130, 246, 0.4);
+                    animation-duration: 2.4s;
+                    animation-delay: 0s;
+                }
+
+                .ls-ring-outer {
+                    width: 136px; height: 136px;
+                    border: 1px solid rgba(139, 92, 246, 0.25);
+                    animation-duration: 2.4s;
+                    animation-delay: 0.6s;
+                }
+
+                .ls-brand {
+                    position: relative; z-index: 1;
+                    width: 80px; height: 80px;
+                    border-radius: 18px;
+                    background: linear-gradient(145deg, #172040 0%, #111827 100%);
+                    border: 1.5px solid rgba(59, 130, 246, 0.45);
+                    display: flex; align-items: center; justify-content: center;
+                    font-size: 1.8rem; font-weight: 800;
+                    color: #3b82f6;
+                    letter-spacing: 0.06em;
+                    box-shadow:
+                        0 0 28px rgba(59, 130, 246, 0.18),
+                        inset 0 1px 0 rgba(255,255,255,0.06);
+                }
+
+                /* ── Name ─────────────────────────────────────────────── */
+                @keyframes ls-fade-up {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to   { opacity: 1; transform: translateY(0);    }
+                }
+
+                .ls-name {
+                    font-size: 1.45rem; font-weight: 700;
+                    color: #e5e7eb; letter-spacing: -0.01em;
+                    opacity: 0;
+                    animation: ls-fade-up 0.55s ease both;
+                    animation-delay: 0.25s;
+                }
+
+                /* ── Cycling roles ────────────────────────────────────── */
+                .ls-roles {
+                    position: relative;
+                    height: 20px; width: 320px;
+                    text-align: center;
+                    overflow: hidden;
+                }
+
+                .ls-role {
+                    position: absolute; inset: 0;
+                    font-size: 0.82rem; color: #64748b;
+                    letter-spacing: 0.025em;
+                    opacity: 0;
+                    animation-duration: 9s;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: ease;
+                    animation-delay: 0.8s;
+                }
+
+                @keyframes ls-r1 {
+                    0%           { opacity: 0; transform: translateY(7px);  }
+                    5%, 27%      { opacity: 1; transform: translateY(0);    }
+                    33%          { opacity: 0; transform: translateY(-7px); }
+                    34%, 100%    { opacity: 0; }
+                }
+                @keyframes ls-r2 {
+                    0%, 32%      { opacity: 0; }
+                    33%          { opacity: 0; transform: translateY(7px);  }
+                    38%, 61%     { opacity: 1; transform: translateY(0);    }
+                    66%          { opacity: 0; transform: translateY(-7px); }
+                    67%, 100%    { opacity: 0; }
+                }
+                @keyframes ls-r3 {
+                    0%, 65%      { opacity: 0; }
+                    66%          { opacity: 0; transform: translateY(7px);  }
+                    71%, 93%     { opacity: 1; transform: translateY(0);    }
+                    99%, 100%    { opacity: 0; transform: translateY(-7px); }
+                }
+
+                .ls-role-1 { animation-name: ls-r1; }
+                .ls-role-2 { animation-name: ls-r2; }
+                .ls-role-3 { animation-name: ls-r3; }
+
+                /* ── Progress ─────────────────────────────────────────── */
+                .ls-progress-wrap {
+                    display: flex; flex-direction: column;
+                    align-items: center; gap: 0.55rem;
+                    width: 240px;
+                    opacity: 0;
+                    animation: ls-fade-up 0.55s ease both;
+                    animation-delay: 0.5s;
+                }
+
+                .ls-bar {
+                    width: 100%; height: 2px;
+                    background: rgba(59, 130, 246, 0.12);
+                    border-radius: 99px; overflow: hidden;
+                }
+
+                .ls-bar-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+                    border-radius: 99px;
+                    min-width: 3px;
+                    width: calc(var(--blazor-load-percentage, 0) * 1%);
+                    transition: width 0.4s ease;
+                }
+
+                .ls-pct {
+                    font-size: 0.7rem;
+                    color: rgba(100, 116, 139, 0.75);
+                    font-family: Consolas, 'JetBrains Mono', monospace;
+                    letter-spacing: 0.08em;
                 }
             </style>
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Loading Portfolio...</div>
+
+            <!-- Ambient glow -->
+            <div class="ls-glow" aria-hidden="true"></div>
+
+            <!-- Floating particles -->
+            <div aria-hidden="true">
+                <i class="ls-p"></i><i class="ls-p"></i><i class="ls-p"></i>
+                <i class="ls-p"></i><i class="ls-p"></i><i class="ls-p"></i>
+                <i class="ls-p"></i><i class="ls-p"></i><i class="ls-p"></i>
+                <i class="ls-p"></i><i class="ls-p"></i><i class="ls-p"></i>
+            </div>
+
+            <!-- Center content -->
+            <div class="ls-content" id="ls-content">
+
+                <div class="ls-monogram" aria-hidden="true">
+                    <div class="ls-ring ls-ring-outer"></div>
+                    <div class="ls-ring ls-ring-inner"></div>
+                    <div class="ls-brand">SS</div>
+                </div>
+
+                <p class="ls-name">Shoaib Shahriar</p>
+
+                <div class="ls-roles" aria-hidden="true">
+                    <span class="ls-role ls-role-1">Lead Software Engineer</span>
+                    <span class="ls-role ls-role-2">.NET &middot; Microservices &middot; Azure</span>
+                    <span class="ls-role ls-role-3">Backend Architecture &middot; Clean Code</span>
+                </div>
+
+                <div class="ls-progress-wrap">
+                    <div class="ls-bar">
+                        <div class="ls-bar-fill"></div>
+                    </div>
+                    <span class="ls-pct" id="ls-pct">0%</span>
+                </div>
+
+            </div>
+
+            <script>
+                // Mouse parallax — content subtly follows cursor
+                (function () {
+                    var el = document.getElementById('ls-content');
+                    if (!el) return;
+                    document.addEventListener('mousemove', function (e) {
+                        var x = (e.clientX / window.innerWidth  - 0.5) * 18;
+                        var y = (e.clientY / window.innerHeight - 0.5) * 12;
+                        el.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+                    });
+
+                    // Live percentage — reads --blazor-load-percentage every frame
+                    var pctEl = document.getElementById('ls-pct');
+                    function tick() {
+                        if (!pctEl) return;
+                        var v = parseInt(getComputedStyle(document.documentElement)
+                                    .getPropertyValue('--blazor-load-percentage') || '0');
+                        pctEl.textContent = v + '%';
+                        if (v < 100) requestAnimationFrame(tick);
+                    }
+                    requestAnimationFrame(tick);
+                })();
+            </script>
+
         </div>
     </div>
 
@@ -105,6 +360,7 @@
         <a class="dismiss">🗙</a>
     </div>
 
+    <script src="js/marvel-loader.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script src="js/site.js"></script>
 </body>

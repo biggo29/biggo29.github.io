@@ -1,6 +1,24 @@
 @inject IJSRuntime JS
 
 <section id="home" class="hero" aria-label="Introduction">
+
+    <!-- Constellation canvas — replaces static hero background image -->
+    <canvas id="constellation-canvas" class="hero-constellation" aria-hidden="true"></canvas>
+
+    <!-- Floating code editor — desktop only, purely decorative -->
+    <div class="hero-code-snippet" id="hero-code-snippet" aria-hidden="true">
+        <div class="hcs-titlebar">
+            <span class="hcs-dot hcs-dot--red"   aria-hidden="true"></span>
+            <span class="hcs-dot hcs-dot--amber" aria-hidden="true"></span>
+            <span class="hcs-dot hcs-dot--green" aria-hidden="true"></span>
+            <span class="hcs-filename">engineer.cs</span>
+        </div>
+        <div class="hcs-body">
+            <div class="hcs-gutter" id="hcs-gutter"></div>
+            <pre class="hcs-pre"    id="hcs-pre"></pre>
+        </div>
+    </div>
+
     <div class="hero-inner">
 
         <!-- ── Left: identity & CTAs ───────────────────────── -->
@@ -23,10 +41,10 @@
             </p>
 
             <div class="hero-chips">
-                <MetricChip Icon="⚡" Text="8+ Years Experience" />
-                <MetricChip Icon="🔗" Text="30+ Microservices" />
-                <MetricChip Icon="🏆" Text="WSIS Award 2021" />
-                <MetricChip Icon="👥" Text="Technical Leadership" />
+                <MetricChip Icon="bolt"   Text="8+ Years Experience" />
+                <MetricChip Icon="link"   Text="30+ Microservices" />
+                <MetricChip Icon="trophy" Text="WSIS Award 2021" />
+                <MetricChip Icon="users"  Text="Technical Leadership" />
             </div>
 
             <div class="hero-actions">
@@ -64,7 +82,7 @@
                     {
                         <div class="stack-group">
                             <p class="stack-group-label">
-                                <span>@group.Icon</span>@group.Label
+                                <span>@AppIcons.Get(group.Icon)</span>@group.Label
                             </p>
                             <div class="stack-tags">
                                 @foreach (var tag in group.Tags)
@@ -88,19 +106,19 @@
 
     private static readonly StackGroup[] StackGroups =
     {
-        new("⚙️ ", "Backend",
+        new("server",   "Backend",
             new[] { "C#", "ASP.NET Core", ".NET 8", "EF Core", "LINQ" }),
 
-        new("🏗️ ", "Architecture",
+        new("layers",   "Architecture",
             new[] { "CQRS", "Clean Architecture", "Microservices", "Event-Driven" }),
 
-        new("☁️ ", "Cloud & DevOps",
+        new("cloud",    "Cloud & DevOps",
             new[] { "Azure DevOps", "CI/CD", "Docker", "Observability" }),
 
-        new("🧪 ", "Quality",
+        new("beaker",   "Quality",
             new[] { "TDD", "XUnit", "MSpec", "99%+ Coverage" }),
 
-        new("🤖 ", "AI-Assisted Dev",
+        new("sparkles", "AI-Assisted Dev",
             new[] { "GitHub Copilot", "Claude", "ChatGPT" }),
     };
 
@@ -108,14 +126,15 @@
     {
         if (firstRender)
         {
-            // hero-role stagger: delay 0.20 s + duration 0.50 s = visible at 0.70 s.
-            // 820 ms gives a natural 120 ms cursor-blink pause before typing begins.
             await JS.InvokeVoidAsync(
                 "startTypewriter",
                 _roleTypedRef,
                 "Backend Architect · .NET · Microservices · Azure",
-                40,    // ms per character
-                820);  // ms before first character appears
+                40,
+                820);
+
+            await JS.InvokeVoidAsync("initializeConstellation", "constellation-canvas");
+            await JS.InvokeVoidAsync("initializeCodeTypewriter", "hero-code-snippet");
         }
     }
 }
