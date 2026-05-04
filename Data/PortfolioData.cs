@@ -178,6 +178,40 @@ namespace biggo29.github.io.Data
         {
             new ExperienceItem
             {
+                Role = "Software Developer (.NET / SharePoint)",
+                Company = "Paralucent",
+                Client = "Deloitte (Contract)",
+                Duration = "May 2026 – Present",
+                Summary = "Working as a Software Developer (.NET / SharePoint) on a Deloitte engagement through Paralucent, contributing to enterprise-grade applications in a production support and enhancement model.",
+                Accomplishments = new()
+                {
+                    "Investigating and resolving production issues through log analysis, API tracing, and database debugging",
+                    "Developing and maintaining ASP.NET Core Web APIs and backend services",
+                    "Supporting SharePoint Online solutions, including list-based workflows and integrations",
+                    "Building and maintaining system integrations across internal and third-party platforms",
+                    "Collaborating with cross-functional teams (BA, QA, support) to deliver stable and high-quality releases",
+                    "Utilizing AI-assisted development tools (GitHub Copilot, ChatGPT) to improve productivity and code quality"
+                },
+                Technologies = new() { "C#", "ASP.NET Core", "SharePoint Online", "SQL Server", "REST APIs", "GitHub Copilot" }
+            },
+            new ExperienceItem
+            {
+                Role = "Career Break — Health & Well-being",
+                Company = "Personal",
+                Client = null,
+                Duration = "Oct 2025 – Apr 2026",
+                Summary = "Took a planned career break to address personal and family health matters, followed by a period of reflection, upskilling, and career realignment.",
+                Accomplishments = new()
+                {
+                    "Focused on recovery and family responsibilities",
+                    "Completed professional development through LinkedIn Learning (SAP ERP fundamentals, AI-assisted development, and related topics)",
+                    "Strengthened skills in backend architecture, microservices, and modern engineering practices",
+                    "Prepared for international opportunities and explored remote roles"
+                },
+                Technologies = new()
+            },
+            new ExperienceItem
+            {
                 Role = "Lead Software Engineer",
                 Company = "EchoLogyx Ltd.",
                 Client = "Connect Distribution Services Ltd. / ScrewfixSpares (Kingfisher PLC)",
