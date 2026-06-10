@@ -1,6 +1,6 @@
 # Hi, I’m Shoaib Shahriar
 
-**Lead Software Engineer | Backend APIs | .NET | Microservices | Azure | AI-Assisted Development**
+**Software Developer (.NET / SharePoint / C#) | Microservices | Azure | AI-Assisted Development**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white&style=for-the-badge)](https://linkedin.com/in/biggo29)
 [![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white&style=for-the-badge)](mailto:shoaibshahriar29@gmail.com)
@@ -10,7 +10,7 @@
 
 # About Me
 
-Lead Software Engineer with 8+ years of experience designing and architecting scalable **backend services, RESTful APIs, and distributed event-driven systems** powering enterprise-grade eCommerce platforms using C#, ASP.NET Core, and Azure Cloud. Expertise in Microservices, CQRS, Clean Architecture, Dependency Injection, and Test-Driven Development (TDD), delivering high-quality solutions with 99%+ test coverage.
+Backend Software Engineer with 9+ years of experience designing and architecting scalable **backend services, RESTful APIs, and distributed event-driven systems**. Currently working as a Software Developer (.NET / SharePoint) at **Paralucent** on a Deloitte engagement, contributing to enterprise-grade applications in a production support and enhancement model. Prior to this, served as Lead Software Engineer at EchoLogyx Ltd., powering high-traffic UK eCommerce platforms with C#, ASP.NET Core, and Azure Cloud. Expertise in Microservices, CQRS, Clean Architecture, Dependency Injection, and Test-Driven Development (TDD), delivering high-quality solutions with 99%+ test coverage.
 
 Strong background in API architecture, performance optimization, asynchronous programming, and secure backend development (RBAC, GDPR). Actively leveraging **Agentic AI coding workflows** using GitHub Copilot, Claude, ChatGPT, and Gemini to enhance developer productivity, code quality, and delivery speed.
 
@@ -82,10 +82,22 @@ Proven leadership in guiding cross-functional teams, conducting code reviews, an
 
 ---
 
+# Architecture Principles
+
+- **Design for Change** — Abstractions, clear interfaces, and modular boundaries allow systems to evolve easily with minimal friction.
+- **Explicit Service Boundaries** — Clear ownership and contracts between services prevent coupling; each service has a well-defined responsibility and interface.
+- **CQRS Where Complexity Justifies It** — Separating read and write models improves scalability and clarity in complex domains — applied deliberately, not by default.
+- **Observability by Design** — Logging, metrics, and tracing are built in from day one, not added after production incidents.
+- **Automation Over Manual Operations** — CI/CD pipelines, automated tests, and release gates replace manual processes; reliability and speed improve when humans are removed from repetitive steps.
+- **Maintainability Over Shortcuts** — Long-term code health matters more than short-term velocity; clean architecture, disciplined code reviews, and TDD pay compounding dividends.
+
+---
+
 # Highlights
 
-- 8+ years designing **scalable backend services and RESTful APIs** for enterprise eCommerce platforms
-- Lead Software Engineer at **EchoLogyx Ltd.** (Client: Connect Distribution Services / ScrewfixSpares, Kingfisher PLC)
+- 9+ years designing **scalable backend services and RESTful APIs** for enterprise platforms
+- Currently **Software Developer (.NET / SharePoint)** at Paralucent (Client: Deloitte)
+- Former **Lead Software Engineer at EchoLogyx Ltd.** (Client: Connect Distribution Services / ScrewfixSpares, Kingfisher PLC)
 - Architected and delivered **30+ microservices** supporting 15,000+ daily users and £1M+ monthly sales
 - Expert in **CQRS, Clean Architecture, Event-Driven systems**, and **Async Programming**
 - **99%+ test coverage** using TDD (XUnit, MSpec), achieving near-zero production defects
@@ -98,6 +110,25 @@ Proven leadership in guiding cross-functional teams, conducting code reviews, an
 ---
 
 # Professional Experience
+
+## **Software Developer (.NET / SharePoint)** | _May 2026 - Present_
+**Paralucent**  
+_Client: Deloitte (Contract)_
+
+- Investigating and resolving production issues through log analysis, API tracing, and database debugging
+- Developing and maintaining ASP.NET Core Web APIs and backend services
+- Supporting SharePoint Online solutions, including list-based workflows and integrations
+- Building and maintaining system integrations across internal and third-party platforms
+- Collaborating with cross-functional teams (BA, QA, support) to deliver stable and high-quality releases
+- Leveraging AI-assisted development tools (GitHub Copilot, ChatGPT) to improve productivity and code quality
+
+## **Career Break — Health & Well-being** | _Oct 2025 - Apr 2026_
+**Personal**
+
+- Focused on recovery and family responsibilities
+- Completed professional development through LinkedIn Learning (SAP ERP fundamentals, AI-assisted development, and related topics)
+- Strengthened skills in backend architecture, microservices, and modern engineering practices
+- Prepared for international opportunities and explored remote roles
 
 ## **Lead Software Engineer** | _Aug 2024 - Sep 2025_
 **EchoLogyx Ltd., Dhaka, Bangladesh**  
@@ -210,6 +241,47 @@ ACM-ICPC Dhaka Regional Contests (2014, 2015, 2016)
 
 ---
 
+# Certificates
+
+| Certificate | Issuer | Date |
+|---|---|---|
+| SAP ERP Essential Training | LinkedIn Learning | Mar 2026 |
+| Claude Code in Action | Anthropic | Mar 2026 |
+| Learning Docker | LinkedIn Learning | Aug 2023 |
+| ASP.NET: Security | LinkedIn Learning | Apr 2022 |
+| ASP.NET MVC 5 Essential Training | LinkedIn Learning | Mar 2022 |
+| Learning ASP.NET | LinkedIn Learning | Mar 2022 |
+
+---
+
+# Recommendations
+
+> A selection of LinkedIn recommendations from colleagues and managers.
+
+**Simon Parry** — _Lead Developer, Bunzl UK and Ireland_ | Former Team Lead @ EchoLogyx | ScrewfixSpares
+
+> "I had the pleasure of working with Shoaib as the C# Team Lead for Screwfix Spares, his ability to follow instructions diligently while being eager to embrace new technologies truly stood out. Shoaib has excellent communication skills which made collaboration seamless, and his approachable nature made him not only easy to work with but also a fantastic member of the team. Shoaib has exceptional technical skills and commendable professionalism."
+
+---
+
+**Moinul Islam** — _Head of Software Development & Implementation, Synesis IT PLC_ | Former Team Lead @ Synesis IT PLC
+
+> "Shoaib Shahriar was a brilliant person to work with. Loyal, insightful, and independent. He had the vision to see the benefits and the passion to turn that into a competitive advantage for Synesis IT. Ambitious and independent expert. He denotes a lot of analytical capability and willingness for both his personal & professional development."
+
+---
+
+**Mohammad Atiqur Rahman** — _Senior Manager, Epyllion Group_ | Former Team Member @ EchoLogyx | ScrewfixSpares
+
+> "Shoaib's collaborative nature, problem-solving mindset, and mentorship qualities make him an outstanding team player and a dependable leader. I've personally learned a great deal from his ability to analyze complex systems and deliver robust, scalable solutions. Any team would benefit greatly from his presence."
+
+---
+
+**Tom Hodgson** — _CRO & UX Lead, EchoLogyx Ltd_ | Former UI/UX Manager @ EchoLogyx | ScrewfixSpares
+
+> "Shoaib is a talented Software Engineer. His ability to develop to the highest standard to ensure that his tasks are always developed as specified are exceptional. Shoaib is a kind and friendly individual, and that makes him an excellent team player, who will always go that extra step in order to fulfil his work to the best of his potential."
+
+---
+
 # GitHub Stats
 
 ![Shoaib's GitHub stats](https://github-readme-stats.vercel.app/api?username=biggo29&show_icons=true&theme=radical)
@@ -237,26 +309,21 @@ ACM-ICPC Dhaka Regional Contests (2014, 2015, 2016)
 
 ---
 
-# Medium Articles Snapshot
+# Medium Articles
 
-Stay up to date with my latest technical articles and insights:
-
-- [From Curiosity to Career: Why I Chose to Become an IT Professional](https://medium.com/@biggo29/from-curiosity-to-career-why-i-chose-to-become-an-it-professional-0d17f60b9fa7)
-- [Validation of Google reCAPTCHA v2 Server Side (ASP.NET MVC)](https://medium.com/@biggo29/validation-of-google-recaptcha-v2-server-side-asp-net-mvc-9e4b493e1ff)
-
-> Explore more on my [Medium profile](https://medium.com/@biggo29)
+Stay up to date with my latest technical articles and insights on my [Medium profile](https://medium.com/@biggo29).
 
 ---
 
 # LinkedIn Snapshot
 
 **Shoaib Shahriar**  
-Lead Software Engineer | Architect | Cloud & Microservices Specialist  
+Software Developer (.NET / SharePoint) | Backend Engineer | Cloud & Microservices Specialist  
 Dhaka, Bangladesh
 
 [![Connect on LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-0A66C2?logo=linkedin&logoColor=white&style=for-the-badge)](https://linkedin.com/in/biggo29)
 
-> 8+ years building scalable platforms, leading teams, and delivering award-winning solutions.  
+> 9+ years building scalable platforms, leading teams, and delivering award-winning solutions.  
 > Let’s connect for collaboration, mentoring, or tech discussions!
 
 ---
